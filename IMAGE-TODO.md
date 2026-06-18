@@ -19,7 +19,11 @@ path in `src/content/*/pages/home.ts` / `src/config/`).
 | `gallery-bruneck.svg` | Gallery | Bruneck old town | 1200×800 |
 | `gallery-gewoelbe.svg` | Gallery | Historic vault (1414) | 1200×800 |
 | `og-zum-hirschen.svg` | SEO `og:image` (`config/site.ts`) | Best exterior photo (JPG/PNG) | 1200×630 |
-| `logo-placeholder.svg` | Favicon + Footer (`config/site.ts → logo`) | Real Zum Hirschen logo (SVG preferred) | 600×300 |
+
+**Logo:** `public/images/logo-zum-hirschen.svg` is a vector recreation of the
+supplied "★★★ hotel · restaurant" wordmark (used as favicon + footer logo). If you
+have the original logo file (incl. the deer + "Zum Hirschen" script), drop it in
+`public/images/` and update `config/site.ts → logo`.
 
 ## How to replace
 
