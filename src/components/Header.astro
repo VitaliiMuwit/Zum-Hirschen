@@ -34,7 +34,7 @@ const homeHref = localizePath(locale, "/");
 <header id="site-header" class="header">
   <Awning />
 
-  <div class="header__bar container">
+  <div class="header__bar">
     <a href={homeHref} class="brand" aria-label={`${site.name} – ${ui.homeAria}`}>
       <img class="brand__logo" src={site.logo} alt={site.name} width="296" height="164" />
     </a>
@@ -71,12 +71,13 @@ const homeHref = localizePath(locale, "/");
     color: #fff; /* white over the hero photo */
   }
 
+  /* Full-width bar: only 20px side padding, logo centered, menu pinned right. */
   .header__bar {
     position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding-block: 1.25rem;
+    padding: 1.25rem 20px;
     min-height: 92px;
   }
 
@@ -99,7 +100,7 @@ const homeHref = localizePath(locale, "/");
 
   .header__menu-btn {
     position: absolute;
-    right: var(--container-padding);
+    right: 20px;
     top: 1.5rem;
     display: inline-flex;
     align-items: center;
