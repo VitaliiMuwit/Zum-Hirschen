@@ -40,7 +40,7 @@ const socialLinks = social.filter((s) => s.href);
 <footer class="footer">
   <div class="footer__top container">
     <div class="footer__brand">
-      <img src={site.logo} alt={site.name} width="56" height="56" />
+      <img class="footer__logo" src={site.logo} alt={site.name} width="180" height="100" />
       <span class="footer__name">{site.company.name}</span>
     </div>
 
@@ -104,8 +104,16 @@ const socialLinks = social.filter((s) => s.href);
 
   .footer__brand {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem;
+  }
+
+  /* Wide wordmark logo — keep aspect ratio. */
+  .footer__logo {
+    width: auto;
+    height: 48px;
+    max-width: 220px;
   }
 
   .footer__name {

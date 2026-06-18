@@ -67,7 +67,7 @@ export const site: SiteConfig = {
   name: "Hotel zum Hirschen",
   // TODO: confirm production domain with client.
   domain: "https://www.zumhirschen.it",
-  logo: "/images/logo-zum-hirschen.svg", // brand wordmark (vector recreation of the supplied logo)
+  logo: "/images/logo-zum-hirschen.png", // real brand wordmark (supplied PNG, transparent)
 
   defaultLocale: routingDefaultLocale,
   locales: [...routingLocales],
