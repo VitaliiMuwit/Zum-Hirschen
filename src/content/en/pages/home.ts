@@ -27,13 +27,17 @@ export const home = {
     ],
   },
 
-  // Hotel intro / history.
+  // Hotel intro / history (centered text section + Hinweis callout, no image).
   about: {
-    eyebrow: "Willkommen",
-    title: "Echtes Gasthaus-Feeling seit 1414",
-    text: "Im Hotel zum Hirschen in Stegen bei Bruneck erwartet Sie ein herzliches Gasthaus-Feeling: persönlich, bodenständig und geprägt von echter Südtiroler Wärme. Die Geschichte unseres Hauses reicht bis ins Jahr 1414 zurück – über einen Meter dicke Mauern und antike Gewölbe verleihen ihm seinen unverwechselbaren Charakter. Der ideale Ausgangspunkt für Pustertal, Kronplatz und die Stadt Bruneck. Hinweis: Unser Haus verfügt über keinen Aufzug, was den historischen Charakter bewahrt.",
-    image: "/images/placeholders/hotel-exterior.svg",
-    imageAlt: "Historisches Gebäude des Hotel zum Hirschen",
+    eyebrow: "Ihrem Zuhause für echte Südtiroler Gastlichkeit",
+    title: "Willkommen im Hotel zum Hirschen in Stegen bei Bruneck",
+    paragraphs: [
+      "Im Hotel zum Hirschen in Stegen bei Bruneck erwartet Sie ein herzliches Gasthaus-Feeling, wie man es heute nur noch selten findet: persönlich, bodenständig und geprägt von echter Südtiroler Wärme.",
+      "Die Geschichte unseres Hauses reicht bis ins Jahr 1414 zurück. Besonders eindrucksvoll sind die historischen Bauelemente: Die Mauern im Erdgeschoss sind über einen Meter dick, während antike Gewölbe dem Haus seinen unverwechselbaren Charakter verleihen. Diese traditionelle Bauweise schafft ein einzigartiges, kraftvolles Ambiente und sorgt für ein angenehmes Raumklima – spürbare Geschichte in jedem Winkel.",
+      "Ob für einen erholsamen Urlaub im Pustertal, aktive Tage rund um den Kronplatz oder einen Besuch in der nahegelegenen Stadt Bruneck – das Hotel zum Hirschen ist der ideale Ausgangspunkt für Ihre Auszeit in Südtirol. Authentisch. Behaglich. Echt.",
+    ],
+    hinweis:
+      "Hinweis: Unser Haus verfügt über keinen Aufzug, was den ursprünglichen Charakter des Gebäudes erhält und das historische Flair unterstreicht.",
   },
 
   rooms: {

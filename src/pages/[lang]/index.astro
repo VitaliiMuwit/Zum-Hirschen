@@ -28,14 +28,15 @@ const { home, common } = getTranslations(lang);
   <!-- Clean hero photo (logo + menu overlaid by the header) -->
   <section class="hero-photo" aria-label={home.hero.slides[0].alt}></section>
 
-  <!-- Hotel intro / history -->
-  <ContentSection
-    eyebrow={home.about.eyebrow}
-    title={home.about.title}
-    text={home.about.text}
-    image={home.about.image}
-    imageAlt={home.about.imageAlt}
-  />
+  <!-- Hotel intro / history — centered text + Hinweis callout -->
+  <section class="intro section">
+    <div class="container section--narrow intro__inner">
+      <h2 class="intro__title">{home.about.title}</h2>
+      <p class="intro__eyebrow">{home.about.eyebrow}</p>
+      {home.about.paragraphs.map((p) => <p class="intro__text">{p}</p>)}
+      <p class="intro__hinweis">{home.about.hinweis}</p>
+    </div>
+  </section>
 
   <!-- Rooms & prices -->
   <div id="zimmer">
@@ -94,5 +95,40 @@ const { home, common } = getTranslations(lang);
   .section-heading {
     text-align: center;
     margin-bottom: var(--space-lg);
+  }
+
+  /* Centered intro section */
+  .intro__inner {
+    text-align: center;
+  }
+  .intro__title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    margin-bottom: var(--space-sm);
+  }
+  .intro__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: var(--fs-small);
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+  }
+  .intro__text {
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Orange "Hinweis" callout */
+  .intro__hinweis {
+    margin: var(--space-lg) auto 0;
+    max-width: 760px;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: 2px dashed rgba(255, 255, 255, 0.55);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--fs-small);
+    line-height: 1.8;
   }
 </style>
