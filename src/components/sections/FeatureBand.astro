@@ -29,6 +29,10 @@ const { items } = Astro.props;
 </section>
 
 <style>
+  /* Extra top padding leaves room for the overlapping Hinweis callout from the
+     previous section (which hangs ~80px into this one). */
+  .features.section { padding-top: calc(var(--space-xl) + 80px); }
+
   .features__grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);
     text-align: center;
