@@ -12,7 +12,7 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
 ---
 
 <section class="intro s-cream section">
-  <div class="container section--narrow intro__inner">
+  <div class="container intro__inner">
     <h2 class="intro__title">{title}</h2>
     <p class="eyebrow">{eyebrow}</p>
     {paragraphs.map((p) => <p class="intro__text">{p}</p>)}
@@ -23,7 +23,8 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
 <style>
   /* No bottom padding: the Hinweis callout straddles the boundary to the next section. */
   .intro.section { padding-bottom: 0; }
-  .intro__inner { text-align: center; }
+  /* Text block max width 1200px on a 1920px base, centered. */
+  .intro__inner { max-width: 1200px; margin-inline: auto; text-align: center; }
   .intro__title { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: var(--space-sm); }
   .intro__text { color: var(--color-text); margin-bottom: var(--space-sm); }
   .intro__hinweis {
