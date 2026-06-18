@@ -11,7 +11,6 @@
 import { site } from "../config/site";
 import Awning from "./Awning.astro";
 import MenuOverlay, { type MenuLink } from "./MenuOverlay.astro";
-import LanguageSwitcher from "./LanguageSwitcher.astro";
 import { localizePath, type Locale } from "../i18n";
 
 export interface HeaderUi {
@@ -30,32 +29,26 @@ export interface Props {
 
 const { locale, menu, ui } = Astro.props;
 const homeHref = localizePath(locale, "/");
-const homeLabel = menu[0]?.label ?? "Home";
 ---
 
 <header id="site-header" class="header">
   <Awning />
 
   <div class="header__bar container">
-    <a href={homeHref} class="header__breadcrumb">{homeLabel}</a>
-
     <a href={homeHref} class="brand" aria-label={`${site.name} – ${ui.homeAria}`}>
       <img class="brand__logo" src={site.logo} alt={site.name} width="296" height="164" />
     </a>
 
-    <div class="header__actions">
-      <LanguageSwitcher current={locale} variant="compact" class="header__langs" />
-      <button
-        type="button"
-        class="header__menu-btn"
-        data-menu-open
-        aria-haspopup="dialog"
-        aria-controls="menu-overlay"
-      >
-        <span class="header__menu-label">{ui.menuButton}</span>
-        <span class="header__menu-icon" aria-hidden="true"></span>
-      </button>
-    </div>
+    <button
+      type="button"
+      class="header__menu-btn"
+      data-menu-open
+      aria-haspopup="dialog"
+      aria-controls="menu-overlay"
+    >
+      <span class="header__menu-label">{ui.menuButton}</span>
+      <span class="header__menu-icon" aria-hidden="true"></span>
+    </button>
   </div>
 </header>
 
@@ -87,15 +80,6 @@ const homeLabel = menu[0]?.label ?? "Home";
     min-height: 92px;
   }
 
-  .header__breadcrumb {
-    position: absolute;
-    left: var(--container-padding);
-    top: 1.25rem;
-    font-size: 0.95rem;
-    font-weight: 300;
-    opacity: 0.85;
-  }
-
   /* Centered brand logo */
   .brand {
     display: flex;
@@ -113,20 +97,10 @@ const homeLabel = menu[0]?.label ?? "Home";
     filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
   }
 
-  .header__actions {
+  .header__menu-btn {
     position: absolute;
     right: var(--container-padding);
-    top: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-  }
-
-  .header__langs :global(.lang-switcher__item.is-active) {
-    color: var(--color-secondary);
-  }
-
-  .header__menu-btn {
+    top: 1.5rem;
     display: inline-flex;
     align-items: center;
     gap: 12px;
@@ -163,10 +137,6 @@ const homeLabel = menu[0]?.label ?? "Home";
   }
 
   @media (max-width: 600px) {
-    .header__langs,
-    .header__breadcrumb {
-      display: none;
-    }
     .header__menu-label {
       display: none;
     }

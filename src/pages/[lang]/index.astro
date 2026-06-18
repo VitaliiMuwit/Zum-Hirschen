@@ -7,7 +7,6 @@
  * No hardcoded text.
  */
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Hero from "../../components/Hero.astro";
 import ContentSection from "../../components/ContentSection.astro";
 import Gallery from "../../components/Gallery.astro";
 import Testimonials from "../../components/Testimonials.astro";
@@ -26,15 +25,8 @@ const { home, common } = getTranslations(lang);
 ---
 
 <BaseLayout locale={lang} seo={getSeo("home", lang)}>
-  <Hero
-    content={{
-      subtitle: home.hero.slides[0].subtitle,
-      title: home.hero.slides[0].title,
-      ctaLabel: home.hero.slides[0].ctaLabel,
-    }}
-    image="/images/head.webp"
-    ctaHref={home.hero.slides[0].ctaHref}
-  />
+  <!-- Clean hero photo (logo + menu overlaid by the header) -->
+  <section class="hero-photo" aria-label={home.hero.slides[0].alt}></section>
 
   <!-- Hotel intro / history -->
   <ContentSection
@@ -93,6 +85,12 @@ const { home, common } = getTranslations(lang);
 </BaseLayout>
 
 <style>
+  /* Clean hero: full-bleed photo; the header (logo + menu) overlays its top. */
+  .hero-photo {
+    min-height: clamp(520px, 90vh, 1080px);
+    background: url("/images/head.webp") center / cover no-repeat;
+  }
+
   .section-heading {
     text-align: center;
     margin-bottom: var(--space-lg);

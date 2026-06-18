@@ -1,11 +1,11 @@
 ---
 /**
- * FixedButtons — fixed CTA buttons on the right side.
+ * FixedButtons — sticky CTA "pill" (Zum Hirschen style).
  *
- * Stay visible while scrolling. On mobile they turn into a
- * horizontal bar at the bottom of the screen so they don't cover content.
- *
- * Buttons come through props (already localized: label + prefixed href).
+ * Fixed at the top-right and stays visible while scrolling. Two stacked
+ * actions (orange "booking" + blue-grey "inquiry") with a round bell badge.
+ * Buttons come through props (already localized; `primary` = booking/orange).
+ * On mobile it becomes a compact bottom bar.
  */
 export interface FixedButton {
   label: string;
@@ -21,67 +21,95 @@ export interface Props {
 const { buttons, ariaLabel } = Astro.props;
 ---
 
-<aside class="fixed-cta" aria-label={ariaLabel}>
-  {
-    buttons.map((b) => (
-      <a href={b.href} class={`fixed-cta__btn${b.primary ? " fixed-cta__btn--primary" : ""}`}>
-        {b.label}
-      </a>
-    ))
-  }
+<aside class="cta-pill" aria-label={ariaLabel}>
+  <div class="cta-pill__buttons">
+    {
+      buttons.map((b) => (
+        <a href={b.href} class={`cta-pill__btn${b.primary ? " cta-pill__btn--booking" : " cta-pill__btn--inquiry"}`}>
+          {b.label}
+        </a>
+      ))
+    }
+  </div>
+  <span class="cta-pill__bell" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+    </svg>
+  </span>
 </aside>
 
 <style>
-  .fixed-cta {
+  .cta-pill {
     position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+    top: 150px; /* below the (non-fixed) header on the hero */
+    right: 24px;
     z-index: var(--z-fixed);
     display: flex;
+    align-items: center;
+  }
+
+  .cta-pill__buttons {
+    display: flex;
     flex-direction: column;
-    gap: 1px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
   }
 
-  .fixed-cta__btn {
-    /* Vertical text on the right edge (desktop). */
-    writing-mode: vertical-rl;
-    padding: 1.25rem 0.75rem;
-    background-color: var(--color-primary);
-    color: #fff;
+  .cta-pill__btn {
+    padding: 0.7rem 3.25rem 0.7rem 1.25rem; /* extra right padding under the bell */
+    font-size: 1rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    border-radius: var(--radius) 0 0 var(--radius);
-    transition: background-color var(--transition);
-  }
-
-  .fixed-cta__btn--primary {
-    background-color: var(--color-accent);
-    color: var(--color-text);
-  }
-
-  .fixed-cta__btn:hover {
-    background-color: var(--color-primary-dark);
     color: #fff;
+    text-align: left;
+    transition: filter var(--transition);
+  }
+  .cta-pill__btn:hover {
+    filter: brightness(0.94);
   }
 
-  /* On mobile: horizontal bar fixed to the bottom. */
+  .cta-pill__btn--booking {
+    background-color: var(--color-primary); /* #F78650 */
+  }
+  .cta-pill__btn--inquiry {
+    background-color: var(--color-secondary); /* #96ABB0 */
+  }
+
+  /* Round bell badge overlapping the right edge */
+  .cta-pill__bell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    border-radius: 50%;
+    background-color: #f8d167; /* gold */
+    box-shadow: var(--shadow);
+  }
+
+  /* Mobile: compact full-width bottom bar */
   @media (max-width: 768px) {
-    .fixed-cta {
+    .cta-pill {
       top: auto;
       bottom: 0;
       right: 0;
       left: 0;
-      transform: none;
-      flex-direction: row;
     }
-
-    .fixed-cta__btn {
-      writing-mode: horizontal-tb;
+    .cta-pill__buttons {
+      flex: 1;
+      flex-direction: row;
+      border-radius: 0;
+    }
+    .cta-pill__btn {
       flex: 1;
       text-align: center;
-      padding: 1rem;
-      border-radius: 0;
+      padding: 0.9rem 0.5rem;
+      font-size: 0.9rem;
+    }
+    .cta-pill__bell {
+      display: none;
     }
   }
 </style>

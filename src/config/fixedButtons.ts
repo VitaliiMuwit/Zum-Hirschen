@@ -17,7 +17,7 @@ export interface FixedButton {
 
 export const fixedButtons: Record<Locale, FixedButton[]> = {
   de: [
-    { label: "Preise & Buchen", href: "/#anfrage", type: "booking" },
+    { label: "Preise checken und buchen", href: "/#anfrage", type: "booking" },
     { label: "Unverbindlich Anfragen", href: "/#anfrage", type: "inquiry" },
   ],
   // TODO translate — temporary copy of DE labels.
