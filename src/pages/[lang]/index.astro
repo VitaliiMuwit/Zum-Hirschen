@@ -1,19 +1,21 @@
 ---
 /**
  * Home page (Hotel zum Hirschen) — composed from section components.
- * Each section is a reusable component fed by content/{lang}/pages/home.ts.
- * Reorder/remove sections by editing this file only.
+ * Section components are numbered by their order on the page (hero = 1):
+ *   1 hero (inline) · 2 Intro · 3 Features · 4 Gallery · 5 BesteLage ·
+ *   6 Wohnen · 7 Genuss&Wellness · 8 Gastronomie · 9 Erleben · 10 Warum.
+ * Reorder/remove sections by editing this file only; data from content/{lang}/pages/home.ts.
  */
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import HomeIntro from "../../components/sections/HomeIntro.astro";
-import FeatureBand from "../../components/sections/FeatureBand.astro";
-import GallerySection from "../../components/sections/GallerySection.astro";
-import BesteLage from "../../components/sections/BesteLage.astro";
-import WohnenSection from "../../components/sections/WohnenSection.astro";
-import GenussWellness from "../../components/sections/GenussWellness.astro";
-import GastronomieCallout from "../../components/sections/GastronomieCallout.astro";
-import ErlebenSection from "../../components/sections/ErlebenSection.astro";
-import WarumList from "../../components/sections/WarumList.astro";
+import HomeIntro2 from "../../components/sections/HomeIntro2.astro";
+import FeatureBand3 from "../../components/sections/FeatureBand3.astro";
+import GallerySection4 from "../../components/sections/GallerySection4.astro";
+import BesteLage5 from "../../components/sections/BesteLage5.astro";
+import WohnenSection6 from "../../components/sections/WohnenSection6.astro";
+import GenussWellness7 from "../../components/sections/GenussWellness7.astro";
+import GastronomieCallout8 from "../../components/sections/GastronomieCallout8.astro";
+import ErlebenSection9 from "../../components/sections/ErlebenSection9.astro";
+import WarumList10 from "../../components/sections/WarumList10.astro";
 import AnfrageForm from "../../components/AnfrageForm.astro";
 import { getSeo } from "../../config/seo";
 import { locales, getTranslations, localizePath, type Locale } from "../../i18n";
@@ -27,25 +29,25 @@ const { home, common } = getTranslations(lang);
 ---
 
 <BaseLayout locale={lang} seo={getSeo("home", lang)}>
-  <!-- Clean hero photo (logo + menu overlaid by the header) -->
+  <!-- 1) Clean hero photo (logo + menu overlaid by the header) -->
   <section class="hero-photo" aria-label={home.hero.slides[0].alt}></section>
 
-  <HomeIntro
+  <HomeIntro2
     title={home.about.title}
     eyebrow={home.about.eyebrow}
     paragraphs={home.about.paragraphs}
     hinweis={home.about.hinweis}
   />
 
-  <FeatureBand items={home.features} />
+  <FeatureBand3 items={home.features} />
 
-  <GallerySection
+  <GallerySection4
     illustration={home.gallery.illustration}
     scriptTitle={home.gallery.scriptTitle}
     images={home.gallery.images}
   />
 
-  <BesteLage
+  <BesteLage5
     image={home.bestLage.image}
     imageAlt={home.bestLage.imageAlt}
     title={home.bestLage.title}
@@ -53,7 +55,7 @@ const { home, common } = getTranslations(lang);
     text={home.bestLage.text}
   />
 
-  <WohnenSection
+  <WohnenSection6
     illustration={home.wohnen.illustration}
     scriptTitle={home.wohnen.scriptTitle}
     images={home.wohnen.images}
@@ -61,16 +63,16 @@ const { home, common } = getTranslations(lang);
     accordion={home.wohnen.accordion}
   />
 
-  <GenussWellness genuss={home.genuss} wellness={home.wellness} />
+  <GenussWellness7 genuss={home.genuss} wellness={home.wellness} />
 
-  <GastronomieCallout
+  <GastronomieCallout8
     title={home.gastronomie.title}
     text={home.gastronomie.text}
     buttonLabel={home.gastronomie.buttonLabel}
     buttonHref={home.gastronomie.buttonHref}
   />
 
-  <ErlebenSection
+  <ErlebenSection9
     illustration={home.erleben.illustration}
     scriptTitle={home.erleben.scriptTitle}
     intro={home.erleben.intro}
@@ -79,7 +81,7 @@ const { home, common } = getTranslations(lang);
     buttonHref={home.erleben.buttonHref}
   />
 
-  <WarumList title={home.warum.title} reasons={home.warum.reasons} />
+  <WarumList10 title={home.warum.title} reasons={home.warum.reasons} />
 
   <AnfrageForm content={common.form} datenschutzHref={localizePath(lang, "/datenschutz")} />
 </BaseLayout>
