@@ -155,3 +155,60 @@ p {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ===================================================================
+ * Zum Hirschen — section utilities (shared by home section components)
+ * =================================================================== */
+
+/* Section background colors */
+.s-bluegrey { background-color: var(--color-secondary); color: #fff; }
+.s-orange { background-color: var(--color-primary); color: #fff; }
+.s-cream { background-color: var(--color-bg); }
+.s-peach { background-color: #f6e6bf; }
+
+/* On colored sections, headings are white */
+.s-bluegrey h2, .s-bluegrey h3,
+.s-orange h2, .s-orange h3 { color: #fff; }
+
+/* Vertical "awning" stripes (yellow / cream) */
+.stripes {
+  background-image: repeating-linear-gradient(
+    90deg, #f8d167 0, #f8d167 80px, #faf9f3 80px, #faf9f3 160px
+  );
+}
+
+/* Uppercase eyebrow / kicker */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: var(--fs-small);
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+.eyebrow--light { color: rgba(255, 255, 255, 0.85); }
+
+/* Decorative script section title (Augenblicke, Erleben, ...) */
+.script-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  color: var(--color-text);
+  text-align: center;
+  margin: 0 0 var(--space-lg);
+}
+
+/* Decorative vintage illustration */
+.deco { display: block; height: 220px; width: auto; margin: 0 auto var(--space-sm); }
+.deco--sm { height: 160px; }
+
+/* Blue-grey button variant */
+.btn--bluegrey { background: var(--color-secondary); border-color: var(--color-secondary); color: #fff; }
+
+@media (max-width: 900px) {
+  .stripes {
+    background-image: repeating-linear-gradient(
+      90deg, #f8d167 0, #f8d167 48px, #faf9f3 48px, #faf9f3 96px
+    );
+  }
+  .deco { height: 160px; }
+  .deco--sm { height: 120px; }
+}

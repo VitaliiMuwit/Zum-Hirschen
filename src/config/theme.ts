@@ -23,6 +23,8 @@ export interface Theme {
     heading: string;
     /** Body font family name (as on Google Fonts). */
     body: string;
+    /** Decorative script font for section titles (Augenblicke, Erleben, ...). */
+    script: string;
   };
 }
 
@@ -37,9 +39,10 @@ export const theme: Theme = {
     background: "#EBE9DD", // sand / cream
   },
   fonts: {
-    // Clean sans for both headings and body (logo wordmark is an image now).
+    // Clean sans for headings + body; Dancing Script for decorative titles.
     heading: "Mulish",
     body: "Mulish",
+    script: "Dancing Script",
   },
 };
 
@@ -50,6 +53,7 @@ export const theme: Theme = {
 export function themeToCssVars(t: Theme = theme): string {
   const headingStack = `"${t.fonts.heading}", "Times New Roman", serif`;
   const bodyStack = `"${t.fonts.body}", system-ui, -apple-system, "Segoe UI", sans-serif`;
+  const scriptStack = `"${t.fonts.script}", cursive`;
   return `:root{
   --color-primary:${t.colors.primary};
   --color-secondary:${t.colors.secondary};
@@ -59,11 +63,13 @@ export function themeToCssVars(t: Theme = theme): string {
   --color-surface:${t.colors.background};
   --font-heading:${headingStack};
   --font-body:${bodyStack};
+  --font-script:${scriptStack};
 }`;
 }
 
-/** Build the Google Fonts <link> href from the theme font names. */
+/** Build the Google Fonts <link> href from the theme font names (deduplicated). */
 export function googleFontsHref(t: Theme = theme): string {
-  const fam = (name: string) => `family=${name.replace(/\s+/g, "+")}:wght@400;500;600;700`;
-  return `https://fonts.googleapis.com/css2?${fam(t.fonts.heading)}&${fam(t.fonts.body)}&display=swap`;
+  const families = [...new Set([t.fonts.heading, t.fonts.body, t.fonts.script])];
+  const params = families.map((name) => `family=${name.replace(/\s+/g, "+")}:wght@400;500;600;700`).join("&");
+  return `https://fonts.googleapis.com/css2?${params}&display=swap`;
 }

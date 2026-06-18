@@ -1,0 +1,26 @@
+---
+/**
+ * GallerySection — "Augenblicke": vintage illustration + script title + Gallery,
+ * on the striped (awning) background.
+ */
+import Gallery, { type GalleryImage } from "../Gallery.astro";
+
+export interface Props {
+  illustration: string;
+  scriptTitle: string;
+  images: GalleryImage[];
+}
+const { illustration, scriptTitle, images } = Astro.props;
+---
+
+<section class="augenblicke stripes section">
+  <div class="container">
+    <img class="deco" src={illustration} alt="" aria-hidden="true" loading="lazy" />
+    <p class="script-title">{scriptTitle}</p>
+    <Gallery images={images} columns={3} />
+  </div>
+</section>
+
+<style>
+  .augenblicke .container > :global(.gallery) { margin-top: var(--space-md); }
+</style>

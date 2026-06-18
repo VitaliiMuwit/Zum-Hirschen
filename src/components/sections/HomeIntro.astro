@@ -1,0 +1,35 @@
+---
+/**
+ * HomeIntro — centered intro text + orange "Hinweis" callout. Content via props.
+ */
+export interface Props {
+  title: string;
+  eyebrow: string;
+  paragraphs: string[];
+  hinweis: string;
+}
+const { title, eyebrow, paragraphs, hinweis } = Astro.props;
+---
+
+<section class="intro s-cream section">
+  <div class="container section--narrow intro__inner">
+    <h2 class="intro__title">{title}</h2>
+    <p class="eyebrow">{eyebrow}</p>
+    {paragraphs.map((p) => <p class="intro__text">{p}</p>)}
+    <p class="intro__hinweis">{hinweis}</p>
+  </div>
+</section>
+
+<style>
+  .intro__inner { text-align: center; }
+  .intro__title { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: var(--space-sm); }
+  .intro__text { color: var(--color-text); margin-bottom: var(--space-sm); }
+  .intro__hinweis {
+    margin: var(--space-lg) auto 0; max-width: 760px;
+    background-color: var(--color-primary); color: #fff;
+    border: 2px dashed rgba(255, 255, 255, 0.55); border-radius: var(--radius-lg);
+    padding: 2rem 2.25rem; text-transform: uppercase; letter-spacing: 0.12em;
+    font-size: var(--fs-small); line-height: 1.8;
+  }
+  @media (max-width: 600px) { .intro__hinweis { padding: 1.25rem; } }
+</style>

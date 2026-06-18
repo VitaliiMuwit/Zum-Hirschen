@@ -1,0 +1,49 @@
+---
+/**
+ * GenussWellness — two columns (photo on top + card): Genuss & Wellness.
+ */
+export interface GwColumn {
+  image: string;
+  imageAlt: string;
+  title: string;
+  eyebrow: string;
+  text: string;
+  /** Optional bullet list (Wellness facilities). */
+  list?: string[];
+  /** Optional second paragraph. */
+  text2?: string;
+}
+export interface Props {
+  genuss: GwColumn;
+  wellness: GwColumn;
+}
+const { genuss, wellness } = Astro.props;
+const columns = [genuss, wellness];
+---
+
+<section class="gw s-cream section">
+  <div class="container gw__grid">
+    {
+      columns.map((c) => (
+        <article class="gw__col">
+          <img class="gw__photo" src={c.image} alt={c.imageAlt} loading="lazy" />
+          <div class="gw__card">
+            <h3>{c.title}</h3>
+            <p class="eyebrow">{c.eyebrow}</p>
+            <p>{c.text}</p>
+            {c.list && <ul class="gw__list">{c.list.map((li) => <li>{li}</li>)}</ul>}
+            {c.text2 && <p>{c.text2}</p>}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .gw__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+  .gw__photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+  .gw__card { background: #faf9f3; padding: var(--space-lg) var(--space-md); text-align: center; }
+  .gw__list { list-style: none; margin: var(--space-sm) 0; font-weight: 700; color: var(--color-accent); }
+  @media (max-width: 900px) { .gw__grid { grid-template-columns: 1fr; } }
+</style>

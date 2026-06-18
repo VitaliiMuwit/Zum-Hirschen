@@ -1,0 +1,29 @@
+---
+/**
+ * WarumList — orange section with a list of reasons ("Warum Gäste ... lieben").
+ */
+export interface Props {
+  title: string;
+  reasons: string[];
+}
+const { title, reasons } = Astro.props;
+---
+
+<section class="warum s-orange section">
+  <div class="container section--narrow">
+    <h2>{title}</h2>
+    <ul class="warum__list">
+      {reasons.map((r) => <li>{r}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .warum .container { text-align: center; }
+  .warum__list { list-style: none; margin: var(--space-md) 0 0; }
+  .warum__list li {
+    padding: 0.75rem 0; border-top: 1px solid rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.95);
+  }
+  .warum__list li:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.4); }
+</style>

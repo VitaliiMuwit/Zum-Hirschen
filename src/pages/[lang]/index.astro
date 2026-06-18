@@ -1,17 +1,19 @@
 ---
 /**
- * Home page — generated for each language: /de/, /en/, /it/.
- *
- * Showcases the reusable components. Page text comes from
- * content/{lang}/pages/home.ts; SEO from config/seo.ts; contact/map from config.
- * No hardcoded text.
+ * Home page (Hotel zum Hirschen) — composed from section components.
+ * Each section is a reusable component fed by content/{lang}/pages/home.ts.
+ * Reorder/remove sections by editing this file only.
  */
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ContentSection from "../../components/ContentSection.astro";
-import Gallery from "../../components/Gallery.astro";
-import Testimonials from "../../components/Testimonials.astro";
-import FAQ from "../../components/FAQ.astro";
-import MapSection from "../../components/MapSection.astro";
+import HomeIntro from "../../components/sections/HomeIntro.astro";
+import FeatureBand from "../../components/sections/FeatureBand.astro";
+import GallerySection from "../../components/sections/GallerySection.astro";
+import BesteLage from "../../components/sections/BesteLage.astro";
+import WohnenSection from "../../components/sections/WohnenSection.astro";
+import GenussWellness from "../../components/sections/GenussWellness.astro";
+import GastronomieCallout from "../../components/sections/GastronomieCallout.astro";
+import ErlebenSection from "../../components/sections/ErlebenSection.astro";
+import WarumList from "../../components/sections/WarumList.astro";
 import AnfrageForm from "../../components/AnfrageForm.astro";
 import { getSeo } from "../../config/seo";
 import { locales, getTranslations, localizePath, type Locale } from "../../i18n";
@@ -28,59 +30,56 @@ const { home, common } = getTranslations(lang);
   <!-- Clean hero photo (logo + menu overlaid by the header) -->
   <section class="hero-photo" aria-label={home.hero.slides[0].alt}></section>
 
-  <!-- Hotel intro / history — centered text + Hinweis callout -->
-  <section class="intro section">
-    <div class="container section--narrow intro__inner">
-      <h2 class="intro__title">{home.about.title}</h2>
-      <p class="intro__eyebrow">{home.about.eyebrow}</p>
-      {home.about.paragraphs.map((p) => <p class="intro__text">{p}</p>)}
-      <p class="intro__hinweis">{home.about.hinweis}</p>
-    </div>
-  </section>
-
-  <!-- Rooms & prices -->
-  <div id="zimmer">
-    <ContentSection
-      eyebrow={home.rooms.eyebrow}
-      title={home.rooms.title}
-      text={home.rooms.text}
-      image={home.rooms.image}
-      imageAlt={home.rooms.imageAlt}
-      reverse
-      ctaLabel={home.rooms.ctaLabel}
-      ctaHref={home.rooms.ctaHref}
-    />
-  </div>
-
-  <!-- Gallery -->
-  <section id="galerie" class="section">
-    <div class="container">
-      <h2 class="section-heading">{home.gallery.title}</h2>
-      <Gallery images={home.gallery.images} />
-    </div>
-  </section>
-
-  <!-- Dining & wellness -->
-  <div id="restaurant">
-    <ContentSection
-      eyebrow={home.restaurant.eyebrow}
-      title={home.restaurant.title}
-      text={home.restaurant.text}
-      image={home.restaurant.image}
-      imageAlt={home.restaurant.imageAlt}
-    />
-  </div>
-
-  <Testimonials title={home.testimonials.title} items={home.testimonials.items} />
-
-  <FAQ title={home.faq.title} items={home.faq.items} />
-
-  <MapSection
-    title={home.map.title}
-    text={home.map.text}
-    buttonLabel={home.map.buttonLabel}
-    iframeTitle={home.map.iframeTitle}
+  <HomeIntro
+    title={home.about.title}
+    eyebrow={home.about.eyebrow}
+    paragraphs={home.about.paragraphs}
+    hinweis={home.about.hinweis}
   />
+
+  <FeatureBand items={home.features} />
+
+  <GallerySection
+    illustration={home.gallery.illustration}
+    scriptTitle={home.gallery.scriptTitle}
+    images={home.gallery.images}
+  />
+
+  <BesteLage
+    image={home.bestLage.image}
+    imageAlt={home.bestLage.imageAlt}
+    title={home.bestLage.title}
+    eyebrow={home.bestLage.eyebrow}
+    text={home.bestLage.text}
+  />
+
+  <WohnenSection
+    illustration={home.wohnen.illustration}
+    scriptTitle={home.wohnen.scriptTitle}
+    images={home.wohnen.images}
+    caption={home.wohnen.caption}
+    accordion={home.wohnen.accordion}
+  />
+
+  <GenussWellness genuss={home.genuss} wellness={home.wellness} />
+
+  <GastronomieCallout
+    title={home.gastronomie.title}
+    text={home.gastronomie.text}
+    buttonLabel={home.gastronomie.buttonLabel}
+    buttonHref={home.gastronomie.buttonHref}
+  />
+
+  <ErlebenSection
+    illustration={home.erleben.illustration}
+    scriptTitle={home.erleben.scriptTitle}
+    intro={home.erleben.intro}
+    cards={home.erleben.cards}
+    buttonLabel={home.erleben.buttonLabel}
+    buttonHref={home.erleben.buttonHref}
+  />
+
+  <WarumList title={home.warum.title} reasons={home.warum.reasons} />
 
   <AnfrageForm content={common.form} datenschutzHref={localizePath(lang, "/datenschutz")} />
 </BaseLayout>
@@ -90,45 +89,5 @@ const { home, common } = getTranslations(lang);
   .hero-photo {
     min-height: clamp(520px, 90vh, 1080px);
     background: url("/images/head.webp") center / cover no-repeat;
-  }
-
-  .section-heading {
-    text-align: center;
-    margin-bottom: var(--space-lg);
-  }
-
-  /* Centered intro section */
-  .intro__inner {
-    text-align: center;
-  }
-  .intro__title {
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    margin-bottom: var(--space-sm);
-  }
-  .intro__eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: var(--fs-small);
-    color: var(--color-accent);
-    margin-bottom: var(--space-md);
-  }
-  .intro__text {
-    color: var(--color-text);
-    margin-bottom: var(--space-sm);
-  }
-
-  /* Orange "Hinweis" callout */
-  .intro__hinweis {
-    margin: var(--space-lg) auto 0;
-    max-width: 760px;
-    background-color: var(--color-primary);
-    color: #fff;
-    border: 2px dashed rgba(255, 255, 255, 0.55);
-    border-radius: var(--radius-lg);
-    padding: 2rem 2.25rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--fs-small);
-    line-height: 1.8;
   }
 </style>

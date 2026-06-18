@@ -1,0 +1,44 @@
+---
+/**
+ * ErlebenSection — compass illustration + script title + intro + activity cards.
+ */
+export interface ErlebenCard { title: string; text: string; image: string; imageAlt: string; }
+export interface Props {
+  illustration: string;
+  scriptTitle: string;
+  intro: string;
+  cards: ErlebenCard[];
+  buttonLabel: string;
+  buttonHref: string;
+}
+const { illustration, scriptTitle, intro, cards, buttonLabel, buttonHref } = Astro.props;
+---
+
+<section class="erleben s-cream section">
+  <div class="container">
+    <img class="deco deco--sm" src={illustration} alt="" aria-hidden="true" loading="lazy" />
+    <p class="script-title">{scriptTitle}</p>
+    <p class="erleben__intro section--narrow">{intro}</p>
+    <div class="erleben__grid">
+      {
+        cards.map((c) => (
+          <article class="ecard">
+            <img class="ecard__photo" src={c.image} alt={c.imageAlt} loading="lazy" />
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </article>
+        ))
+      }
+    </div>
+    <a class="btn btn--bluegrey erleben__btn" href={buttonHref}>{buttonLabel}</a>
+  </div>
+</section>
+
+<style>
+  .erleben .container { text-align: center; }
+  .erleben__intro { margin: 0 auto var(--space-lg); color: var(--color-text); }
+  .erleben__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); text-align: center; }
+  .ecard__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); margin-bottom: var(--space-sm); }
+  .erleben__btn { margin-top: var(--space-lg); }
+  @media (max-width: 900px) { .erleben__grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

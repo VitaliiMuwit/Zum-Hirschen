@@ -1,0 +1,56 @@
+---
+/**
+ * WohnenSection — peach section: illustration + script title + room photo +
+ * caption + price accordion (<details>).
+ */
+export interface WohnenImage { src: string; alt: string; caption?: string; }
+export interface AccordionItem { question: string; answer: string; }
+export interface Props {
+  illustration: string;
+  scriptTitle: string;
+  images: WohnenImage[];
+  caption: string;
+  accordion: AccordionItem[];
+}
+const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
+---
+
+<section class="wohnen s-peach section">
+  <div class="container section--narrow">
+    <img class="deco deco--sm" src={illustration} alt="" aria-hidden="true" loading="lazy" />
+    <p class="script-title">{scriptTitle}</p>
+    {images.map((img) => <img class="wohnen__photo" src={img.src} alt={img.alt} loading="lazy" />)}
+    <p class="wohnen__caption">{caption}</p>
+
+    <div class="accordion">
+      {
+        accordion.map((item) => (
+          <details class="accordion__item">
+            <summary class="accordion__q">{item.question}</summary>
+            <p class="accordion__a">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .wohnen .container { text-align: center; }
+  .wohnen__photo { width: 100%; max-width: 980px; margin: 0 auto var(--space-md); display: block; }
+  .wohnen__caption {
+    text-transform: uppercase; letter-spacing: 0.12em; font-size: var(--fs-small);
+    color: var(--color-text); max-width: 760px; margin: 0 auto var(--space-lg);
+  }
+  .accordion { max-width: 820px; margin: 0 auto; }
+  .accordion__item { border-bottom: 1px solid rgba(114, 110, 106, 0.3); }
+  .accordion__q {
+    cursor: pointer; list-style: none; padding: var(--space-sm) 0;
+    display: flex; justify-content: center; align-items: center; gap: 0.75rem;
+    font-weight: 600; color: var(--color-text); text-align: center;
+  }
+  .accordion__q::-webkit-details-marker { display: none; }
+  .accordion__q::after { content: "›"; color: var(--color-primary); font-size: 1.4rem; }
+  .accordion__item[open] .accordion__q::after { content: "⌄"; }
+  .accordion__a { text-align: center; color: var(--color-text); padding-bottom: var(--space-sm); }
+</style>

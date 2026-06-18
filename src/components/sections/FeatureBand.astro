@@ -1,0 +1,44 @@
+---
+/**
+ * FeatureBand — blue-grey band with N feature columns (illustration + title + text).
+ */
+export interface FeatureItem {
+  title: string;
+  text: string;
+  /** Decorative illustration path. */
+  icon: string;
+}
+export interface Props {
+  items: FeatureItem[];
+}
+const { items } = Astro.props;
+---
+
+<section class="features s-bluegrey section">
+  <div class="container features__grid">
+    {
+      items.map((f) => (
+        <article class="feature">
+          <img class="feature__icon" src={f.icon} alt="" aria-hidden="true" loading="lazy" />
+          <h3 class="feature__title">{f.title}</h3>
+          <p class="feature__text">{f.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .features__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);
+    text-align: center;
+  }
+  .feature__icon { height: 200px; width: auto; margin: 0 auto var(--space-sm); }
+  .feature__title { margin-bottom: var(--space-sm); }
+  .feature__text { color: #fff; opacity: 0.95; }
+
+  @media (max-width: 900px) {
+    .features__grid { grid-template-columns: 1fr; gap: var(--space-md); }
+    .feature__icon { height: 160px; }
+  }
+</style>

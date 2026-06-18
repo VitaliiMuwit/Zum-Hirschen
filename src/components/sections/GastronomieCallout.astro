@@ -1,0 +1,31 @@
+---
+/**
+ * GastronomieCallout — blue-grey callout box on the striped background.
+ */
+export interface Props {
+  title: string;
+  text: string;
+  buttonLabel: string;
+  buttonHref: string;
+}
+const { title, text, buttonLabel, buttonHref } = Astro.props;
+---
+
+<section class="stripes section">
+  <div class="container">
+    <div class="callout s-bluegrey">
+      <h2>{title}</h2>
+      <p class="callout__text">{text}</p>
+      <a class="btn callout__btn" href={buttonHref} target="_blank" rel="noopener">{buttonLabel}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .callout {
+    max-width: 880px; margin: 0 auto; border-radius: var(--radius-lg);
+    padding: var(--space-lg); text-align: center;
+  }
+  .callout__text { color: rgba(255, 255, 255, 0.95); }
+  .callout__btn { background: var(--color-primary); border-color: var(--color-primary); margin-top: var(--space-sm); }
+</style>
