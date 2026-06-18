@@ -1,6 +1,8 @@
 ---
 /**
- * HomeIntro — centered intro text + orange "Hinweis" callout. Content via props.
+ * HomeIntro (section 2) — centered intro text + orange "Hinweis" callout.
+ * The callout is positioned (absolute) to straddle the boundary to the next
+ * section; the section reserves space for it via padding-bottom. Content via props.
  */
 export interface Props {
   title: string;
@@ -16,32 +18,51 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
     <h2 class="intro__title">{title}</h2>
     <p class="eyebrow">{eyebrow}</p>
     {paragraphs.map((p) => <p class="intro__text">{p}</p>)}
-    <p class="intro__hinweis">{hinweis}</p>
   </div>
+
+  <p class="intro__hinweis">{hinweis}</p>
 </section>
 
 <style>
-  /* Top padding 220px @1920, scales down. No bottom padding: the Hinweis
-     callout straddles the boundary to the next section. */
   .intro.section {
+    position: relative; /* positioning context for the callout */
     padding-top: clamp(96px, 11.46vw, 220px);
-    padding-bottom: 0;
+    padding-bottom: clamp(66px, 15.63vw, 300px);
   }
+
   /* Text block max width 1200px on a 1920px base, centered. */
   .intro__inner { max-width: 1200px; margin-inline: auto; text-align: center; }
   .intro__title { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: var(--space-sm); }
   .intro__text { color: var(--color-text); margin-bottom: var(--space-sm); }
+
+  /* Orange callout — positioned to straddle the section boundary. */
   .intro__hinweis {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%); /* half hangs into the next section */
+    width: min(800px, calc(100% - 2 * var(--container-padding)));
     z-index: 2;
-    /* ~300px gap from text to the next section @1920; negative bottom margin
-       lets the box overlap (straddle) the next section. */
-    margin: clamp(120px, 15.6vw, 300px) auto -80px;
-    max-width: 800px;
-    background-color: var(--color-primary); color: #fff;
-    border: 2px dashed rgba(255, 255, 255, 0.55); border-radius: var(--radius-lg);
-    padding: 2rem 2.25rem; text-transform: uppercase; letter-spacing: 0.12em;
-    font-size: var(--fs-small); line-height: 1.8;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: 2px dashed rgba(255, 255, 255, 0.55);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.25rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--fs-small);
+    line-height: 1.8;
   }
-  @media (max-width: 600px) { .intro__hinweis { padding: 1.25rem; margin-bottom: -64px; } }
+
+  /* Mobile: stack the callout in normal flow (no overlap with the text). */
+  @media (max-width: 768px) {
+    .intro.section { padding-bottom: var(--space-lg); }
+    .intro__hinweis {
+      position: static;
+      transform: none;
+      margin: var(--space-lg) auto 0;
+      padding: 1.25rem;
+    }
+  }
 </style>
