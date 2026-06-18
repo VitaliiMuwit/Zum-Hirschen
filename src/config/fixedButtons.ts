@@ -17,15 +17,17 @@ export interface FixedButton {
 
 export const fixedButtons: Record<Locale, FixedButton[]> = {
   de: [
-    { label: "Buchen", href: "/#anfrage", type: "booking" },
-    { label: "Anfragen", href: "/#anfrage", type: "inquiry" },
+    { label: "Preise & Buchen", href: "/#anfrage", type: "booking" },
+    { label: "Unverbindlich Anfragen", href: "/#anfrage", type: "inquiry" },
   ],
+  // TODO translate — temporary copy of DE labels.
   it: [
-    { label: "Prenota", href: "/#anfrage", type: "booking" },
-    { label: "Richiedi", href: "/#anfrage", type: "inquiry" },
+    { label: "Prezzi & Prenota", href: "/#anfrage", type: "booking" },
+    { label: "Richiesta senza impegno", href: "/#anfrage", type: "inquiry" },
   ],
+  // TODO translate — temporary copy of DE labels.
   en: [
-    { label: "Book", href: "/#anfrage", type: "booking" },
-    { label: "Enquire", href: "/#anfrage", type: "inquiry" },
+    { label: "Prices & Booking", href: "/#anfrage", type: "booking" },
+    { label: "Non-binding enquiry", href: "/#anfrage", type: "inquiry" },
   ],
 };

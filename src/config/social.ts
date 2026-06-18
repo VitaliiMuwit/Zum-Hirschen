@@ -9,6 +9,7 @@ export interface SocialLink {
   href: string;
 }
 
+// TODO: replace with the hotel's real Instagram / Facebook profile URLs.
 export const social: SocialLink[] = [
   { label: "Instagram", href: "https://instagram.com/" },
   { label: "Facebook", href: "https://facebook.com/" },

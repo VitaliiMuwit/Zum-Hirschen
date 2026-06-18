@@ -41,21 +41,20 @@ export interface ContactConfig {
 }
 
 export const contact: ContactConfig = {
-  phone: "+39 0471 000000",
-  phoneHref: "tel:+390471000000",
-  email: "vitalii@muwit.it",
-  emailHref: "mailto:vitalii@muwit.it",
+  phone: "+39 0474 552285",
+  phoneHref: "tel:+390474552285",
+  email: "info@zumhirschen.it",
+  emailHref: "mailto:info@zumhirschen.it",
   address: {
-    street: "Musterstraße 1",
-    zip: "39100",
-    city: "Bozen",
+    street: "Sylvesterstraße 33",
+    zip: "39031",
+    city: "Stegen / Bruneck (BZ)",
     region: "Südtirol",
     country: "Italien",
   },
-  googleMapsUrl: "https://maps.google.com/?q=Hotel+Muster+Bozen",
+  googleMapsUrl: "https://maps.google.com/?q=Hotel+zum+Hirschen+Sylvesterstra%C3%9Fe+33+Stegen+Bruneck",
+  // TODO: replace with the real "Embed a map" URL from Google Maps (Share → Embed).
   googleMapsEmbedUrl:
-    "https://www.google.com/maps?q=Bozen&output=embed",
-  openingHours: [
-    { days: "Mo–So", hours: "08:00 – 22:00" },
-  ],
+    "https://www.google.com/maps?q=Sylvesterstra%C3%9Fe+33+39031+Stegen+Bruneck&output=embed",
+  openingHours: [],
 };

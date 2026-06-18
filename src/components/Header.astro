@@ -1,14 +1,15 @@
 ---
 /**
- * Header — logo, menu button and language switcher.
+ * Header (Zum Hirschen) — awning strip + centered brand logo + "Menü" button.
  *
- * The menu opens as a fullscreen overlay (MenuOverlay).
- * The header becomes compact/gets a background on scroll (via inline script).
+ * Brand identity migrated from the old site: scalloped awning, inline deer mark,
+ * "★★★ hotel · restaurant" and the "Zum Hirschen" script wordmark.
+ * Transparent over the hero; gets a solid cream background on scroll.
  *
- * Texts come through props (ui), menu items are already localized.
- * The brand name and logo are taken from the site.ts config (not content).
+ * Menu opens as a fullscreen overlay (MenuOverlay). Texts/menu via props.
  */
 import { site } from "../config/site";
+import Awning from "./Awning.astro";
 import MenuOverlay, { type MenuLink } from "./MenuOverlay.astro";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
 import { localizePath, type Locale } from "../i18n";
@@ -29,18 +30,29 @@ export interface Props {
 
 const { locale, menu, ui } = Astro.props;
 const homeHref = localizePath(locale, "/");
+const homeLabel = menu[0]?.label ?? "Home";
 ---
 
 <header id="site-header" class="header">
-  <div class="header__inner container">
-    <a href={homeHref} class="header__logo" aria-label={`${site.name} – ${ui.homeAria}`}>
-      <img src={site.logo} alt={site.name} width="48" height="48" />
-      <span class="header__name">{site.name}</span>
+  <Awning />
+
+  <div class="header__bar container">
+    <a href={homeHref} class="header__breadcrumb">{homeLabel}</a>
+
+    <a href={homeHref} class="brand" aria-label={`${site.name} – ${ui.homeAria}`}>
+      <span class="brand__deer" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="44" height="44" fill="currentColor">
+          <path d="M32 24c-3 0-5 2-5 5v3l-4 8c-1 2 1 4 3 3l6-3 6 3c2 1 4-1 3-3l-4-8v-3c0-3-2-5-5-5z" />
+          <path d="M27 24c-2-3-3-7-7-9-2-1-4-3-4-6 3 1 5 2 6 4 1-3 0-6-2-8 4 1 6 4 6 8 1-2 1-5 0-7 3 2 4 6 3 10 1 2 2 5 1 8z" />
+          <path d="M37 24c2-3 3-7 7-9 2-1 4-3 4-6-3 1-5 2-6 4-1-3 0-6 2-8-4 1-6 4-6 8-1-2-1-5 0-7-3 2-4 6-3 10-1 2-2 5-1 8z" />
+        </svg>
+      </span>
+      <span class="brand__sub">★★★ hotel · restaurant</span>
+      <span class="brand__name">Zum Hirschen</span>
     </a>
 
     <div class="header__actions">
       <LanguageSwitcher current={locale} variant="compact" class="header__langs" />
-
       <button
         type="button"
         class="header__menu-btn"
@@ -48,8 +60,8 @@ const homeHref = localizePath(locale, "/");
         aria-haspopup="dialog"
         aria-controls="menu-overlay"
       >
+        <span class="header__menu-label">{ui.menuButton}</span>
         <span class="header__menu-icon" aria-hidden="true"></span>
-        {ui.menuButton}
       </button>
     </div>
   </div>
@@ -70,99 +82,140 @@ const homeHref = localizePath(locale, "/");
     left: 0;
     right: 0;
     z-index: var(--z-header);
-    transition: background-color var(--transition), box-shadow var(--transition);
+    color: #fff; /* white over the hero photo */
+    transition: background-color var(--transition), box-shadow var(--transition), color var(--transition);
   }
 
-  /* Solid background after scrolling past the hero. */
+  /* Solid cream background once scrolled past the hero top. */
   .header.is-scrolled {
-    background-color: var(--color-surface);
+    background-color: var(--color-bg);
     box-shadow: var(--shadow);
-  }
-
-  .header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-block: 1rem;
-  }
-
-  .header__logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .header__name {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
     color: var(--color-text);
+  }
+  .header.is-scrolled .awning {
+    display: none;
+  }
+
+  .header__bar {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-block: 1.25rem;
+    min-height: 92px;
+  }
+
+  .header__breadcrumb {
+    position: absolute;
+    left: var(--container-padding);
+    top: 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    opacity: 0.85;
+  }
+
+  /* Centered brand (deer + sub + script name) */
+  .brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    color: inherit;
+  }
+  .header.is-scrolled .brand {
+    text-shadow: none;
+  }
+
+  .brand__deer {
+    line-height: 1;
+  }
+  .brand__sub {
+    letter-spacing: 0.28em;
+    font-size: 0.62rem;
+    text-transform: lowercase;
+    opacity: 0.95;
+    margin: 4px 0 2px;
+  }
+  .brand__name {
+    font-family: var(--font-heading); /* Dancing Script */
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   .header__actions {
+    position: absolute;
+    right: var(--container-padding);
+    top: 1.25rem;
     display: flex;
     align-items: center;
     gap: var(--space-md);
   }
 
-  /* Active language gets the brand color in the header context. */
   .header__langs :global(.lang-switcher__item.is-active) {
+    color: var(--color-secondary);
+  }
+  .header.is-scrolled .header__langs :global(.lang-switcher__item.is-active) {
     color: var(--color-primary);
   }
 
   .header__menu-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 12px;
     background: none;
-    border: none;
+    border: 0;
+    color: inherit;
     font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
+    font-size: 1.1rem;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.25rem;
   }
 
-  .header__menu-icon,
+  /* Two-bar hamburger like the old site. */
+  .header__menu-icon {
+    position: relative;
+    width: 30px;
+    height: 14px;
+    display: inline-block;
+  }
   .header__menu-icon::before,
   .header__menu-icon::after {
     content: "";
-    display: block;
-    width: 24px;
-    height: 2px;
-    background-color: currentColor;
-    position: relative;
-  }
-
-  .header__menu-icon::before,
-  .header__menu-icon::after {
     position: absolute;
     left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
   }
   .header__menu-icon::before {
-    top: -7px;
+    top: 3px;
   }
   .header__menu-icon::after {
-    top: 7px;
+    bottom: 3px;
   }
 
-  /* Hide language codes on small screens (available inside the overlay). */
   @media (max-width: 600px) {
-    .header__langs {
+    .header__langs,
+    .header__breadcrumb {
       display: none;
     }
-    .header__name {
+    .brand__name {
+      font-size: 1.9rem;
+    }
+    .header__menu-label {
       display: none;
     }
   }
 </style>
 
 <script>
-  // Add a solid background to the header once the user scrolls.
+  // Solid background once the user scrolls past the hero top.
   const header = document.getElementById("site-header");
   const onScroll = () => {
     if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 40);
+    header.classList.toggle("is-scrolled", window.scrollY > 80);
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });

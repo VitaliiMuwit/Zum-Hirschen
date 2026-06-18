@@ -13,6 +13,7 @@ export interface Partner {
   href?: string;
 }
 
-export const partners: Partner[] = [
-  // { name: "Südtirol", logo: "/partners/suedtirol.svg", alt: "Südtirol", href: "https://www.suedtirol.info/" },
-];
+// Kept empty until real logo assets exist (otherwise broken images would show).
+// TODO: add Südtirol Info once /public/images/partners/suedtirol.svg is available:
+//   { name: "Südtirol", logo: "/images/partners/suedtirol.svg", alt: "Südtirol", href: "https://www.suedtirol.info/" },
+export const partners: Partner[] = [];

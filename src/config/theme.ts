@@ -26,17 +26,20 @@ export interface Theme {
   };
 }
 
+// Brand palette migrated from the old Zum Hirschen site (awning yellow,
+// terracotta orange, warm cream). See migration-report.md.
 export const theme: Theme = {
   colors: {
-    primary: "#6B7A55", // warm olive green
-    secondary: "#D8C6A5", // sand
-    accent: "#8B5E3C", // terracotta / wood
-    text: "#1F1F1F",
-    background: "#FFFFFF",
+    primary: "#e08a59", // terracotta orange (CTAs)
+    secondary: "#f1c34d", // awning yellow
+    accent: "#d27a48", // darker orange (hover/accents)
+    text: "#4a4c44", // warm dark grey
+    background: "#f7f1df", // warm cream
   },
   fonts: {
-    heading: "Cormorant Garamond",
-    body: "Inter",
+    // Brand fonts: decorative script for headings, clean sans for body.
+    heading: "Dancing Script",
+    body: "Mulish",
   },
 };
 

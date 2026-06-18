@@ -21,29 +21,31 @@ export interface MenuItem {
 export const menu: Record<Locale, MenuItem[]> = {
   de: [
     { label: "Home", href: "/" },
-    { label: "Zimmer", href: "/#zimmer" },
-    { label: "Restaurant", href: "/#restaurant" },
+    { label: "Zimmer & Preise", href: "/#zimmer" },
+    { label: "Genuss & Wellness", href: "/#restaurant" },
     { label: "Galerie", href: "/#galerie" },
     { label: "FAQ", href: "/#faq" },
-    { label: "Anfrage", href: "/#anfrage" },
-    { label: "Buchen", href: "/#anfrage", isButton: true },
+    { label: "Lage & Kontakt", href: "/#lage" },
+    { label: "Anfragen", href: "/#anfrage", isButton: true },
   ],
+  // TODO translate — temporary copy of DE labels.
   it: [
     { label: "Home", href: "/" },
-    { label: "Camere", href: "/#zimmer" },
-    { label: "Ristorante", href: "/#restaurant" },
+    { label: "Camere & Prezzi", href: "/#zimmer" },
+    { label: "Cucina & Wellness", href: "/#restaurant" },
     { label: "Galleria", href: "/#galerie" },
     { label: "FAQ", href: "/#faq" },
-    { label: "Richiesta", href: "/#anfrage" },
-    { label: "Prenota", href: "/#anfrage", isButton: true },
+    { label: "Posizione & Contatti", href: "/#lage" },
+    { label: "Richiesta", href: "/#anfrage", isButton: true },
   ],
+  // TODO translate — temporary copy of DE labels.
   en: [
     { label: "Home", href: "/" },
-    { label: "Rooms", href: "/#zimmer" },
-    { label: "Restaurant", href: "/#restaurant" },
+    { label: "Rooms & Prices", href: "/#zimmer" },
+    { label: "Dining & Wellness", href: "/#restaurant" },
     { label: "Gallery", href: "/#galerie" },
     { label: "FAQ", href: "/#faq" },
-    { label: "Enquiry", href: "/#anfrage" },
-    { label: "Book", href: "/#anfrage", isButton: true },
+    { label: "Location & Contact", href: "/#lage" },
+    { label: "Enquiry", href: "/#anfrage", isButton: true },
   ],
 };

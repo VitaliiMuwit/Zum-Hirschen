@@ -64,17 +64,19 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  name: "Hotel Muster",
-  domain: "https://www.example.com",
-  logo: "/logo.svg",
+  name: "Hotel zum Hirschen",
+  // TODO: confirm production domain with client.
+  domain: "https://www.zumhirschen.it",
+  logo: "/images/placeholders/logo-placeholder.svg", // TODO: replace with real logo
 
   defaultLocale: routingDefaultLocale,
   locales: [...routingLocales],
 
   company: {
-    name: "Hotel Muster",
-    legalName: "Hotel Muster GmbH",
-    vatId: "IT00000000000",
+    name: "Hotel Restaurant Zum Hirschen",
+    // TODO: confirm exact legal entity.
+    legalName: "Hotel zum Hirschen – Fam. Unterberger",
+    vatId: "IT00000000000", // TODO: real VAT / Steuernummer
   },
 
   muwit: {
@@ -91,10 +93,10 @@ export const site: SiteConfig = {
   },
 
   seo: {
-    defaultTitle: "Hotel Muster – Ihr Urlaub in Südtirol",
-    titleTemplate: "%s | Hotel Muster",
+    defaultTitle: "Hotel Restaurant Zum Hirschen – Stegen bei Bruneck, Südtirol",
+    titleTemplate: "%s | Hotel zum Hirschen",
     defaultDescription:
-      "Hotel Muster in Südtirol – Zimmer, Restaurant und Angebote. Jetzt unverbindlich anfragen.",
-    defaultImage: "/og-image.jpg",
+      "Hotel zum Hirschen in Stegen bei Bruneck – herzliches Gasthaus-Feeling, echte Südtiroler Gastlichkeit. Ihr Ausgangspunkt für Pustertal & Kronplatz.",
+    defaultImage: "/images/placeholders/og-zum-hirschen.svg", // TODO: real OG image (1200×630 JPG/PNG)
   },
 };

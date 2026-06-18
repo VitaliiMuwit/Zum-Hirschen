@@ -26,20 +26,10 @@ export type SeoPageKey =
 type LocalizedSeo = Partial<Record<Locale, PageSeo>>;
 
 export const seoPages: Record<SeoPageKey, LocalizedSeo> = {
-  home: {
-    de: {
-      title: "Willkommen",
-      description: "Ihr Urlaub in Südtirol – Zimmer, Restaurant und Angebote.",
-    },
-    it: {
-      title: "Benvenuti",
-      description: "La tua vacanza in Alto Adige – camere, ristorante e offerte.",
-    },
-    en: {
-      title: "Welcome",
-      description: "Your holiday in South Tyrol – rooms, restaurant and offers.",
-    },
-  },
+  // Home: no per-page title → uses site.seo.defaultTitle (the full SEO title).
+  // Description falls back to site.seo.defaultDescription (DE).
+  // TODO: add localized IT/EN home title + description once translated.
+  home: {},
   rooms: {},
   restaurant: {},
   contact: {},

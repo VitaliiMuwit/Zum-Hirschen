@@ -1,0 +1,48 @@
+---
+/**
+ * Awning ("Markise") — decorative scalloped strip in the Zum Hirschen style.
+ * Alternating cream (#FAF9F3) and yellow (#F8D167) teeth.
+ * Teeth are ~67×99px on a 1920px screen (30 teeth, flex-sized) and scale down responsively.
+ */
+const TEETH = 30;
+---
+
+<div class="awning" aria-hidden="true">
+  {Array.from({ length: TEETH }).map(() => <span></span>)}
+</div>
+
+<style>
+  .awning {
+    display: flex;
+    height: 99px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .awning span {
+    flex: 1 0 0;
+    height: 99px;
+    border-radius: 0 0 50% 50%;
+  }
+
+  .awning span:nth-child(odd) {
+    background: #f8d167; /* yellow */
+  }
+  .awning span:nth-child(even) {
+    background: #faf9f3; /* cream */
+  }
+
+  @media (max-width: 900px) {
+    .awning,
+    .awning span {
+      height: 60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .awning,
+    .awning span {
+      height: 40px;
+    }
+  }
+</style>

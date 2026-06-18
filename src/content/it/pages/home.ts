@@ -1,93 +1,111 @@
 /**
- * Home page content (Italian). Structure must match de/en.
+ * Home page content (ITALIAN) — Hotel zum Hirschen.
+ * TODO: translate. Currently a temporary copy of the German content.
+ *
+ * The structure of this object MUST be identical across de/en/it.
+ * Images are paths in /public/images (TODO: add real photos); CTAs use on-page anchors.
  */
 export const home = {
   hero: {
     slides: [
       {
-        title: "Benvenuti all'Hotel Muster",
-        subtitle: "La tua vacanza in Alto Adige",
-        image: "/images/hero-1.jpg",
-        alt: "Vista dell'Hotel Muster davanti alle Dolomiti",
-        ctaLabel: "Invia una richiesta",
+        title: "Willkommen im Hotel zum Hirschen",
+        subtitle: "Stegen bei Bruneck – echte Südtiroler Gastlichkeit",
+        image: "/images/placeholders/hero-zum-hirschen.svg",
+        alt: "Hotel zum Hirschen in Stegen bei Bruneck",
+        ctaLabel: "Unverbindlich anfragen",
         ctaHref: "#anfrage",
       },
       {
-        title: "Gusto e relax",
-        subtitle: "Fascino alpino",
-        image: "/images/hero-2.jpg",
-        alt: "Terrazza solarium con panorama montano",
-        ctaLabel: "Scopri le camere",
+        title: "Geschichte seit 1414",
+        subtitle: "Historische Gewölbe & über 1 m dicke Mauern",
+        image: "/images/placeholders/hero-geschichte.svg",
+        alt: "Historisches Gewölbe im Hotel zum Hirschen",
+        ctaLabel: "Zimmer entdecken",
         ctaHref: "#zimmer",
       },
     ],
   },
 
+  // Hotel intro / history.
+  about: {
+    eyebrow: "Willkommen",
+    title: "Echtes Gasthaus-Feeling seit 1414",
+    text: "Im Hotel zum Hirschen in Stegen bei Bruneck erwartet Sie ein herzliches Gasthaus-Feeling: persönlich, bodenständig und geprägt von echter Südtiroler Wärme. Die Geschichte unseres Hauses reicht bis ins Jahr 1414 zurück – über einen Meter dicke Mauern und antike Gewölbe verleihen ihm seinen unverwechselbaren Charakter. Der ideale Ausgangspunkt für Pustertal, Kronplatz und die Stadt Bruneck. Hinweis: Unser Haus verfügt über keinen Aufzug, was den historischen Charakter bewahrt.",
+    image: "/images/placeholders/hotel-exterior.svg",
+    imageAlt: "Historisches Gebäude des Hotel zum Hirschen",
+  },
+
   rooms: {
-    eyebrow: "Soggiornare",
-    title: "Le nostre camere e suite",
-    text: "Comode camere e suite uniscono il fascino alpino al comfort moderno — il rifugio ideale dopo una giornata in montagna.",
-    image: "/images/zimmer.jpg",
-    imageAlt: "Accogliente camera doppia con mobili in legno",
-    ctaLabel: "Richiedi",
+    eyebrow: "Übernachten",
+    title: "Zimmer & Preise",
+    text: "Unsere Zimmer verfügen über Dusche/WC, Safe, SAT-TV, Föhn und größtenteils über einen Balkon. Genießen Sie erholsame Nächte und starten Sie mit unserem reichhaltigen Frühstücksbuffet genussvoll in den Tag – mit frischen, regionalen Produkten und hausgemachten Spezialitäten.",
+    image: "/images/placeholders/zimmer-preise.svg",
+    imageAlt: "Gemütliches Zimmer im Hotel zum Hirschen",
+    ctaLabel: "Preise & Anfrage",
     ctaHref: "#anfrage",
   },
 
-  restaurant: {
-    eyebrow: "Gustare",
-    title: "Ristorante e cucina altoatesina",
-    text: "Cucina regionale altoatesina con prodotti del territorio — fresca, stagionale e preparata con amore.",
-    image: "/images/restaurant.jpg",
-    imageAlt: "Tavolo apparecchiato nel ristorante",
-  },
-
   gallery: {
-    title: "Impressioni",
+    title: "Augenblicke",
     images: [
-      { src: "/images/gallery/1.jpg", alt: "Vista esterna dell'hotel", caption: "La nostra casa" },
-      { src: "/images/gallery/2.jpg", alt: "Area wellness con sauna", caption: "Wellness" },
-      { src: "/images/gallery/3.jpg", alt: "Suite con balcone", caption: "Suite" },
-      { src: "/images/gallery/4.jpg", alt: "Buffet della colazione", caption: "Colazione" },
-      { src: "/images/gallery/5.jpg", alt: "Giardino in estate", caption: "Giardino" },
-      { src: "/images/gallery/6.jpg", alt: "Panorama montano", caption: "Vista" },
+      { src: "/images/placeholders/gallery-garten-pool.svg", alt: "Garten mit Freischwimmbad", caption: "Garten & Pool" },
+      { src: "/images/placeholders/gallery-sauna.svg", alt: "Finnische und Bio-Sauna", caption: "Sauna" },
+      { src: "/images/placeholders/gallery-zimmer.svg", alt: "Zimmer mit Balkon", caption: "Zimmer" },
+      { src: "/images/placeholders/gallery-fruehstueck.svg", alt: "Reichhaltiges Frühstücksbuffet", caption: "Frühstück" },
+      { src: "/images/placeholders/gallery-bruneck.svg", alt: "Altstadt von Bruneck", caption: "Bruneck" },
+      { src: "/images/placeholders/gallery-gewoelbe.svg", alt: "Historisches Gewölbe", caption: "Gewölbe von 1414" },
     ],
   },
 
+  restaurant: {
+    eyebrow: "Genuss & Wellness",
+    title: "Wohltuende Wärme & kulinarische Vielfalt",
+    text: "Der großzügige Garten mit Freischwimmbad lädt im Sommer zum Entspannen ein. Finnische und Bio-Sauna, Kneipp-Becken, Erlebnisdusche und eine Physiotherm-Infrarotkabine sorgen für Erholung. In Bruneck und Umgebung erwartet Sie zudem eine kulinarische Vielfalt mit rund 220 gastronomischen Betrieben – traditionelle Gasthäuser, moderne Restaurants und gemütliche Pizzerien.",
+    image: "/images/placeholders/wellness.svg",
+    imageAlt: "Wellnessbereich mit Sauna und Freischwimmbad",
+  },
+
+  // TODO: replace with real guest reviews (Google / Booking.com).
   testimonials: {
-    title: "Cosa dicono i nostri ospiti",
+    title: "Warum Gäste unser Hotel lieben",
     items: [
-      { quote: "Un soggiorno da sogno con calorosa ospitalità.", author: "Famiglia Huber", source: "Google", rating: 5 },
-      { quote: "Ottimo cibo, personale gentile e una posizione meravigliosa.", author: "M. Rossi", source: "Booking.com", rating: 5 },
-      { quote: "Torniamo ogni anno — semplicemente perfetto.", author: "S. Bauer", source: "Google", rating: 5 },
+      { quote: "Echtes Gasthaus-Feeling mit familiärer, herzlicher Atmosphäre.", author: "Gast", source: "Zum Hirschen", rating: 5 },
+      { quote: "Historische Mauern aus dem Jahr 1414 – einzigartige Gewölbe und über 1 m dicke Wände.", author: "Gast", source: "Zum Hirschen", rating: 5 },
+      { quote: "Nur 800 m zur Altstadt Bruneck und 400 m zum Mobilitätszentrum – ideal für Aktivurlauber und Genießer.", author: "Gast", source: "Zum Hirschen", rating: 5 },
     ],
   },
 
   faq: {
-    title: "Domande frequenti",
+    title: "Häufige Fragen",
     items: [
       {
-        question: "A che ora posso fare il check-in?",
-        answer: "Il check-in è possibile dalle ore 15:00. In caso di arrivo anticipato, custodiamo volentieri i vostri bagagli.",
+        question: "Ist das Frühstück inkludiert?",
+        answer: "Ja, ein reichhaltiges Frühstücksbuffet mit frischen, regionalen Produkten und hausgemachten Spezialitäten ist inkludiert.",
       },
       {
-        question: "Ci sono parcheggi gratuiti?",
-        answer: "Sì, i nostri ospiti hanno a disposizione parcheggi gratuiti direttamente presso la struttura.",
+        question: "Gibt es einen Aufzug?",
+        answer: "Nein. Unser historisches Haus verfügt über keinen Aufzug – das erhält den ursprünglichen Charakter und das historische Flair des Gebäudes.",
       },
       {
-        question: "Sono ammessi animali domestici?",
-        answer: "I piccoli animali domestici sono benvenuti previo accordo. Vi preghiamo di contattarci prima della prenotazione.",
+        question: "Welche Wellness-Einrichtungen gibt es?",
+        answer: "Garten mit Freischwimmbad (in der warmen Jahreszeit), finnische und Bio-Sauna, Kneipp-Becken, Erlebnisdusche sowie eine Physiotherm-Infrarotkabine.",
       },
       {
-        question: "La colazione è inclusa?",
-        answer: "Una ricca colazione a buffet con prodotti regionali altoatesini è inclusa nel prezzo.",
+        question: "Wie weit ist es ins Zentrum von Bruneck?",
+        answer: "Nur 800 Meter zur historischen Altstadt und 400 Meter zum Mobilitätszentrum Bruneck.",
+      },
+      {
+        question: "Gibt es Kinderermäßigungen?",
+        answer: "Ja: bis 1,99 Jahre gratis, bis 5,99 Jahre 50 %, bis 11,99 Jahre 30 %, bis 14,99 Jahre 10 %.",
       },
     ],
   },
 
   map: {
-    title: "Posizione e come arrivare",
-    text: "Ci trovate nel cuore dell'Alto Adige — in posizione ideale per una vacanza tra montagna e gusto.",
-    buttonLabel: "Posizione e come arrivare",
-    iframeTitle: "Mappa: posizione dell'hotel",
+    title: "Lage & Anfahrt",
+    text: "Das Hotel zum Hirschen liegt zentral in Stegen bei Bruneck – nur 800 m von der Altstadt und 400 m vom Mobilitätszentrum entfernt. Der perfekte Ausgangspunkt für Dolomiten, Gadertal, Ahrntal und Hochpustertal.",
+    buttonLabel: "Lage & Anfahrt",
+    iframeTitle: "Karte: Hotel zum Hirschen, Stegen bei Bruneck",
   },
 };
