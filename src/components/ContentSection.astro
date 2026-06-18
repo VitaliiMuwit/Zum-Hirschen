@@ -1,0 +1,101 @@
+---
+/**
+ * ContentSection — alternating "Text + Image" / "Image + Text" section.
+ *
+ * Reusable building block for content pages. Pass text via the `text` prop or
+ * provide rich HTML through the default <slot>. Set `reverse` to put the image
+ * first. Semantic HTML, lazy-loaded image, responsive.
+ */
+export interface Props {
+  /** Small label above the title. */
+  eyebrow?: string;
+  title: string;
+  /** Plain text paragraph (use the default slot for richer content). */
+  text?: string;
+  image: string;
+  imageAlt: string;
+  /** Image first (image + text) instead of text + image. */
+  reverse?: boolean;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const { eyebrow, title, text, image, imageAlt, reverse = false, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class={`content-section${reverse ? " content-section--reverse" : ""}`}>
+  <div class="container content-section__inner">
+    <div class="content-section__media">
+      <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
+    </div>
+
+    <div class="content-section__body">
+      {eyebrow && <p class="content-section__eyebrow">{eyebrow}</p>}
+      <h2 class="content-section__title">{title}</h2>
+
+      {text && <p>{text}</p>}
+      <slot />
+
+      {
+        ctaLabel && ctaHref && (
+          <a class="btn content-section__cta" href={ctaHref}>
+            {ctaLabel}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .content-section {
+    padding-block: var(--space-xl);
+  }
+
+  .content-section__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  /* Reverse → image on the right (text first in the DOM stays for a11y). */
+  .content-section--reverse .content-section__media {
+    order: 2;
+  }
+
+  .content-section__media img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .content-section__eyebrow {
+    font-size: var(--fs-small);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .content-section__title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .content-section__cta {
+    margin-top: var(--space-sm);
+  }
+
+  @media (max-width: 768px) {
+    .content-section__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    /* Always show the image first on mobile for a consistent rhythm. */
+    .content-section--reverse .content-section__media {
+      order: 0;
+    }
+  }
+</style>

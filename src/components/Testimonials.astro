@@ -1,0 +1,121 @@
+---
+/**
+ * Testimonials — guest reviews. Uses a Swiper slider when there is more than
+ * one item; a single review renders statically (no slider chrome).
+ *
+ * Data through props. Optional star rating (0–5). Accessible navigation.
+ */
+export interface Testimonial {
+  quote: string;
+  author: string;
+  /** Where the review is from, e.g. "Google", "Booking.com". */
+  source?: string;
+  /** 0–5 stars. */
+  rating?: number;
+}
+
+export interface Props {
+  items: Testimonial[];
+  title?: string;
+}
+
+const { items, title } = Astro.props;
+const isSlider = items.length > 1;
+const stars = (n = 0) => "★".repeat(Math.max(0, Math.min(5, Math.round(n))));
+---
+
+<section class="testimonials section">
+  <div class="container section--narrow">
+    {title && <h2 class="testimonials__title">{title}</h2>}
+
+    <div class={`swiper testimonials__swiper${isSlider ? "" : " is-static"}`}>
+      <div class="swiper-wrapper">
+        {
+          items.map((t) => (
+            <figure class="swiper-slide testimonials__item">
+              {t.rating ? (
+                <div class="testimonials__rating" aria-label={`${Math.round(t.rating)} / 5`}>
+                  {stars(t.rating)}
+                </div>
+              ) : null}
+              <blockquote class="testimonials__quote">{t.quote}</blockquote>
+              <figcaption class="testimonials__author">
+                {t.author}
+                {t.source && <span class="testimonials__source"> · {t.source}</span>}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      {isSlider && <div class="swiper-pagination testimonials__pagination"></div>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__title {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .testimonials__item {
+    text-align: center;
+    height: auto;
+    padding-inline: var(--space-sm);
+  }
+
+  .testimonials__rating {
+    color: var(--color-accent);
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .testimonials__quote {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: 1.4;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .testimonials__author {
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .testimonials__source {
+    font-weight: 400;
+  }
+
+  .testimonials__pagination {
+    position: static;
+    margin-top: var(--space-md);
+    --swiper-pagination-color: var(--color-primary);
+  }
+
+  /* Static (single review) — neutralize Swiper layout. */
+  .is-static .swiper-wrapper {
+    display: block;
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Pagination, A11y, Keyboard } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/pagination";
+
+  document.querySelectorAll<HTMLElement>(".testimonials__swiper:not(.is-static)").forEach((el) => {
+    new Swiper(el, {
+      modules: [Pagination, A11y, Keyboard],
+      slidesPerView: 1,
+      spaceBetween: 24,
+      keyboard: { enabled: true },
+      a11y: { enabled: true },
+      pagination: {
+        el: el.querySelector<HTMLElement>(".testimonials__pagination"),
+        clickable: true,
+      },
+    });
+  });
+</script>

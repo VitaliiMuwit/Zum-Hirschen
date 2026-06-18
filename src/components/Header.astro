@@ -1,0 +1,169 @@
+---
+/**
+ * Header — logo, menu button and language switcher.
+ *
+ * The menu opens as a fullscreen overlay (MenuOverlay).
+ * The header becomes compact/gets a background on scroll (via inline script).
+ *
+ * Texts come through props (ui), menu items are already localized.
+ * The brand name and logo are taken from the site.ts config (not content).
+ */
+import { site } from "../config/site";
+import MenuOverlay, { type MenuLink } from "./MenuOverlay.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import { localizePath, type Locale } from "../i18n";
+
+export interface HeaderUi {
+  menuButton: string;
+  menuClose: string;
+  menuAria: string;
+  navAria: string;
+  homeAria: string;
+}
+
+export interface Props {
+  locale: Locale;
+  menu: MenuLink[];
+  ui: HeaderUi;
+}
+
+const { locale, menu, ui } = Astro.props;
+const homeHref = localizePath(locale, "/");
+---
+
+<header id="site-header" class="header">
+  <div class="header__inner container">
+    <a href={homeHref} class="header__logo" aria-label={`${site.name} – ${ui.homeAria}`}>
+      <img src={site.logo} alt={site.name} width="48" height="48" />
+      <span class="header__name">{site.name}</span>
+    </a>
+
+    <div class="header__actions">
+      <LanguageSwitcher current={locale} variant="compact" class="header__langs" />
+
+      <button
+        type="button"
+        class="header__menu-btn"
+        data-menu-open
+        aria-haspopup="dialog"
+        aria-controls="menu-overlay"
+      >
+        <span class="header__menu-icon" aria-hidden="true"></span>
+        {ui.menuButton}
+      </button>
+    </div>
+  </div>
+</header>
+
+<MenuOverlay
+  locale={locale}
+  menu={menu}
+  closeLabel={ui.menuClose}
+  ariaLabel={ui.menuAria}
+  navAriaLabel={ui.navAria}
+/>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-header);
+    transition: background-color var(--transition), box-shadow var(--transition);
+  }
+
+  /* Solid background after scrolling past the hero. */
+  .header.is-scrolled {
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1rem;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .header__name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--color-text);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  /* Active language gets the brand color in the header context. */
+  .header__langs :global(.lang-switcher__item.is-active) {
+    color: var(--color-primary);
+  }
+
+  .header__menu-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .header__menu-icon,
+  .header__menu-icon::before,
+  .header__menu-icon::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: currentColor;
+    position: relative;
+  }
+
+  .header__menu-icon::before,
+  .header__menu-icon::after {
+    position: absolute;
+    left: 0;
+  }
+  .header__menu-icon::before {
+    top: -7px;
+  }
+  .header__menu-icon::after {
+    top: 7px;
+  }
+
+  /* Hide language codes on small screens (available inside the overlay). */
+  @media (max-width: 600px) {
+    .header__langs {
+      display: none;
+    }
+    .header__name {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Add a solid background to the header once the user scrolls.
+  const header = document.getElementById("site-header");
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 40);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

@@ -1,0 +1,96 @@
+---
+/**
+ * FixedButtons — fixed CTA buttons on the right side.
+ *
+ * Stay visible while scrolling. On mobile they turn into a
+ * horizontal bar at the bottom of the screen so they don't cover content.
+ *
+ * Buttons come through props (already localized: label + prefixed href).
+ */
+export interface FixedButton {
+  label: string;
+  href: string;
+  primary?: boolean;
+}
+
+export interface Props {
+  buttons: FixedButton[];
+  ariaLabel: string;
+}
+
+const { buttons, ariaLabel } = Astro.props;
+---
+
+<aside class="fixed-cta" aria-label={ariaLabel}>
+  {
+    buttons.map((b) => (
+      <a href={b.href} class={`fixed-cta__btn${b.primary ? " fixed-cta__btn--primary" : ""}`}>
+        {b.label}
+      </a>
+    ))
+  }
+</aside>
+
+<style>
+  .fixed-cta {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: var(--z-fixed);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .fixed-cta__btn {
+    /* Vertical text on the right edge (desktop). */
+    writing-mode: vertical-rl;
+    padding: 1.25rem 0.75rem;
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius) 0 0 var(--radius);
+    transition: background-color var(--transition);
+  }
+
+  .fixed-cta__btn--primary {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .fixed-cta__btn:hover {
+    background-color: var(--color-primary-dark);
+    color: #fff;
+  }
+
+  /* On mobile: horizontal bar fixed to the bottom. */
+  @media (max-width: 768px) {
+    .fixed-cta {
+      top: auto;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      transform: none;
+      flex-direction: row;
+    }
+
+    .fixed-cta__btn {
+      writing-mode: horizontal-tb;
+      flex: 1;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 0;
+    }
+  }
+</style>
+
+<!-- Reserve space at the bottom on mobile so the fixed bar never covers content. -->
+<style is:global>
+  @media (max-width: 768px) {
+    body {
+      padding-bottom: 3.5rem;
+    }
+  }
+</style>

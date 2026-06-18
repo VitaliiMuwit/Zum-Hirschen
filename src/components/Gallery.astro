@@ -1,0 +1,110 @@
+---
+/**
+ * Gallery — responsive grid gallery with a PhotoSwipe lightbox.
+ *
+ * Data through props. Each image needs a full-size src, alt and (for the
+ * lightbox) its natural width/height. A thumbnail and caption are optional.
+ * No jQuery. Multiple galleries per page are supported (each <ul> is its own
+ * PhotoSwipe instance).
+ */
+export interface GalleryImage {
+  /** Full-size image (opened in the lightbox). */
+  src: string;
+  /** Optional smaller image for the grid; falls back to `src`. */
+  thumb?: string;
+  alt: string;
+  caption?: string;
+  /** Natural dimensions of the full-size image (required by PhotoSwipe). */
+  width?: number;
+  height?: number;
+}
+
+export interface Props {
+  images: GalleryImage[];
+  /** Grid columns on desktop. Default: 3. */
+  columns?: number;
+}
+
+const { images, columns = 3 } = Astro.props;
+---
+
+<ul class="gallery" style={`--gallery-cols:${columns}`}>
+  {
+    images.map((img) => (
+      <li class="gallery__item">
+        <a
+          class="gallery__link"
+          href={img.src}
+          data-pswp-width={img.width ?? 1600}
+          data-pswp-height={img.height ?? 1067}
+          target="_blank"
+          rel="noopener"
+        >
+          <img class="gallery__img" src={img.thumb ?? img.src} alt={img.alt} loading="lazy" />
+        </a>
+        {img.caption && <figcaption class="gallery__caption">{img.caption}</figcaption>}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .gallery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--gallery-cols, 3), 1fr);
+    gap: var(--space-sm);
+  }
+
+  .gallery__link {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .gallery__img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    transition: transform var(--transition);
+  }
+
+  .gallery__link:hover .gallery__img {
+    transform: scale(1.05);
+  }
+
+  .gallery__caption {
+    margin-top: 0.35rem;
+    font-size: var(--fs-small);
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 900px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "photoswipe/style.css";
+
+  document.querySelectorAll<HTMLElement>(".gallery").forEach((el) => {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: el,
+      children: "a.gallery__link",
+      pswpModule: () => import("photoswipe"),
+    });
+    lightbox.init();
+  });
+</script>

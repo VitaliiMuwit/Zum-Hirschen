@@ -1,0 +1,50 @@
+/**
+ * Design tokens — global CSS variables.
+ *
+ * The base palette and fonts are NOT defined here: they are injected from
+ * config/theme.ts by BaseLayout (as :root custom properties --color-primary,
+ * --color-secondary, --color-accent, --color-text, --color-bg, --color-surface,
+ * --font-heading, --font-body). To re-theme a client, edit config/theme.ts only.
+ *
+ * The tokens below are structural (spacing, radius, shadows, type scale,
+ * z-index) or derived from the injected base colors via color-mix(), so they
+ * follow the theme automatically.
+ */
+
+:root {
+  /* Derived colors (follow the injected base palette) */
+  --color-primary-dark: color-mix(in srgb, var(--color-primary) 82%, #000);
+  --color-text-muted: color-mix(in srgb, var(--color-text) 60%, transparent);
+  --color-border: color-mix(in srgb, var(--color-text) 14%, transparent);
+  --color-overlay: color-mix(in srgb, var(--color-text) 92%, transparent);
+
+  /* Type scale */
+  --fs-base: 1.125rem;
+  --fs-small: 0.9rem;
+  --fs-h1: clamp(2.5rem, 6vw, 4.5rem);
+  --fs-h2: clamp(2rem, 4vw, 3rem);
+  --fs-h3: clamp(1.4rem, 2.5vw, 1.8rem);
+
+  /* Layout */
+  --container-max: 1280px;
+  --container-padding: 1.5rem;
+  --radius: 4px;
+  --radius-lg: 12px;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+
+  /* Effects */
+  --shadow: 0 4px 24px rgba(31, 31, 31, 0.08);
+  --shadow-lg: 0 12px 48px rgba(31, 31, 31, 0.18);
+  --transition: 0.3s ease;
+
+  /* Z-index layers */
+  --z-header: 100;
+  --z-fixed: 200;
+  --z-overlay: 300;
+}

@@ -1,0 +1,72 @@
+---
+/**
+ * PartnerLogos — responsive grid of partner / service logos.
+ *
+ * Data from config/partners.ts. Each logo may optionally link to the partner's
+ * site. Renders nothing if no partners are configured. Usable in a section or
+ * inside the footer.
+ */
+import { partners } from "../config/partners";
+
+export interface Props {
+  /** Optional heading shown above the logos. */
+  title?: string;
+}
+
+const { title } = Astro.props;
+const hasPartners = partners.length > 0;
+---
+
+{
+  hasPartners && (
+    <section class="partner-logos section">
+      <div class="container">
+        {title && <h2 class="partner-logos__title">{title}</h2>}
+        <ul class="partner-logos__grid">
+          {partners.map((p) => (
+            <li class="partner-logos__item">
+              {p.href ? (
+                <a href={p.href} target="_blank" rel="noopener" aria-label={p.name}>
+                  <img src={p.logo} alt={p.alt} loading="lazy" />
+                </a>
+              ) : (
+                <img src={p.logo} alt={p.alt} loading="lazy" />
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .partner-logos__title {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .partner-logos__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+
+  .partner-logos__item img {
+    max-height: 56px;
+    width: auto;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: filter var(--transition), opacity var(--transition);
+  }
+
+  .partner-logos__item img:hover {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+</style>

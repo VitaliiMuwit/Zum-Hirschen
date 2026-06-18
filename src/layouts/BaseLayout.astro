@@ -1,0 +1,169 @@
+---
+/**
+ * BaseLayout — wrapper for all pages and the composition root.
+ *
+ * Responsibilities:
+ *  - Injects the theme (config/theme.ts) as CSS variables + loads Google Fonts.
+ *  - <head>: title (via titleTemplate), meta description, canonical,
+ *    Open Graph + Twitter Card, hreflang alternates — fall back to config/site.ts.
+ *  - GTM + GA: rendered only when the IDs are set in config/site.ts → tracking.
+ *  - Reads navigation (config/menu.ts) and CTA buttons (config/fixedButtons.ts),
+ *    localizes their hrefs, and passes them to Header / FixedButtons.
+ *  - Passes shared UI labels (i18n common) to Header / Footer.
+ *
+ * A page passes `seo={getSeo("home", lang)}`; missing fields fall back to site.seo.
+ */
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FixedButtons from "../components/FixedButtons.astro";
+import { site } from "../config/site";
+import { menu as menuConfig } from "../config/menu";
+import { fixedButtons as fixedButtonsConfig } from "../config/fixedButtons";
+import { themeToCssVars, googleFontsHref } from "../config/theme";
+import { getTranslations, localizePath, stripLocale, locales, defaultLocale, type Locale } from "../i18n";
+
+export interface SeoProps {
+  title?: string;
+  description?: string;
+  /** Social sharing image (path relative to /public or absolute URL). */
+  image?: string;
+}
+
+export interface Props {
+  locale: Locale;
+  seo?: SeoProps;
+  /** Set to false to hide the floating CTA buttons (e.g. legal pages). */
+  showFixedButtons?: boolean;
+}
+
+const { locale, seo = {}, showFixedButtons = true } = Astro.props;
+
+// --- SEO (page values override site-wide defaults) ---
+const title = seo.title
+  ? site.seo.titleTemplate.replace("%s", seo.title)
+  : site.seo.defaultTitle;
+const description = seo.description ?? site.seo.defaultDescription;
+const image = seo.image ?? site.seo.defaultImage;
+
+const canonical = new URL(Astro.url.pathname, site.domain).href;
+const imageUrl = new URL(image, site.domain).href;
+
+// hreflang alternates: same page across all locales (+ x-default).
+const basePath = stripLocale(Astro.url.pathname);
+const alternates = locales.map((l) => ({
+  hreflang: l,
+  href: new URL(localizePath(l, basePath), site.domain).href,
+}));
+const defaultHref = new URL(localizePath(defaultLocale, basePath), site.domain).href;
+
+// --- Navigation & CTA (localize internal hrefs once) ---
+const localize = (href: string, external?: boolean) =>
+  external ? href : localizePath(locale, href);
+
+const menu = menuConfig[locale].map((item) => ({
+  label: item.label,
+  href: localize(item.href, item.external),
+  primary: item.isButton,
+}));
+const fixedButtons = fixedButtonsConfig[locale].map((b) => ({
+  label: b.label,
+  href: localize(b.href, b.external),
+  primary: b.type === "booking",
+}));
+
+// --- Shared UI labels for this locale ---
+const { common } = getTranslations(locale);
+
+// --- Theme + fonts ---
+const themeCss = themeToCssVars();
+const fontsHref = googleFontsHref();
+
+// --- Tracking ---
+const { gtmId, gaId } = site.tracking;
+const gtmHead = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`;
+const gtmBody = `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+const gaInit = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={site.logo} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Theme variables from config/theme.ts -->
+    <style is:global set:html={themeCss}></style>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={fontsHref} />
+
+    <!-- Google Tag Manager -->
+    {gtmId && <script is:inline set:html={gtmHead} />}
+
+    <!-- Google Analytics (gtag.js) -->
+    {gaId && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />}
+    {gaId && <script is:inline set:html={gaInit} />}
+
+    <!-- Language alternates -->
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    <link rel="alternate" hreflang="x-default" href={defaultHref} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content={locale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    {gtmId && <noscript set:html={gtmBody} />}
+
+    <Header
+      locale={locale}
+      menu={menu}
+      ui={{
+        menuButton: common.ui.menuButton,
+        menuClose: common.ui.menuClose,
+        menuAria: common.ui.menuAria,
+        navAria: common.ui.navAria,
+        homeAria: common.ui.homeAria,
+      }}
+    />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    {showFixedButtons && <FixedButtons buttons={fixedButtons} ariaLabel={common.ui.quickActions} />}
+
+    <Footer
+      locale={locale}
+      labels={{
+        mapsLabel: common.footer.mapsLabel,
+        impressum: common.footer.impressum,
+        datenschutz: common.footer.datenschutz,
+        socialAria: common.ui.socialAria,
+        legalAria: common.ui.legalAria,
+      }}
+      impressumHref={localizePath(locale, "/impressum")}
+      datenschutzHref={localizePath(locale, "/datenschutz")}
+    />
+  </body>
+</html>

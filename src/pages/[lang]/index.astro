@@ -1,0 +1,80 @@
+---
+/**
+ * Home page — generated for each language: /de/, /en/, /it/.
+ *
+ * Showcases the reusable components. Page text comes from
+ * content/{lang}/pages/home.ts; SEO from config/seo.ts; contact/map from config.
+ * No hardcoded text.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroSlider from "../../components/HeroSlider.astro";
+import ContentSection from "../../components/ContentSection.astro";
+import Gallery from "../../components/Gallery.astro";
+import Testimonials from "../../components/Testimonials.astro";
+import FAQ from "../../components/FAQ.astro";
+import MapSection from "../../components/MapSection.astro";
+import AnfrageForm from "../../components/AnfrageForm.astro";
+import { getSeo } from "../../config/seo";
+import { locales, getTranslations, localizePath, type Locale } from "../../i18n";
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const { home, common } = getTranslations(lang);
+---
+
+<BaseLayout locale={lang} seo={getSeo("home", lang)}>
+  <HeroSlider slides={home.hero.slides} />
+
+  <div id="zimmer">
+    <ContentSection
+      eyebrow={home.rooms.eyebrow}
+      title={home.rooms.title}
+      text={home.rooms.text}
+      image={home.rooms.image}
+      imageAlt={home.rooms.imageAlt}
+      ctaLabel={home.rooms.ctaLabel}
+      ctaHref={home.rooms.ctaHref}
+    />
+  </div>
+
+  <div id="restaurant">
+    <ContentSection
+      eyebrow={home.restaurant.eyebrow}
+      title={home.restaurant.title}
+      text={home.restaurant.text}
+      image={home.restaurant.image}
+      imageAlt={home.restaurant.imageAlt}
+      reverse
+    />
+  </div>
+
+  <section id="galerie" class="section">
+    <div class="container">
+      <h2 class="section-heading">{home.gallery.title}</h2>
+      <Gallery images={home.gallery.images} />
+    </div>
+  </section>
+
+  <Testimonials title={home.testimonials.title} items={home.testimonials.items} />
+
+  <FAQ title={home.faq.title} items={home.faq.items} />
+
+  <MapSection
+    title={home.map.title}
+    text={home.map.text}
+    buttonLabel={home.map.buttonLabel}
+    iframeTitle={home.map.iframeTitle}
+  />
+
+  <AnfrageForm content={common.form} datenschutzHref={localizePath(lang, "/datenschutz")} />
+</BaseLayout>
+
+<style>
+  .section-heading {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+</style>

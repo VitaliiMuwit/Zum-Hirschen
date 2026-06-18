@@ -1,0 +1,200 @@
+---
+/**
+ * HeroSlider — full-screen hero slider powered by Swiper.
+ *
+ * Data comes through props (reusable). Each slide has an image, alt, title,
+ * optional subtitle and CTA. Autoplay can be disabled via prop and is always
+ * disabled when the user prefers reduced motion. Keyboard + a11y enabled.
+ */
+export interface HeroSlide {
+  title: string;
+  subtitle?: string;
+  /** Background image path (relative to /public or absolute URL). */
+  image: string;
+  alt: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+export interface Props {
+  slides: HeroSlide[];
+  /** Autoplay (paused for prefers-reduced-motion). Default: true. */
+  autoplay?: boolean;
+  /** Loop slides. Default: true. */
+  loop?: boolean;
+}
+
+const { slides, autoplay = true, loop = true } = Astro.props;
+---
+
+<section class="hero-slider" aria-roledescription="carousel">
+  <div class="swiper hero-slider__swiper" data-autoplay={String(autoplay)} data-loop={String(loop)}>
+    <div class="swiper-wrapper">
+      {
+        slides.map((slide) => (
+          <div class="swiper-slide hero-slider__slide">
+            <img class="hero-slider__img" src={slide.image} alt={slide.alt} loading="eager" />
+            <div class="hero-slider__overlay" />
+            <div class="hero-slider__content container">
+              {slide.subtitle && <p class="hero-slider__subtitle">{slide.subtitle}</p>}
+              <h2 class="hero-slider__title">{slide.title}</h2>
+              {slide.ctaLabel && slide.ctaHref && (
+                <a class="btn hero-slider__cta" href={slide.ctaHref}>
+                  {slide.ctaLabel}
+                </a>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="swiper-pagination hero-slider__pagination"></div>
+    <button type="button" class="hero-slider__nav hero-slider__nav--prev" aria-label="Previous slide"></button>
+    <button type="button" class="hero-slider__nav hero-slider__nav--next" aria-label="Next slide"></button>
+  </div>
+</section>
+
+<style>
+  .hero-slider {
+    position: relative;
+  }
+
+  .hero-slider__swiper {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .hero-slider__slide {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-slider__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-slider__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(31, 31, 31, 0.3), rgba(31, 31, 31, 0.55));
+  }
+
+  .hero-slider__content {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin-inline: auto;
+    max-width: 820px;
+  }
+
+  .hero-slider__subtitle {
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-slider__title {
+    color: #fff;
+    font-size: var(--fs-h1);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-slider__cta {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  /* Pagination + navigation */
+  .hero-slider__pagination {
+    --swiper-pagination-color: #fff;
+    --swiper-pagination-bullet-inactive-color: #fff;
+    --swiper-pagination-bullet-inactive-opacity: 0.5;
+    bottom: var(--space-md) !important;
+  }
+
+  .hero-slider__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+  }
+
+  .hero-slider__nav::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 0 auto;
+    border-top: 2px solid var(--color-text);
+    border-right: 2px solid var(--color-text);
+  }
+
+  .hero-slider__nav--prev {
+    left: var(--space-sm);
+  }
+  .hero-slider__nav--prev::before {
+    transform: rotate(-135deg);
+    margin-left: 18px;
+  }
+  .hero-slider__nav--next {
+    right: var(--space-sm);
+  }
+  .hero-slider__nav--next::before {
+    transform: rotate(45deg);
+    margin-right: 18px;
+  }
+
+  .hero-slider__nav.swiper-button-disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  @media (max-width: 600px) {
+    .hero-slider__nav {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Pagination, Autoplay, A11y, Keyboard } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/pagination";
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll<HTMLElement>(".hero-slider__swiper").forEach((el) => {
+    const useAutoplay = el.dataset.autoplay === "true" && !prefersReduced;
+    new Swiper(el, {
+      modules: [Navigation, Pagination, Autoplay, A11y, Keyboard],
+      loop: el.dataset.loop === "true",
+      speed: 700,
+      autoplay: useAutoplay ? { delay: 6000, disableOnInteraction: false } : false,
+      keyboard: { enabled: true },
+      a11y: { enabled: true },
+      pagination: {
+        el: el.querySelector<HTMLElement>(".hero-slider__pagination"),
+        clickable: true,
+      },
+      navigation: {
+        prevEl: el.querySelector<HTMLElement>(".hero-slider__nav--prev"),
+        nextEl: el.querySelector<HTMLElement>(".hero-slider__nav--next"),
+      },
+    });
+  });
+</script>

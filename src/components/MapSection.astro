@@ -1,0 +1,74 @@
+---
+/**
+ * MapSection — embedded Google Map + "Lage & Anfahrt" button.
+ *
+ * Map URLs come from config/contact.ts (googleMapsEmbedUrl for the iframe,
+ * googleMapsUrl for the button). Texts come through props (localized by the
+ * page). The iframe is lazy-loaded and has an accessible title.
+ */
+import { contact } from "../config/contact";
+
+export interface Props {
+  title: string;
+  text?: string;
+  /** Button label, e.g. "Lage & Anfahrt". */
+  buttonLabel: string;
+  /** Accessible title for the map iframe. */
+  iframeTitle?: string;
+}
+
+const { title, text, buttonLabel, iframeTitle = title } = Astro.props;
+const { googleMapsEmbedUrl, googleMapsUrl } = contact;
+---
+
+<section id="lage" class="map-section section">
+  <div class="container map-section__inner">
+    <div class="map-section__body">
+      <h2>{title}</h2>
+      {text && <p>{text}</p>}
+      <a class="btn" href={googleMapsUrl} target="_blank" rel="noopener">{buttonLabel}</a>
+    </div>
+
+    <div class="map-section__map">
+      <iframe
+        src={googleMapsEmbedUrl}
+        title={iframeTitle}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .map-section__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .map-section__map {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .map-section__map iframe {
+    display: block;
+    width: 100%;
+    height: 420px;
+    border: 0;
+  }
+
+  @media (max-width: 768px) {
+    .map-section__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+    .map-section__map iframe {
+      height: 320px;
+    }
+  }
+</style>

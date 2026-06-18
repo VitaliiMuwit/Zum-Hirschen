@@ -1,0 +1,62 @@
+---
+/**
+ * Impressum — mandatory legal page, one per language.
+ * Headings come from content/{lang}/legal.ts; company/contact data from src/config/.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../config/site";
+import { contact } from "../../config/contact";
+import { getSeo } from "../../config/seo";
+import { locales, getTranslations, type Locale } from "../../i18n";
+
+export function getStaticPaths() {
+  return locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Locale };
+const { legal } = getTranslations(lang);
+const l = legal.impressum;
+const { company } = site;
+const { address } = contact;
+---
+
+<BaseLayout locale={lang} seo={getSeo("impressum", lang)} showFixedButtons={false}>
+  <article class="section container section--narrow legal">
+    <h1>{l.title}</h1>
+
+    <h2>{l.companyHeading}</h2>
+    <p>
+      {company.legalName}<br />
+      {address.street}<br />
+      {address.zip} {address.city}<br />
+      {address.country}
+    </p>
+
+    <h2>{l.contactHeading}</h2>
+    <p>
+      {l.phoneLabel}: <a href={contact.phoneHref}>{contact.phone}</a><br />
+      {l.emailLabel}: <a href={contact.emailHref}>{contact.email}</a>
+    </p>
+
+    <h2>{l.vatHeading}</h2>
+    <p>{company.vatId}</p>
+
+    <h2>{l.responsibleHeading}</h2>
+    <p>{company.legalName}</p>
+  </article>
+</BaseLayout>
+
+<style is:global>
+  .legal h1 {
+    margin-bottom: var(--space-md);
+  }
+  .legal h2 {
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xs);
+    font-size: var(--fs-h3);
+  }
+  .legal a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+</style>

@@ -1,0 +1,190 @@
+---
+/**
+ * AnfrageForm — booking request form.
+ *
+ * All labels come through props (content) — no hardcoding, language-agnostic.
+ * Fields: Vorname, Nachname, Email, Telefon, Anreise, Abreise, Erwachsene,
+ * Kinder, Nachricht + Datenschutz checkbox.
+ *
+ * Submission: POST to a custom API endpoint (/api/contact) that sends the
+ * email via Resend. Does NOT use Netlify/Vercel Forms — the site is portable.
+ *
+ * Frontend logic (script below): validation, locking the button while
+ * submitting, success/error messages, clearing the form after success.
+ * Without JS the form still sends a regular POST to the endpoint (progressive
+ * enhancement).
+ */
+export interface FormContent {
+  title: string;
+  vorname: string;
+  nachname: string;
+  email: string;
+  telefon: string;
+  anreise: string;
+  abreise: string;
+  erwachsene: string;
+  kinder: string;
+  nachricht: string;
+  datenschutzBefore: string;
+  datenschutzLink: string;
+  datenschutzAfter: string;
+  submit: string;
+  sending: string;
+  success: string;
+  error: string;
+}
+
+export interface Props {
+  content: FormContent;
+  /** Localized URL of the privacy policy page. */
+  datenschutzHref: string;
+  /** API endpoint that sends the email (defaults to the built-in route). */
+  action?: string;
+}
+
+const { content: c, datenschutzHref, action = "/api/contact" } = Astro.props;
+---
+
+<section id="anfrage" class="section anfrage">
+  <div class="container section--narrow">
+    <h2 class="anfrage__title">{c.title}</h2>
+
+    <form
+      class="anfrage__form"
+      action={action}
+      method="POST"
+      novalidate
+      data-sending={c.sending}
+      data-success={c.success}
+      data-error={c.error}
+    >
+      <div class="anfrage__row">
+        <div class="field">
+          <label for="vorname">{c.vorname} *</label>
+          <input id="vorname" name="Vorname" type="text" required autocomplete="given-name" />
+        </div>
+        <div class="field">
+          <label for="nachname">{c.nachname} *</label>
+          <input id="nachname" name="Nachname" type="text" required autocomplete="family-name" />
+        </div>
+      </div>
+
+      <div class="anfrage__row">
+        <div class="field">
+          <label for="email">{c.email} *</label>
+          <input id="email" name="Email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="telefon">{c.telefon}</label>
+          <input id="telefon" name="Telefon" type="tel" autocomplete="tel" />
+        </div>
+      </div>
+
+      <div class="anfrage__row">
+        <div class="field">
+          <label for="anreise">{c.anreise} *</label>
+          <input id="anreise" name="Anreise" type="date" required />
+        </div>
+        <div class="field">
+          <label for="abreise">{c.abreise} *</label>
+          <input id="abreise" name="Abreise" type="date" required />
+        </div>
+      </div>
+
+      <div class="anfrage__row">
+        <div class="field">
+          <label for="erwachsene">{c.erwachsene} *</label>
+          <input id="erwachsene" name="Erwachsene" type="number" min="1" value="2" required />
+        </div>
+        <div class="field">
+          <label for="kinder">{c.kinder}</label>
+          <input id="kinder" name="Kinder" type="number" min="0" value="0" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="nachricht">{c.nachricht}</label>
+        <textarea id="nachricht" name="Nachricht" rows="4"></textarea>
+      </div>
+
+      <div class="field field--checkbox">
+        <input id="datenschutz" name="Datenschutz" type="checkbox" required />
+        <label for="datenschutz">
+          {c.datenschutzBefore}<a href={datenschutzHref}>{c.datenschutzLink}</a>{c.datenschutzAfter} *
+        </label>
+      </div>
+
+      <button type="submit" class="btn anfrage__submit">{c.submit}</button>
+
+      <!-- Status message — announced to screen readers via aria-live. -->
+      <p class="anfrage__status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "../styles/components/anfrage-form";
+</style>
+
+<script>
+  // Progressive enhancement: intercept submit, send via fetch, show feedback.
+  const forms = document.querySelectorAll<HTMLFormElement>(".anfrage__form");
+
+  forms.forEach((form) => {
+    const submitBtn = form.querySelector<HTMLButtonElement>(".anfrage__submit");
+    const status = form.querySelector<HTMLElement>(".anfrage__status");
+    const labels = {
+      idle: submitBtn?.textContent ?? "",
+      sending: form.dataset.sending ?? "",
+      success: form.dataset.success ?? "",
+      error: form.dataset.error ?? "",
+    };
+
+    const setStatus = (state: "success" | "error" | "", message = "") => {
+      if (!status) return;
+      status.classList.remove("is-success", "is-error");
+      if (state) status.classList.add(`is-${state}`);
+      status.textContent = message;
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Native HTML5 validation first (required fields, email, checkbox).
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        form.querySelector<HTMLElement>(":invalid")?.focus();
+        return;
+      }
+
+      // Lock the button and clear any previous status.
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = labels.sending;
+      }
+      setStatus("");
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+          form.reset();
+          setStatus("success", labels.success);
+        } else {
+          setStatus("error", labels.error);
+        }
+      } catch {
+        setStatus("error", labels.error);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = labels.idle;
+        }
+      }
+    });
+  });
+</script>

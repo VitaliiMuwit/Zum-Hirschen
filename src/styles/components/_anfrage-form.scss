@@ -1,0 +1,127 @@
+// AnfrageForm — request form styles.
+//
+// Imported into the component via `<style lang="scss">@use ...`.
+// Uses global design tokens (CSS variables from styles/variables.css),
+// so colors/spacing adapt automatically to the client.
+
+.anfrage__title {
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.anfrage__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.anfrage__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  input,
+  textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  // Highlight invalid fields only after the user has interacted with them.
+  input:user-invalid,
+  textarea:user-invalid {
+    border-color: #c0392b;
+  }
+}
+
+.field--checkbox {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: var(--space-xs);
+
+  label {
+    font-weight: 400;
+    color: var(--color-text);
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+}
+
+.anfrage__submit {
+  align-self: flex-start;
+  margin-top: var(--space-sm);
+
+  // Disabled state while the request is in flight.
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Status message (success / error). Hidden until the script sets a state.
+.anfrage__status {
+  margin-top: var(--space-sm);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  font-size: var(--fs-small);
+  display: none;
+
+  &.is-success {
+    display: block;
+    background-color: #e7f4ec;
+    color: #1e6b3a;
+    border: 1px solid #b6dcc4;
+  }
+
+  &.is-error {
+    display: block;
+    background-color: #fbeaea;
+    color: #a3271f;
+    border: 1px solid #e6b8b4;
+  }
+}
+
+// --- Responsive ---
+// Tablet and below: stack paired fields into a single column.
+@media (max-width: 768px) {
+  .anfrage__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .anfrage__row {
+    grid-template-columns: 1fr;
+  }
+
+  .anfrage__submit {
+    align-self: stretch;
+    text-align: center;
+  }
+}

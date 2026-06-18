@@ -1,0 +1,172 @@
+---
+/**
+ * MenuOverlay — fullscreen menu.
+ *
+ * Opened by the "Menü" button in the Header, closed by a button or Esc.
+ * All texts come through props — the component has no hardcoding
+ * and does not import language files. Menu items are already localized (prefixed href).
+ *
+ * Open/close logic — a small inline script below.
+ */
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import type { Locale } from "../i18n";
+
+export interface MenuLink {
+  label: string;
+  href: string;
+  primary?: boolean;
+}
+
+export interface Props {
+  locale: Locale;
+  menu: MenuLink[];
+  closeLabel: string;
+  ariaLabel: string;
+  navAriaLabel: string;
+}
+
+const { locale, menu, closeLabel, ariaLabel, navAriaLabel } = Astro.props;
+---
+
+<div id="menu-overlay" class="overlay" role="dialog" aria-modal="true" aria-label={ariaLabel} hidden>
+  <div class="overlay__inner container">
+    <button type="button" class="overlay__close" data-menu-close aria-label={closeLabel}>
+      <span aria-hidden="true">×</span> {closeLabel}
+    </button>
+
+    <nav class="overlay__nav" aria-label={navAriaLabel}>
+      <ul>
+        {
+          menu.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class={`overlay__link${item.primary ? " overlay__link--primary" : ""}`}
+                data-menu-close
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <LanguageSwitcher current={locale} variant="full" class="overlay__langs" />
+  </div>
+</div>
+
+<style>
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    background-color: var(--color-overlay);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  .overlay.is-open {
+    opacity: 1;
+  }
+
+  .overlay[hidden] {
+    display: none;
+  }
+
+  .overlay__inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+  }
+
+  .overlay__close {
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .overlay__close span {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .overlay__nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .overlay__link {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: #fff;
+    transition: color var(--transition);
+  }
+
+  .overlay__link:hover,
+  .overlay__link:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .overlay__link--primary {
+    color: var(--color-accent);
+  }
+
+  /* Layout overrides for the shared LanguageSwitcher inside the overlay. */
+  .overlay__langs {
+    gap: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: var(--space-md);
+  }
+
+  .overlay__langs :global(.lang-switcher__item) {
+    font-size: 1rem;
+  }
+</style>
+
+<script>
+  // Self-contained open/close logic for the fullscreen menu.
+  const overlay = document.getElementById("menu-overlay");
+  const openTriggers = document.querySelectorAll<HTMLElement>("[data-menu-open]");
+  const closeTriggers = document.querySelectorAll<HTMLElement>("[data-menu-close]");
+
+  function openMenu() {
+    if (!overlay) return;
+    overlay.hidden = false;
+    // Allow the browser to paint `display` before triggering the transition.
+    requestAnimationFrame(() => overlay.classList.add("is-open"));
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeMenu() {
+    if (!overlay) return;
+    overlay.classList.remove("is-open");
+    document.body.classList.remove("no-scroll");
+    // Hide after the fade-out transition completes.
+    window.setTimeout(() => {
+      overlay.hidden = true;
+    }, 300);
+  }
+
+  openTriggers.forEach((el) => el.addEventListener("click", openMenu));
+  closeTriggers.forEach((el) => el.addEventListener("click", closeMenu));
+
+  // Close on Escape for keyboard accessibility.
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay && !overlay.hidden) closeMenu();
+  });
+</script>

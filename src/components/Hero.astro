@@ -1,0 +1,86 @@
+---
+/**
+ * Hero — large intro image with a heading and CTA.
+ *
+ * All texts are passed through props (content) — no hardcoding.
+ * The image and CTA link are also props (language-agnostic component).
+ */
+export interface HeroContent {
+  subtitle: string;
+  title: string;
+  ctaLabel: string;
+}
+
+export interface Props {
+  content: HeroContent;
+  /** Background image path (relative to /public or absolute URL). */
+  image?: string;
+  /** Localized CTA target. */
+  ctaHref: string;
+}
+
+const { content, image = "/hero.jpg", ctaHref } = Astro.props;
+const { subtitle, title, ctaLabel } = content;
+---
+
+<section class="hero" style={`--hero-image: url('${image}')`}>
+  <div class="hero__overlay"></div>
+  <div class="hero__content container">
+    <p class="hero__subtitle">{subtitle}</p>
+    <h1 class="hero__title">{title}</h1>
+    <a href={ctaHref} class="btn hero__cta">{ctaLabel}</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: var(--hero-image);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(43, 37, 33, 0.35),
+      rgba(43, 37, 33, 0.55)
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin-inline: auto;
+    max-width: 800px;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__title {
+    color: #fff;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__cta {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .hero__cta:hover {
+    background-color: #fff;
+    border-color: #fff;
+  }
+</style>

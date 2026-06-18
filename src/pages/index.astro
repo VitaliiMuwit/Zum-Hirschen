@@ -1,0 +1,25 @@
+---
+/**
+ * Root redirect to the default language (/de/).
+ *
+ * Works in a static build: generates HTML with a meta-refresh.
+ * The actual pages live under /de/, /en/, /it/.
+ */
+import { defaultLocale, localizePath } from "../i18n";
+
+const target = localizePath(defaultLocale, "/");
+---
+
+<!doctype html>
+<html lang={defaultLocale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <meta name="robots" content="noindex" />
+    <title>Hotel Muster</title>
+  </head>
+  <body>
+    <p>Weiterleitung zu <a href={target}>{target}</a> …</p>
+  </body>
+</html>

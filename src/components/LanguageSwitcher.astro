@@ -1,0 +1,75 @@
+---
+/**
+ * LanguageSwitcher — language switcher (DE / IT / EN).
+ *
+ * Reusable in Header, MenuOverlay and Footer.
+ * Keeps the current page when changing language: takes the current path,
+ * removes the locale prefix and adds the target locale prefix
+ * (e.g. /de/impressum → /en/impressum).
+ *
+ * The locale list and display names come from i18n (single source of truth,
+ * pure config — not content files).
+ *
+ * variant:
+ *   "compact" — short codes (DE/IT/EN), for Header
+ *   "full"    — full names (Deutsch/Italiano/English), for the menu and footer
+ */
+import { locales, localeNames, stripLocale, localizePath, type Locale } from "../i18n";
+
+export interface Props {
+  /** Currently active locale (highlighted). */
+  current: Locale;
+  variant?: "compact" | "full";
+  /** Extra class for the wrapper, to scope colors per context. */
+  class?: string;
+}
+
+const { current, variant = "full", class: extraClass = "" } = Astro.props;
+
+// Path of the current page without its locale prefix — kept when switching.
+const basePath = stripLocale(Astro.url.pathname);
+---
+
+<div class:list={["lang-switcher", `lang-switcher--${variant}`, extraClass]} aria-label="Sprache wählen">
+  {
+    locales.map((code) => (
+      <a
+        href={localizePath(code, basePath)}
+        class:list={["lang-switcher__item", { "is-active": code === current }]}
+        hreflang={code}
+        lang={code}
+        aria-current={code === current ? "true" : undefined}
+      >
+        {variant === "compact" ? code.toUpperCase() : localeNames[code]}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .lang-switcher {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .lang-switcher--full {
+    gap: var(--space-sm);
+  }
+
+  .lang-switcher__item {
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    opacity: 0.65;
+    transition: opacity var(--transition), color var(--transition);
+  }
+
+  .lang-switcher--full .lang-switcher__item {
+    text-transform: uppercase;
+  }
+
+  .lang-switcher__item:hover,
+  .lang-switcher__item.is-active {
+    opacity: 1;
+  }
+</style>
