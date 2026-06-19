@@ -87,17 +87,17 @@ export const home = {
     scriptTitle: "Wohnen mit Wohlgefühl",
     images: [
       {
-        src: "/images/placeholders/slider_a.png",
+        src: "/images/placeholders/slider_a_b_c.webp",
         alt: "Komfortables Zimmer im Hotel zum Hirschen",
         caption: "Zimmer",
       },
       {
-        src: "/images/placeholders/slider_a.png",
+        src: "/images/placeholders/slider_a_b_c.webp",
         alt: "Komfortables Zimmer im Hotel zum Hirschen",
         caption: "Zimmer",
       },
       {
-        src: "/images/placeholders/slider_a.png",
+        src: "/images/placeholders/slider_a_b_c.webp",
         alt: "Komfortables Zimmer im Hotel zum Hirschen",
         caption: "Zimmer",
       },
