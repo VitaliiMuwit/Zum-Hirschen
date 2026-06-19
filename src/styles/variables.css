@@ -26,8 +26,8 @@
   --fs-h3: clamp(22px, 2.5vw, 29px);
 
   /* Layout */
-  --container-max: 1280px;
-  --container-padding: 24px;
+  --container-max: 1920px;
+  --container-padding: 20px;
   --radius: 4px;
   --radius-lg: 12px;
 

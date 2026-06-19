@@ -1,6 +1,7 @@
 ---
 /**
- * FeatureBand — blue-grey band with N feature columns (illustration + title + text).
+ * FeatureBand (section 3) — blue-grey band with feature columns.
+ * Desktop/tablet (≥900px): static 3-column row. Mobile (<900px): Swiper slider.
  */
 export interface FeatureItem {
   title: string;
@@ -15,29 +16,39 @@ const { items } = Astro.props;
 ---
 
 <section class="features s-bluegrey section">
-  <div class="container features__grid">
-    {
-      items.map((f) => (
-        <article class="feature">
-          <img class="feature__icon" src={f.icon} alt="" aria-hidden="true" loading="lazy" />
-          <h3 class="feature__title">{f.title}</h3>
-          <p class="feature__text">{f.text}</p>
-        </article>
-      ))
-    }
+  <div class="features__shell">
+    <div class="swiper features__swiper">
+      <div class="swiper-wrapper">
+        {
+          items.map((f: FeatureItem) => (
+            <article class="swiper-slide feature">
+              <img class="feature__icon" src={f.icon} alt="" aria-hidden="true" loading="lazy" />
+              <h3 class="feature__title">{f.title}</h3>
+              <p class="feature__text">{f.text}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="swiper-pagination features__pagination"></div>
+    </div>
   </div>
 </section>
 
 <style>
-  /* Mirror HomeIntro2's paddings: top = its bottom, bottom = its top.
-     The large top padding also clears the overlapping Hinweis callout. */
+  /* Mirror HomeIntro2's paddings: top = its bottom, bottom = its top. */
   .features.section {
     padding-top: clamp(66px, 15.63vw, 300px);
     padding-bottom: clamp(96px, 11.46vw, 220px);
   }
 
-  .features__grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);
+  .features__shell {
+    max-width: 1560px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .feature {
+    height: auto;
     text-align: center;
   }
   .feature__icon { height: 278px; width: auto; margin: 0 auto var(--space-sm); }
@@ -51,8 +62,49 @@ const { items } = Astro.props;
   }
   .feature__text { color: #fff; opacity: 0.95; }
 
+  /* Slider chrome (mobile only). */
+  .features__pagination {
+    position: static;
+    margin-top: var(--space-md);
+    --swiper-pagination-color: var(--color-primary);
+    --swiper-pagination-bullet-inactive-color: #fff;
+    --swiper-pagination-bullet-inactive-opacity: 0.5;
+  }
+  /* No pagination on desktop (static grid). */
+  @media (min-width: 900px) {
+    .features__pagination { display: none; }
+  }
+
   @media (max-width: 900px) {
-    .features__grid { grid-template-columns: 1fr; gap: var(--space-md); }
     .feature__icon { height: 160px; }
   }
 </style>
+
+<script>
+  import Swiper from "swiper";
+  import { Pagination, A11y, Keyboard } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/pagination";
+
+  document.querySelectorAll<HTMLElement>(".features__swiper").forEach((el) => {
+    new Swiper(el, {
+      modules: [Pagination, A11y, Keyboard],
+      slidesPerView: 1.15,
+      spaceBetween: 16,
+      keyboard: { enabled: true },
+      a11y: { enabled: true },
+      pagination: {
+        el: el.querySelector<HTMLElement>(".features__pagination"),
+        clickable: true,
+      },
+      // Desktop/tablet: show all three, no sliding (static grid).
+      breakpoints: {
+        900: {
+          slidesPerView: 3,
+          spaceBetween: 32,
+          allowTouchMove: false,
+        },
+      },
+    });
+  });
+</script>
