@@ -54,12 +54,9 @@ export const home = {
     illustration: "/images/illustrations/photo.png",
     scriptTitle: "Augenblicke",
     images: [
-      { src: "/images/placeholders/gallery-garten-pool.svg", alt: "Garten mit Freischwimmbad", caption: "Garten & Pool" },
-      { src: "/images/placeholders/gallery-fruehstueck.svg", alt: "Gedeckter Tisch im Restaurant", caption: "Restaurant" },
-      { src: "/images/placeholders/gallery-zimmer.svg", alt: "Zimmer mit Balkon", caption: "Zimmer" },
-      { src: "/images/placeholders/gallery-sauna.svg", alt: "Finnische und Bio-Sauna", caption: "Sauna" },
-      { src: "/images/placeholders/gallery-bruneck.svg", alt: "Altstadt von Bruneck", caption: "Bruneck" },
-      { src: "/images/placeholders/gallery-gewoelbe.svg", alt: "Historisches Gewölbe", caption: "Gewölbe von 1414" },
+      { src: "/images/placeholders/slider_a.png", alt: "Garten mit Freischwimmbad", caption: "Garten & Pool" },
+      { src: "/images/placeholders/slider_b.png", alt: "Gedeckter Tisch im Restaurant", caption: "Restaurant" },
+      { src: "/images/placeholders/gslider_c.webp", alt: "Zimmer mit Balkon", caption: "Zimmer" },
     ],
   },
 

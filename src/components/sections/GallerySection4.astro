@@ -2,7 +2,8 @@
 /**
  * GallerySection (section 4) — "Augenblicke": photographer illustration +
  * script title + Swiper slider, on the striped (awning) background.
- * Desktop: slides 455×379, 20px gap, infinite loop. Mobile: one full-width slide.
+ * Desktop: 3 equal slides (455×379) in a row, 20px gap, infinite loop.
+ * Mobile: one full-width slide.
  */
 export interface GalleryImage {
   src: string;
@@ -22,7 +23,9 @@ const { illustration, scriptTitle, images } = Astro.props;
   <div class="container">
     <img class="deco deco--l augenblicke__deco" src={illustration} alt="" aria-hidden="true" loading="lazy" />
     <p class="script-title">{scriptTitle}</p>
+  </div>
 
+  <div class="augenblicke__slider">
     <div class="swiper augenblicke__swiper">
       <div class="swiper-wrapper">
         {
@@ -55,16 +58,14 @@ const { illustration, scriptTitle, images } = Astro.props;
     margin: 0 auto var(--space-sm);
   }
 
-  .augenblicke__swiper {
-    margin-top: var(--space-md);
+  /* Slider area sized for three 455px slides + two 20px gaps, centered. */
+  .augenblicke__slider {
+    max-width: calc(455px * 3 + 20px * 2 + 96px); /* + side room for arrows */
+    margin-inline: auto;
+    padding-inline: 48px;
     position: relative;
   }
 
-  /* Slide 455×379 @1920, responsive; keep aspect ratio. */
-  .augenblicke__slide {
-    width: clamp(280px, 23.7vw, 455px);
-    height: auto;
-  }
   .augenblicke__slide img {
     width: 100%;
     aspect-ratio: 455 / 379;
@@ -74,14 +75,13 @@ const { illustration, scriptTitle, images } = Astro.props;
 
   .augenblicke__nav {
     --swiper-navigation-color: var(--color-text);
-    --swiper-navigation-size: 32px;
+    --swiper-navigation-size: 30px;
   }
+  .augenblicke__nav.swiper-button-prev { left: 0; }
+  .augenblicke__nav.swiper-button-next { right: 0; }
 
-  /* Mobile: one photo per view, near full width. */
   @media (max-width: 768px) {
-    .augenblicke__slide {
-      width: calc(100vw - 2 * var(--container-padding));
-    }
+    .augenblicke__slider { padding-inline: 24px; }
   }
 </style>
 
@@ -94,15 +94,18 @@ const { illustration, scriptTitle, images } = Astro.props;
   document.querySelectorAll<HTMLElement>(".augenblicke__swiper").forEach((el) => {
     new Swiper(el, {
       modules: [Navigation, A11y, Keyboard],
-      slidesPerView: "auto",
+      slidesPerView: 1,
       spaceBetween: 20,
       loop: true,
-      centeredSlides: true,
       keyboard: { enabled: true },
       a11y: { enabled: true },
       navigation: {
         prevEl: el.querySelector<HTMLElement>(".swiper-button-prev"),
         nextEl: el.querySelector<HTMLElement>(".swiper-button-next"),
+      },
+      // Desktop/tablet: three equal slides in a row.
+      breakpoints: {
+        768: { slidesPerView: 3, spaceBetween: 20 },
       },
     });
   });
