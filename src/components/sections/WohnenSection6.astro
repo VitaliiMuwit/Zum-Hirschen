@@ -85,6 +85,9 @@ const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
     margin: var(--space-md) auto var(--space-lg);
     padding-inline: 60px;
   }
+  .wohnen__slide {
+    width: 100%; /* one slide fills the track (also correct before Swiper inits) */
+  }
   .wohnen__slide img {
     width: 100%;
     aspect-ratio: 1260 / 800;
