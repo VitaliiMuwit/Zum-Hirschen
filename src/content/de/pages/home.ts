@@ -147,6 +147,12 @@ export const home = {
       "Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
   },
 
+  // Dashed note block under the Genuss & Wellness slider.
+  genussNote: {
+    title: "Gut zu wissen", // TODO: Titel anpassen
+    text: "TODO: Inhalt für den Hinweis-Block (Genuss & Wellness) ergänzen.",
+  },
+
   // 7) "Gastronomie in der Umgebung" — blue-grey callout on stripes
   gastronomie: {
     title: "Gastronomie in der Umgebung",

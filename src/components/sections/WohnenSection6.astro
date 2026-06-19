@@ -109,7 +109,9 @@ const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
 
 <style>
   .wohnen.section {
-    padding-block: clamp(96px, 11.46vw, 220px);
+    padding-top: clamp(96px, 11.46vw, 220px);
+    /* extra room so the next section's slider can overlap up onto this one */
+    padding-bottom: clamp(220px, 41.67vw, 800px);
   }
   .wohnen .container {
     text-align: center;

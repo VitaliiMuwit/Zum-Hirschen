@@ -54,15 +54,27 @@ export const home = {
     illustration: "/images/illustrations/photo.png",
     scriptTitle: "Augenblicke",
     images: [
-      { src: "/images/placeholders/slider_a.png", alt: "Garten mit Freischwimmbad", caption: "Garten & Pool" },
-      { src: "/images/placeholders/slider_b.png", alt: "Gedeckter Tisch im Restaurant", caption: "Restaurant" },
-      { src: "/images/placeholders/slider_c.webp", alt: "Zimmer mit Balkon", caption: "Zimmer" },
+      {
+        src: "/images/placeholders/slider_a.png",
+        alt: "Garten mit Freischwimmbad",
+        caption: "Garten & Pool",
+      },
+      {
+        src: "/images/placeholders/slider_b.png",
+        alt: "Gedeckter Tisch im Restaurant",
+        caption: "Restaurant",
+      },
+      {
+        src: "/images/placeholders/slider_c.webp",
+        alt: "Zimmer mit Balkon",
+        caption: "Zimmer",
+      },
     ],
   },
 
   // 4) "Beste Lage" — photo + centered text on orange
   bestLage: {
-    image: "/images/head.webp",
+    image: "/images/city.webp",
     imageAlt: "Hotel zum Hirschen in Stegen bei Bruneck",
     title: "Beste Lage",
     eyebrow: "Zentral gelegen und perfekt angebunden im Pustertal",
@@ -71,10 +83,24 @@ export const home = {
 
   // 5) "Wohnen mit Wohlgefühl" — room photo + caption + price accordion
   wohnen: {
-    illustration: "/images/illustrations/vase.svg",
+    illustration: "/images/illustrations/blume.png",
     scriptTitle: "Wohnen mit Wohlgefühl",
     images: [
-      { src: "/images/placeholders/zimmer-preise.svg", alt: "Komfortables Zimmer im Hotel zum Hirschen", caption: "Zimmer" },
+      {
+        src: "/images/placeholders/slider_a_b_c.webp",
+        alt: "Komfortables Zimmer im Hotel zum Hirschen",
+        caption: "Zimmer",
+      },
+      {
+        src: "/images/placeholders/slider_a_b_c.webp",
+        alt: "Komfortables Zimmer im Hotel zum Hirschen",
+        caption: "Zimmer",
+      },
+      {
+        src: "/images/placeholders/slider_a_b_c.webp",
+        alt: "Komfortables Zimmer im Hotel zum Hirschen",
+        caption: "Zimmer",
+      },
     ],
     caption:
       "Unsere Zimmer verfügen über Dusche/WC, Safe, SAT-TV, Föhn und größtenteils über einen Balkon. Einige Zimmer sind zudem mit Teppichboden ausgestattet.",
@@ -83,10 +109,17 @@ export const home = {
       { question: "Einbettzimmerzuschlag", answer: "+ 20,00 €" },
       {
         question: "Kinderermäßigungen",
-        answer: "Kinder bis 1,99 Jahre: GRATIS · bis 5,99 Jahre: 50 % · bis 11,99 Jahre: 30 % · bis 14,99 Jahre: 10 %",
+        answer:
+          "Kinder bis 1,99 Jahre: GRATIS · bis 5,99 Jahre: 50 % · bis 11,99 Jahre: 30 % · bis 14,99 Jahre: 10 %",
       },
-      { question: "Allgemeine Vertragsbedingungen", answer: "TODO: Inhalt ergänzen." },
-      { question: "Reise-Storno-Schutz Versicherung", answer: "TODO: Inhalt ergänzen." },
+      {
+        question: "Allgemeine Vertragsbedingungen",
+        answer: "TODO: Inhalt ergänzen.",
+      },
+      {
+        question: "Reise-Storno-Schutz Versicherung",
+        answer: "TODO: Inhalt ergänzen.",
+      },
     ],
   },
 
@@ -110,7 +143,14 @@ export const home = {
       "Erlebnisdusche",
       "Physiotherm-Infrarotkabine",
     ],
-    text2: "Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
+    text2:
+      "Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
+  },
+
+  // Dashed note block under the Genuss & Wellness slider.
+  genussNote: {
+    title: "Gut zu wissen", // TODO: Titel anpassen
+    text: "TODO: Inhalt für den Hinweis-Block (Genuss & Wellness) ergänzen.",
   },
 
   // 7) "Gastronomie in der Umgebung" — blue-grey callout on stripes
@@ -125,11 +165,27 @@ export const home = {
   erleben: {
     illustration: "/images/illustrations/compass.svg",
     scriptTitle: "Erleben",
-    intro: "Die Umgebung rund um Bruneck bietet zu jeder Jahreszeit unzählige Möglichkeiten: Wandern, Radfahren, Skifahren, Ausflüge und entspanntes Flanieren. Durch die Nähe zu Bus und Bahn erreichen Sie viele Ziele schnell und ohne Auto.",
+    intro:
+      "Die Umgebung rund um Bruneck bietet zu jeder Jahreszeit unzählige Möglichkeiten: Wandern, Radfahren, Skifahren, Ausflüge und entspanntes Flanieren. Durch die Nähe zu Bus und Bahn erreichen Sie viele Ziele schnell und ohne Auto.",
     cards: [
-      { title: "Wandern", text: "Vom gemütlichen Talweg bis zur hochalpinen Tour – unzählige Routen starten direkt vor der Tür.", image: "/images/placeholders/erleben-wandern.svg", imageAlt: "Wandern rund um Bruneck" },
-      { title: "Skifahren", text: "Der Kronplatz, Südtirols Top-Skiberg, liegt nur wenige Minuten entfernt – Pistenspaß für die ganze Familie.", image: "/images/placeholders/erleben-skifahren.svg", imageAlt: "Skifahren am Kronplatz" },
-      { title: "Biken", text: "Genussradeln im Tal oder anspruchsvolle Trails am Berg – das Pustertal ist ein Paradies für Radfahrer.", image: "/images/placeholders/erleben-biken.svg", imageAlt: "Biken im Pustertal" },
+      {
+        title: "Wandern",
+        text: "Vom gemütlichen Talweg bis zur hochalpinen Tour – unzählige Routen starten direkt vor der Tür.",
+        image: "/images/placeholders/erleben-wandern.svg",
+        imageAlt: "Wandern rund um Bruneck",
+      },
+      {
+        title: "Skifahren",
+        text: "Der Kronplatz, Südtirols Top-Skiberg, liegt nur wenige Minuten entfernt – Pistenspaß für die ganze Familie.",
+        image: "/images/placeholders/erleben-skifahren.svg",
+        imageAlt: "Skifahren am Kronplatz",
+      },
+      {
+        title: "Biken",
+        text: "Genussradeln im Tal oder anspruchsvolle Trails am Berg – das Pustertal ist ein Paradies für Radfahrer.",
+        image: "/images/placeholders/erleben-biken.svg",
+        imageAlt: "Biken im Pustertal",
+      },
     ],
     buttonLabel: "Mehr erfahren / Guestnet",
     buttonHref: "#",
