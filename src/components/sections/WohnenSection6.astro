@@ -46,11 +46,11 @@ const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
   .accordion__item { border-bottom: 1px solid rgba(114, 110, 106, 0.3); }
   .accordion__q {
     cursor: pointer; list-style: none; padding: var(--space-sm) 0;
-    display: flex; justify-content: center; align-items: center; gap: 0.75rem;
+    display: flex; justify-content: center; align-items: center; gap: 12px;
     font-weight: 600; color: var(--color-text); text-align: center;
   }
   .accordion__q::-webkit-details-marker { display: none; }
-  .accordion__q::after { content: "›"; color: var(--color-primary); font-size: 1.4rem; }
+  .accordion__q::after { content: "›"; color: var(--color-primary); font-size: 22px; }
   .accordion__item[open] .accordion__q::after { content: "⌄"; }
   .accordion__a { text-align: center; color: var(--color-text); padding-bottom: var(--space-sm); }
 </style>

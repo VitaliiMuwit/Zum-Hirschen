@@ -18,25 +18,25 @@
   --color-border: color-mix(in srgb, var(--color-text) 14%, transparent);
   --color-overlay: color-mix(in srgb, var(--color-text) 92%, transparent);
 
-  /* Type scale */
-  --fs-base: 1.125rem;
-  --fs-small: 0.9rem;
-  --fs-h1: clamp(2.5rem, 6vw, 4.5rem);
-  --fs-h2: clamp(2rem, 4vw, 3rem);
-  --fs-h3: clamp(1.4rem, 2.5vw, 1.8rem);
+  /* Type scale (px — matches the Figma values; 16px = 16px) */
+  --fs-base: 18px;
+  --fs-small: 14px;
+  --fs-h1: clamp(40px, 6vw, 72px);
+  --fs-h2: clamp(32px, 4vw, 48px);
+  --fs-h3: clamp(22px, 2.5vw, 29px);
 
   /* Layout */
   --container-max: 1280px;
-  --container-padding: 1.5rem;
+  --container-padding: 24px;
   --radius: 4px;
   --radius-lg: 12px;
 
-  /* Spacing scale */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 2rem;
-  --space-lg: 4rem;
-  --space-xl: 6rem;
+  /* Spacing scale (px) */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 96px;
 
   /* Effects */
   --shadow: 0 4px 24px rgba(31, 31, 31, 0.08);

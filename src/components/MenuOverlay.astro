@@ -89,18 +89,18 @@ const { locale, menu, closeLabel, ariaLabel, navAriaLabel } = Astro.props;
     align-self: flex-end;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
     background: none;
     border: none;
     color: #fff;
     font-family: var(--font-body);
-    font-size: 1.1rem;
+    font-size: 18px;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 8px;
   }
 
   .overlay__close span {
-    font-size: 1.6rem;
+    font-size: 26px;
     line-height: 1;
   }
 
@@ -112,7 +112,7 @@ const { locale, menu, closeLabel, ariaLabel, navAriaLabel } = Astro.props;
 
   .overlay__link {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(32px, 5vw, 56px);
     color: #fff;
     transition: color var(--transition);
   }
@@ -134,7 +134,7 @@ const { locale, menu, closeLabel, ariaLabel, navAriaLabel } = Astro.props;
   }
 
   .overlay__langs :global(.lang-switcher__item) {
-    font-size: 1rem;
+    font-size: 16px;
   }
 </style>
 
