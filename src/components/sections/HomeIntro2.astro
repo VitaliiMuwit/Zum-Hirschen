@@ -16,7 +16,7 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
 <section class="intro s-cream section">
   <div class="container intro__inner">
     <h1 class="intro__title">{title}</h1>
-    <p class="eyebrow">{eyebrow}</p>
+    <h3 class="eyebrow">{eyebrow}</h3>
     {paragraphs.map((p) => <p class="intro__text">{p}</p>)}
   </div>
 
@@ -31,9 +31,18 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
   }
 
   /* Text block max width 1200px on a 1920px base, centered. */
-  .intro__inner { max-width: 1200px; margin-inline: auto; text-align: center; }
-  .intro__title { margin-bottom: var(--space-sm); }
-  .intro__text { color: var(--color-text); margin-bottom: var(--space-sm); }
+  .intro__inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .intro__title {
+    margin-bottom: var(--space-sm);
+  }
+  .intro__text {
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+  }
 
   /* Orange callout — positioned to straddle the section boundary. */
   .intro__hinweis {
@@ -49,14 +58,20 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
     border-radius: var(--radius-lg);
     padding: 30px;
     text-align: center;
+
+    font-weight: 400;
+    font-size: var(--fz-17);
+    line-height: 135%;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--fs-small);
-    line-height: 1.8;
+    text-align: center;
+    color: #f0ede4;
   }
 
   /* Mobile: keep the callout straddling the boundary (just a smaller inner padding). */
   @media (max-width: 768px) {
-    .intro__hinweis { padding: 20px; }
+    .intro__hinweis {
+      padding: 20px;
+    }
   }
 </style>

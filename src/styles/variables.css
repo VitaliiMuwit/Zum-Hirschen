@@ -18,12 +18,33 @@
   --color-border: color-mix(in srgb, var(--color-text) 14%, transparent);
   --color-overlay: color-mix(in srgb, var(--color-text) 92%, transparent);
 
-  /* Type scale (px — matches the Figma values; 16px = 16px) */
-  --fs-base: 18px;
+  /* Fluid font-size scale — value = size at 1920px, scales down to a min.
+     Formula: clamp(min, calc(SIZE * 100vw / 1920), SIZE). */
+  --fz-16: clamp(14px, calc(16 * 100vw / 1920), 16px);
+  --fz-17: clamp(14px, calc(17 * 100vw / 1920), 17px);
+  --fz-18: clamp(14px, calc(18 * 100vw / 1920), 18px);
+  --fz-20: clamp(16px, calc(20 * 100vw / 1920), 20px);
+  --fz-22: clamp(16px, calc(22 * 100vw / 1920), 22px);
+  --fz-24: clamp(18px, calc(24 * 100vw / 1920), 24px);
+  --fz-26: clamp(18px, calc(26 * 100vw / 1920), 26px);
+  --fz-28: clamp(20px, calc(28 * 100vw / 1920), 28px);
+  --fz-30: clamp(20px, calc(30 * 100vw / 1920), 30px);
+  --fz-32: clamp(22px, calc(32 * 100vw / 1920), 32px);
+  --fz-36: clamp(24px, calc(36 * 100vw / 1920), 36px);
+  --fz-40: clamp(24px, calc(40 * 100vw / 1920), 40px);
+  --fz-44: clamp(28px, calc(44 * 100vw / 1920), 44px);
+  --fz-48: clamp(30px, calc(48 * 100vw / 1920), 48px);
+  --fz-52: clamp(32px, calc(52 * 100vw / 1920), 52px);
+  --fz-56: clamp(34px, calc(56 * 100vw / 1920), 56px);
+  --fz-60: clamp(36px, calc(60 * 100vw / 1920), 60px);
+  --fz-75: clamp(45px, calc(75 * 100vw / 1920), 75px);
+
+  /* Named tokens used across the styles */
+  --fs-base: var(--fz-18);
   --fs-small: 14px;
-  --fs-h1: clamp(40px, 6vw, 72px);
-  --fs-h2: clamp(32px, 4vw, 48px);
-  --fs-h3: clamp(22px, 2.5vw, 29px);
+  --fs-h1: var(--fz-40);
+  --fs-h2: var(--fz-40);
+  --fs-h3: var(--fz-17);
 
   /* Layout */
   --container-max: 1920px;

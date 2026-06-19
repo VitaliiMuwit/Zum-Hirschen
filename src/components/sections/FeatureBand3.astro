@@ -22,8 +22,14 @@ const { items } = Astro.props;
         {
           items.map((f: FeatureItem) => (
             <article class="swiper-slide feature">
-              <img class="feature__icon" src={f.icon} alt="" aria-hidden="true" loading="lazy" />
-              <h3 class="feature__title">{f.title}</h3>
+              <img
+                class="feature__icon"
+                src={f.icon}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+              />
+              <h2 class="feature__title">{f.title}</h2>
               <p class="feature__text">{f.text}</p>
             </article>
           ))
@@ -51,16 +57,24 @@ const { items } = Astro.props;
     height: auto;
     text-align: center;
   }
-  .feature__icon { height: 278px; width: auto; margin: 0 auto var(--space-sm); }
+  .feature__icon {
+    height: 278px;
+    width: auto;
+    margin: 0 auto var(--space-sm);
+  }
   /* Card title: a heading, not the uppercase kicker — taupe, non-uppercase. */
   .feature__title {
-    font-size: clamp(20px, 1.56vw, 30px);
-    line-height: 1.2;
+    font-size: var(--fz-40);
+    line-height: 1.1;
     letter-spacing: normal;
     text-transform: none;
     margin-bottom: var(--space-sm);
+    color: #a09271;
   }
-  .feature__text { color: #fff; opacity: 0.95; }
+  .feature__text {
+    color: #fff;
+    opacity: 0.95;
+  }
 
   /* Slider chrome (mobile only). */
   .features__pagination {
@@ -72,11 +86,15 @@ const { items } = Astro.props;
   }
   /* No pagination on desktop (static grid). */
   @media (min-width: 900px) {
-    .features__pagination { display: none; }
+    .features__pagination {
+      display: none;
+    }
   }
 
   @media (max-width: 900px) {
-    .feature__icon { height: 160px; }
+    .feature__icon {
+      height: 160px;
+    }
     /* On mobile keep the text block to ~50% of the screen width. */
     .feature__title,
     .feature__text {

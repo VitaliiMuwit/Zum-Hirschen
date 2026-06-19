@@ -25,7 +25,10 @@ const { image, imageAlt, title, eyebrow, text } = Astro.props;
 
 <style>
   /* BFC so the photo's negative margin pulls the photo (not the section). */
-  .lage.s-orange { display: flow-root; }
+  .lage.s-orange {
+    display: flow-root;
+    padding-bottom: clamp(96px, 11.46vw, 220px);
+  }
 
   /* Photo (1880×1080) pulled up by half its own height → overlaps the
      section above. margin % is relative to the section width, and the photo
@@ -42,7 +45,16 @@ const { image, imageAlt, title, eyebrow, text } = Astro.props;
     object-fit: cover;
     display: block;
   }
-  .lage__body { text-align: center; padding-block: var(--space-xl); }
-  .lage__text { color: rgba(255, 255, 255, 0.95); }
-  @media (max-width: 600px) { .lage__photo { padding-inline: var(--space-sm); } }
+  .lage__body {
+    text-align: center;
+    padding-top: var(--space-xl);
+  }
+  .lage__text {
+    color: rgba(255, 255, 255, 0.95);
+  }
+  @media (max-width: 600px) {
+    .lage__photo {
+      padding-inline: var(--space-sm);
+    }
+  }
 </style>

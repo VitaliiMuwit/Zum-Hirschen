@@ -53,7 +53,7 @@ const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
     font-weight: 600; color: var(--color-text); text-align: center;
   }
   .accordion__q::-webkit-details-marker { display: none; }
-  .accordion__q::after { content: "âº"; color: var(--color-primary); font-size: 22px; }
+  .accordion__q::after { content: "âº"; color: var(--color-primary); font-size: var(--fz-22); }
   .accordion__item[open] .accordion__q::after { content: "â"; }
   .accordion__a { text-align: center; color: var(--color-text); padding-bottom: var(--space-sm); }
 </style>
