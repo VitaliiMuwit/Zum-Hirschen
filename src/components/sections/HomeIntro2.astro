@@ -55,14 +55,8 @@ const { title, eyebrow, paragraphs, hinweis } = Astro.props;
     line-height: 1.8;
   }
 
-  /* Mobile: stack the callout in normal flow (no overlap with the text). */
+  /* Mobile: keep the callout straddling the boundary (just a smaller inner padding). */
   @media (max-width: 768px) {
-    .intro.section { padding-bottom: var(--space-lg); }
-    .intro__hinweis {
-      position: static;
-      transform: none;
-      margin: var(--space-lg) auto 0;
-      padding: 20px;
-    }
+    .intro__hinweis { padding: 20px; }
   }
 </style>
