@@ -87,9 +87,16 @@ const { home, common } = getTranslations(lang);
 </BaseLayout>
 
 <style>
-  /* Clean hero: full-bleed photo; the header (logo + menu) overlays its top. */
+  /* Clean hero: full-bleed photo; the header (logo + menu) overlays its top.
+     Height: 100vh desktop, 60vh tablet, 40vh mobile. */
   .hero-photo {
-    min-height: clamp(520px, 90vh, 1080px);
+    height: 100vh;
     background: url("/images/head.webp") center / cover no-repeat;
+  }
+  @media (max-width: 900px) {
+    .hero-photo { height: 60vh; }
+  }
+  @media (max-width: 600px) {
+    .hero-photo { height: 40vh; }
   }
 </style>
