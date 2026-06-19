@@ -1,4 +1,5 @@
 ---
+import { withBase } from "../i18n";
 /**
  * ContentSection — alternating "Text + Image" / "Image + Text" section.
  *
@@ -26,7 +27,7 @@ const { eyebrow, title, text, image, imageAlt, reverse = false, ctaLabel, ctaHre
 <section class={`content-section${reverse ? " content-section--reverse" : ""}`}>
   <div class="container content-section__inner">
     <div class="content-section__media">
-      <img src={image} alt={imageAlt} loading="lazy" decoding="async" />
+      <img src={withBase(image)} alt={imageAlt} loading="lazy" decoding="async" />
     </div>
 
     <div class="content-section__body">

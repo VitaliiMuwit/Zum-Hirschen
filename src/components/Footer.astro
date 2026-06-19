@@ -13,7 +13,7 @@ import { contact } from "../config/contact";
 import { social } from "../config/social";
 import { partners } from "../config/partners";
 import LanguageSwitcher from "./LanguageSwitcher.astro";
-import type { Locale } from "../i18n";
+import { withBase, type Locale } from "../i18n";
 
 export interface FooterLabels {
   mapsLabel: string;
@@ -44,7 +44,7 @@ const socialLinks = social.filter((s) => s.href);
   <div class="footer__main container">
     <img
       class="footer__logo"
-      src={site.logoFooter}
+      src={withBase(site.logoFooter)}
       alt={site.name}
       width="320"
       height="180"
@@ -138,7 +138,7 @@ const socialLinks = social.filter((s) => s.href);
       <div class="footer__partners-bar">
         <ul class="footer__partners container" aria-label="Partner">
           {partners.map((p) => {
-            const logo = <img src={p.logo} alt={p.alt} loading="lazy" />;
+            const logo = <img src={withBase(p.logo)} alt={p.alt} loading="lazy" />;
             return (
               <li>
                 {p.href ? (

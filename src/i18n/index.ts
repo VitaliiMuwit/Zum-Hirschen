@@ -46,25 +46,44 @@ export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
 }
 
+/** Deployment base path (e.g. "/Zum-Hirschen"), without a trailing slash. */
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 /**
- * Build a localized path.
- * localizePath("de", "/")          -> "/de/"
- * localizePath("de", "/#zimmer")   -> "/de/#zimmer"
- * localizePath("en", "/impressum") -> "/en/impressum"
+ * Prefix a root-relative path with the deployment base.
+ * Use for ALL internal assets/links (images, fonts, hrefs) so the site works
+ * under a GitHub Pages subpath.
+ * withBase("/images/logo.png") -> "/Zum-Hirschen/images/logo.png"
  */
-export function localizePath(locale: Locale, path: string): string {
-  if (path === "/" || path === "") return `/${locale}/`;
+export function withBase(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `/${locale}${normalized}`;
+  return `${BASE}${normalized}`;
 }
 
 /**
- * Remove a leading locale segment from a pathname.
- * stripLocale("/de/impressum/") -> "/impressum/"
- * stripLocale("/de/")           -> "/"
+ * Build a localized, base-prefixed path.
+ * localizePath("de", "/")          -> "/Zum-Hirschen/de/"
+ * localizePath("de", "/#zimmer")   -> "/Zum-Hirschen/de/#zimmer"
+ * localizePath("en", "/impressum") -> "/Zum-Hirschen/en/impressum"
+ */
+export function localizePath(locale: Locale, path: string): string {
+  const local =
+    path === "/" || path === ""
+      ? `/${locale}/`
+      : `/${locale}${path.startsWith("/") ? path : `/${path}`}`;
+  return withBase(local);
+}
+
+/**
+ * Remove the deployment base and a leading locale segment from a pathname.
+ * (Astro.url.pathname includes the base in production.)
+ * stripLocale("/Zum-Hirschen/de/impressum/") -> "/impressum/"
+ * stripLocale("/de/")                         -> "/"
  */
 export function stripLocale(pathname: string): string {
-  const match = pathname.match(/^\/(de|en|it)(\/.*)?$/);
+  let p = pathname;
+  if (BASE && p.startsWith(BASE)) p = p.slice(BASE.length) || "/";
+  const match = p.match(/^\/(de|en|it)(\/.*)?$/);
   if (match) return match[2] || "/";
-  return pathname || "/";
+  return p || "/";
 }

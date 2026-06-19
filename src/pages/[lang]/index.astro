@@ -16,7 +16,7 @@ import GenussWellness7 from "../../components/sections/GenussWellness7.astro";
 import ErlebenSection8 from "../../components/sections/ErlebenSection8.astro";
 import WarumList9 from "../../components/sections/WarumList9.astro";
 import { getSeo } from "../../config/seo";
-import { locales, getTranslations, type Locale } from "../../i18n";
+import { locales, getTranslations, withBase, type Locale } from "../../i18n";
 
 export function getStaticPaths() {
   return locales.map((lang) => ({ params: { lang } }));
@@ -24,6 +24,7 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Locale };
 const { home } = getTranslations(lang);
+const heroBg = withBase("/images/head.webp");
 ---
 
 <BaseLayout locale={lang} seo={getSeo("home", lang)}>
@@ -79,12 +80,12 @@ const { home } = getTranslations(lang);
   <WarumList9 title={home.warum.title} items={home.warum.items} />
 </BaseLayout>
 
-<style>
+<style define:vars={{ heroBg: `url(${heroBg})` }}>
   /* Clean hero: full-bleed photo; the header (logo + menu) overlays its top.
      Height: 100vh desktop, 60vh tablet, 40vh mobile. */
   .hero-photo {
     height: 100vh;
-    background: url("/images/head.webp") center / cover no-repeat;
+    background: var(--heroBg) center / cover no-repeat;
   }
   @media (max-width: 900px) {
     .hero-photo { height: 60vh; }

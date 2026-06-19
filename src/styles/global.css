@@ -21,10 +21,11 @@
 @font-face {
   font-family: "Scriptina";
   src:
-    url("/fonts/scriptina.woff2") format("woff2"),
-    url("/fonts/scriptina.woff") format("woff"),
-    url("/fonts/scriptina.ttf") format("truetype"),
-    url("/fonts/scriptina.otf") format("opentype");
+    /* base path hardcoded — CSS url() can't read import.meta.env.BASE_URL */
+    url("/Zum-Hirschen/fonts/scriptina.woff2") format("woff2"),
+    url("/Zum-Hirschen/fonts/scriptina.woff") format("woff"),
+    url("/Zum-Hirschen/fonts/scriptina.ttf") format("truetype"),
+    url("/Zum-Hirschen/fonts/scriptina.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

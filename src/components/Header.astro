@@ -11,7 +11,7 @@
 import { site } from "../config/site";
 import Awning from "./Awning.astro";
 import MenuOverlay, { type MenuLink } from "./MenuOverlay.astro";
-import { localizePath, type Locale } from "../i18n";
+import { withBase, localizePath, type Locale } from "../i18n";
 
 export interface HeaderUi {
   menuButton: string;
@@ -36,7 +36,7 @@ const homeHref = localizePath(locale, "/");
 
   <div class="header__bar">
     <a href={homeHref} class="brand" aria-label={`${site.name} – ${ui.homeAria}`}>
-      <img class="brand__logo" src={site.logo} alt={site.name} width="296" height="164" />
+      <img class="brand__logo" src={withBase(site.logo)} alt={site.name} width="296" height="164" />
     </a>
 
     <button

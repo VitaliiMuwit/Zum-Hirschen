@@ -1,15 +1,16 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import node from "@astrojs/node";
 
 // https://astro.build/config
 //
-// output: "static" → all pages are prerendered by default (SSG).
-// The Node adapter (standalone) is only needed for server routes
-// that explicitly disable prerender — in our case /api/contact (form + Resend).
-// Standalone mode is not tied to Netlify/Vercel: the site can be
-// deployed on any Node host (`node ./dist/server/entry.mjs`).
+// Fully static (SSG) build for the GitHub Pages project site:
+//   https://vitaliimuwit.github.io/Zum-Hirschen/
+// `base` must match the repo name. Every internal link/asset is prefixed with it
+// via withBase() / localizePath() (see src/i18n). No server adapter: GitHub Pages
+// hosts static files only (the old /api/contact form route was removed).
 export default defineConfig({
+  site: "https://vitaliimuwit.github.io",
+  base: "/Zum-Hirschen",
   output: "static",
-  adapter: node({ mode: "standalone" }),
+  trailingSlash: "ignore",
 });
