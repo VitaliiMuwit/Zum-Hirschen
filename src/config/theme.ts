@@ -60,9 +60,9 @@ export const theme: Theme = {
     muted: "#827E79", // extra muted grey (reserve)
   },
   fonts: {
-    // Clean sans for headings + body; Dancing Script for decorative titles.
-    heading: "Mulish",
-    body: "Mulish",
+    // Geist for headings + body; Scriptina/Dancing Script for decorative titles.
+    heading: "Geist",
+    body: "Geist",
     script: "Dancing Script",
   },
 };
@@ -72,8 +72,9 @@ export const theme: Theme = {
  * Returned as a `:root { ... }` string for injection in BaseLayout.
  */
 export function themeToCssVars(t: Theme = theme): string {
-  const headingStack = `"${t.fonts.heading}", "Times New Roman", serif`;
-  const bodyStack = `"${t.fonts.body}", system-ui, -apple-system, "Segoe UI", sans-serif`;
+  const sans = `system-ui, -apple-system, "Segoe UI", sans-serif`;
+  const headingStack = `"${t.fonts.heading}", ${sans}`;
+  const bodyStack = `"${t.fonts.body}", ${sans}`;
   const scriptStack = `"${t.fonts.script}", cursive`;
   return `:root{
   --color-primary:${t.colors.primary};

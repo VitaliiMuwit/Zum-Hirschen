@@ -234,6 +234,7 @@ p {
 }
 .eyebrow--light {
   color: var(--color-heading-light);
+  margin-block: var(--space-md);
 }
 
 /* Decorative script section title (Augenblicke, Erleben, ...).
