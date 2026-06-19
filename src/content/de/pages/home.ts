@@ -56,7 +56,7 @@ export const home = {
     images: [
       { src: "/images/placeholders/slider_a.png", alt: "Garten mit Freischwimmbad", caption: "Garten & Pool" },
       { src: "/images/placeholders/slider_b.png", alt: "Gedeckter Tisch im Restaurant", caption: "Restaurant" },
-      { src: "/images/placeholders/gslider_c.webp", alt: "Zimmer mit Balkon", caption: "Zimmer" },
+      { src: "/images/placeholders/slider_c.webp", alt: "Zimmer mit Balkon", caption: "Zimmer" },
     ],
   },
 
