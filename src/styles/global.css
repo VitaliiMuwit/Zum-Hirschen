@@ -5,6 +5,21 @@
 
 @import "./variables.css";
 
+/* Scriptina — decorative script font for section titles.
+   Drop the file into public/fonts/ as scriptina.woff2 (or .woff/.ttf/.otf).
+   Until then, the script titles fall back to Dancing Script. */
+@font-face {
+  font-family: "Scriptina";
+  src:
+    url("/fonts/scriptina.woff2") format("woff2"),
+    url("/fonts/scriptina.woff") format("woff"),
+    url("/fonts/scriptina.ttf") format("truetype"),
+    url("/fonts/scriptina.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* --- Reset --- */
 *,
 *::before,
