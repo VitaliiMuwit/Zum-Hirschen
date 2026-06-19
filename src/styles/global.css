@@ -195,11 +195,20 @@ p {
 .s-bluegrey h2,
 .s-orange h2 { color: #f0ede4; }
 
-/* Vertical "awning" stripes (yellow / cream) */
+/* Vertical "awning" stripes (yellow / cream), symmetric from the center.
+   Stripe width 148px @1920, responsive; a yellow stripe stays centered so the
+   edges mirror each other when the screen widens/narrows. */
 .stripes {
-  background-image: repeating-linear-gradient(
-    90deg, #f8d167 0, #f8d167 80px, #faf9f3 80px, #faf9f3 160px
+  --stripe-w: clamp(40px, 7.71vw, 148px);
+  background-image: linear-gradient(
+    90deg,
+    #faf9f3 0 25%,
+    #f8d167 25% 75%,
+    #faf9f3 75% 100%
   );
+  background-size: calc(var(--stripe-w) * 2) 100%;
+  background-position: center;
+  background-repeat: repeat;
 }
 
 /* Uppercase eyebrow / kicker (matches h3 token) */
@@ -213,11 +222,15 @@ p {
 }
 .eyebrow--light { color: rgba(255, 255, 255, 0.85); }
 
-/* Decorative script section title (Augenblicke, Erleben, ...) */
+/* Decorative script section title (Augenblicke, Erleben, ...).
+   TODO: add the "Scriptina" web font to match Figma exactly; falls back to
+   Dancing Script (var(--font-script)) until then. Size 75px @1920, responsive. */
 .script-title {
-  font-family: var(--font-script);
-  font-size: clamp(42px, 5vw, 64px);
-  color: var(--color-text);
+  font-family: "Scriptina", var(--font-script), cursive;
+  font-weight: 400;
+  font-size: clamp(40px, 3.91vw, 75px);
+  line-height: 1.1;
+  color: #665d51;
   text-align: center;
   margin: 0 0 var(--space-lg);
 }
@@ -225,16 +238,12 @@ p {
 /* Decorative vintage illustration */
 .deco { display: block; height: 220px; width: auto; margin: 0 auto var(--space-sm); }
 .deco--sm { height: 160px; }
+.deco--l { height: 280px; }
 
 /* Blue-grey button variant */
 .btn--bluegrey { background: var(--color-secondary); border-color: var(--color-secondary); color: #fff; }
 
 @media (max-width: 900px) {
-  .stripes {
-    background-image: repeating-linear-gradient(
-      90deg, #f8d167 0, #f8d167 48px, #faf9f3 48px, #faf9f3 96px
-    );
-  }
   .deco { height: 160px; }
   .deco--sm { height: 120px; }
 }

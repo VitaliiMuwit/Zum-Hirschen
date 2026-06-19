@@ -1,9 +1,14 @@
 ---
 /**
- * GallerySection — "Augenblicke": vintage illustration + script title + Gallery,
- * on the striped (awning) background.
+ * GallerySection (section 4) — "Augenblicke": photographer illustration +
+ * script title + Swiper slider, on the striped (awning) background.
+ * Desktop: slides 455×379, 20px gap, infinite loop. Mobile: one full-width slide.
  */
-import Gallery, { type GalleryImage } from "../Gallery.astro";
+export interface GalleryImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
 
 export interface Props {
   illustration: string;
@@ -15,12 +20,85 @@ const { illustration, scriptTitle, images } = Astro.props;
 
 <section class="augenblicke stripes section">
   <div class="container">
-    <img class="deco" src={illustration} alt="" aria-hidden="true" loading="lazy" />
+    <img class="deco deco--l augenblicke__deco" src={illustration} alt="" aria-hidden="true" loading="lazy" />
     <p class="script-title">{scriptTitle}</p>
-    <Gallery images={images} columns={3} />
+
+    <div class="swiper augenblicke__swiper">
+      <div class="swiper-wrapper">
+        {
+          images.map((img: GalleryImage) => (
+            <div class="swiper-slide augenblicke__slide">
+              <img src={img.src} alt={img.alt} loading="lazy" />
+            </div>
+          ))
+        }
+      </div>
+      <div class="swiper-button-prev augenblicke__nav"></div>
+      <div class="swiper-button-next augenblicke__nav"></div>
+    </div>
   </div>
 </section>
 
 <style>
-  .augenblicke .container > :global(.gallery) { margin-top: var(--space-md); }
+  /* Big bottom padding (780px @1920), responsive. */
+  .augenblicke.section {
+    padding-bottom: clamp(160px, 40.62vw, 780px);
+  }
+
+  /* Photographer pulled up 40px @1920 (overlaps the previous section). */
+  .augenblicke__deco {
+    margin: clamp(-40px, -2.08vw, 0px) auto var(--space-sm);
+  }
+
+  .augenblicke__swiper {
+    margin-top: var(--space-md);
+    position: relative;
+  }
+
+  /* Slide 455×379 @1920, responsive; keep aspect ratio. */
+  .augenblicke__slide {
+    width: clamp(280px, 23.7vw, 455px);
+    height: auto;
+  }
+  .augenblicke__slide img {
+    width: 100%;
+    aspect-ratio: 455 / 379;
+    object-fit: cover;
+    display: block;
+  }
+
+  .augenblicke__nav {
+    --swiper-navigation-color: var(--color-text);
+    --swiper-navigation-size: 32px;
+  }
+
+  /* Mobile: one photo per view, near full width. */
+  @media (max-width: 768px) {
+    .augenblicke__slide {
+      width: calc(100vw - 2 * var(--container-padding));
+    }
+  }
 </style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, A11y, Keyboard } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/navigation";
+
+  document.querySelectorAll<HTMLElement>(".augenblicke__swiper").forEach((el) => {
+    new Swiper(el, {
+      modules: [Navigation, A11y, Keyboard],
+      slidesPerView: "auto",
+      spaceBetween: 20,
+      loop: true,
+      centeredSlides: true,
+      keyboard: { enabled: true },
+      a11y: { enabled: true },
+      navigation: {
+        prevEl: el.querySelector<HTMLElement>(".swiper-button-prev"),
+        nextEl: el.querySelector<HTMLElement>(".swiper-button-next"),
+      },
+    });
+  });
+</script>

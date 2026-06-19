@@ -51,7 +51,7 @@ export const home = {
 
   // 3) "Augenblicke" gallery on striped background
   gallery: {
-    illustration: "/images/illustrations/photographer.svg",
+    illustration: "/images/illustrations/photo.png",
     scriptTitle: "Augenblicke",
     images: [
       { src: "/images/placeholders/gallery-garten-pool.svg", alt: "Garten mit Freischwimmbad", caption: "Garten & Pool" },
