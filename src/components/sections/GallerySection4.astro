@@ -40,14 +40,19 @@ const { illustration, scriptTitle, images } = Astro.props;
 </section>
 
 <style>
-  /* Big bottom padding (780px @1920), responsive. */
+  /* No top padding so the photographer can overlap the previous section;
+     big bottom padding (780px @1920), responsive. */
   .augenblicke.section {
+    padding-top: 0;
     padding-bottom: clamp(160px, 40.62vw, 780px);
   }
 
-  /* Photographer pulled up 40px @1920 (overlaps the previous section). */
+  /* Photographer pulled up 40px @1920 — overlaps the section above. */
   .augenblicke__deco {
-    margin: clamp(-40px, -2.08vw, 0px) auto var(--space-sm);
+    position: relative;
+    z-index: 1;
+    top: clamp(-40px, -2.08vw, 0px);
+    margin: 0 auto var(--space-sm);
   }
 
   .augenblicke__swiper {
