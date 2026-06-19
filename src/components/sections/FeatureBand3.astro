@@ -77,6 +77,12 @@ const { items } = Astro.props;
 
   @media (max-width: 900px) {
     .feature__icon { height: 160px; }
+    /* On mobile keep the text block to ~75% of the screen width. */
+    .feature__title,
+    .feature__text {
+      max-width: 75vw;
+      margin-inline: auto;
+    }
   }
 </style>
 
@@ -89,8 +95,9 @@ const { items } = Astro.props;
   document.querySelectorAll<HTMLElement>(".features__swiper").forEach((el) => {
     new Swiper(el, {
       modules: [Pagination, A11y, Keyboard],
-      slidesPerView: 1.15,
+      slidesPerView: 1,
       spaceBetween: 16,
+      loop: true, // infinite (auto-disabled on desktop where all 3 are shown)
       keyboard: { enabled: true },
       a11y: { enabled: true },
       pagination: {
