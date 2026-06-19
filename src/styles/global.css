@@ -212,3 +212,16 @@ p {
   .deco { height: 160px; }
   .deco--sm { height: 120px; }
 }
+
+/* Unified hover effect for all buttons and links */
+a,
+button,
+.btn {
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color var(--transition), color var(--transition);
+}
+a:hover,
+button:hover,
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
