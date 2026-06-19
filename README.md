@@ -224,3 +224,4 @@ No component files need to change.
 - Wire `config/booking` style external booking engine into the CTAs if needed.
 
 padding = (clamp(66px, 15.63vw, 300px)), (clamp(96px, 11.46vw, 220px))
+Палітра сайту (для довідки) тепер уся в коді: #A09271 (taupe/headings), #F0EDE4, #F8D167 (awning), #827E79, #EBE9DD (body), #FAF9F3 (awning cream), #665D51 (script-title), #726E6A (text), #96ABB0 (callout), #F78650 (primary/orange), #D1D8DC (features). #827E79 поки ніде — скажіть, де його застосувати.

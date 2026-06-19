@@ -17,6 +17,20 @@ export interface Theme {
     accent: string;
     text: string;
     background: string;
+    /** Light cream for titles/text on colored sections. */
+    headingLight: string;
+    /** Cream (awning light stripe, card backgrounds). */
+    cream: string;
+    /** Awning yellow (stripes, bell badge). */
+    awning: string;
+    /** Ink color for the decorative script titles. */
+    script: string;
+    /** Peach background (Wohnen section). */
+    peach: string;
+    /** Light blue-grey background (Features section). */
+    features: string;
+    /** Extra muted grey (reserve). */
+    muted: string;
   };
   fonts: {
     /** Heading font family name (as on Google Fonts). */
@@ -33,10 +47,17 @@ export interface Theme {
 export const theme: Theme = {
   colors: {
     primary: "#F78650", // orange (CTAs, accents)
-    secondary: "#96ABB0", // muted blue-grey
+    secondary: "#96ABB0", // muted blue-grey (Gastronomie callout)
     accent: "#A09271", // taupe (headings)
     text: "#726E6A", // warm grey (body text)
-    background: "#EBE9DD", // sand / cream
+    background: "#EBE9DD", // sand / cream (body background)
+    headingLight: "#F0EDE4", // light cream (titles on colored sections)
+    cream: "#FAF9F3", // cream (awning light stripe, card backgrounds)
+    awning: "#F8D167", // awning yellow (stripes, bell badge)
+    script: "#665D51", // script-title ink
+    peach: "#F6E6BF", // Wohnen section background
+    features: "#D1D8DC", // Features section background
+    muted: "#827E79", // extra muted grey (reserve)
   },
   fonts: {
     // Clean sans for headings + body; Dancing Script for decorative titles.
@@ -61,6 +82,13 @@ export function themeToCssVars(t: Theme = theme): string {
   --color-text:${t.colors.text};
   --color-bg:${t.colors.background};
   --color-surface:${t.colors.background};
+  --color-heading-light:${t.colors.headingLight};
+  --color-cream:${t.colors.cream};
+  --color-awning:${t.colors.awning};
+  --color-script:${t.colors.script};
+  --color-peach:${t.colors.peach};
+  --color-features:${t.colors.features};
+  --color-muted:${t.colors.muted};
   --font-heading:${headingStack};
   --font-body:${bodyStack};
   --font-script:${scriptStack};

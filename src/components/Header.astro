@@ -48,9 +48,9 @@ const homeHref = localizePath(locale, "/");
     >
       <span class="header__menu-label">{ui.menuButton}</span>
       <svg class="header__menu-icon" width="74" height="30" viewBox="0 0 78 34" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 2H76" stroke="#FAF9F3" stroke-width="4" stroke-linecap="round" />
-        <path d="M2 17H76" stroke="#FAF9F3" stroke-width="4" stroke-linecap="round" />
-        <path d="M2 32H76" stroke="#FAF9F3" stroke-width="4" stroke-linecap="round" />
+        <path d="M2 2H76" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+        <path d="M2 17H76" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+        <path d="M2 32H76" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
       </svg>
     </button>
   </div>
@@ -123,6 +123,7 @@ const homeHref = localizePath(locale, "/");
     display: block;
     width: clamp(40px, 3.85vw, 74px);
     height: auto;
+    color: var(--color-cream); /* stroke uses currentColor */
   }
 
   @media (max-width: 600px) {

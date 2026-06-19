@@ -1,7 +1,7 @@
 ---
 /**
  * Awning ("Markise") — decorative scalloped strip in the Zum Hirschen style.
- * Alternating cream (#FAF9F3) and yellow (#F8D167) teeth.
+ * Alternating cream (var(--color-cream)) and yellow (var(--color-awning)) teeth.
  * Teeth are ~67×99px on a 1920px screen (30 teeth, flex-sized) and scale down responsively.
  */
 const TEETH = 30;
@@ -26,10 +26,10 @@ const TEETH = 30;
   }
 
   .awning span:nth-child(odd) {
-    background: #f8d167; /* yellow */
+    background: var(--color-awning); /* yellow */
   }
   .awning span:nth-child(even) {
-    background: #faf9f3; /* cream */
+    background: var(--color-cream); /* cream */
   }
 
   @media (max-width: 900px) {
