@@ -54,6 +54,8 @@ export interface SiteConfig {
   domain: string;
   /** Client/brand logo + favicon (path relative to /public). */
   logo: string;
+  /** Footer variant of the logo (different color), path relative to /public. */
+  logoFooter: string;
   defaultLocale: Locale;
   locales: Locale[];
   company: SiteCompany;
@@ -68,6 +70,8 @@ export const site: SiteConfig = {
   // TODO: confirm production domain with client.
   domain: "https://www.zumhirschen.it",
   logo: "/images/logo-zum-hirschen.png", // real brand wordmark (supplied PNG, transparent)
+  // TODO: add the footer logo asset (different color) to /public/images/.
+  logoFooter: "/images/logo-zum-hirschen-footer.png",
 
   defaultLocale: routingDefaultLocale,
   locales: [...routingLocales],

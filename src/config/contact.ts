@@ -13,6 +13,8 @@
  */
 
 export interface Address {
+  /** Operator / family name shown above the address (e.g. "Fam. Unterberger"). */
+  holder: string;
   street: string;
   zip: string;
   city: string;
@@ -46,10 +48,11 @@ export const contact: ContactConfig = {
   email: "info@zumhirschen.it",
   emailHref: "mailto:info@zumhirschen.it",
   address: {
+    holder: "Fam. Unterberger",
     street: "Sylvesterstraße 33",
     zip: "39031",
     city: "Stegen / Bruneck (BZ)",
-    region: "Südtirol",
+    region: "Pustertal in Südtirol",
     country: "Italien",
   },
   googleMapsUrl: "https://maps.google.com/?q=Hotel+zum+Hirschen+Sylvesterstra%C3%9Fe+33+Stegen+Bruneck",

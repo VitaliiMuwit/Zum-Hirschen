@@ -35,7 +35,7 @@ const { items } = Astro.props;
           ))
         }
       </div>
-      <div class="swiper-pagination features__pagination"></div>
+      {/* <div class="swiper-pagination features__pagination"></div> */}
     </div>
   </div>
 </section>
@@ -44,8 +44,8 @@ const { items } = Astro.props;
   /* Light blue-grey background; paddings mirror HomeIntro2 (top = its bottom). */
   .features.section {
     background-color: var(--color-features);
-    padding-top: clamp(66px, 15.63vw, 300px);
-    padding-bottom: clamp(96px, 11.46vw, 220px);
+    padding-top: clamp(126px, 15.63vw, 300px);
+    padding-bottom: clamp(16px, 11.46vw, 220px);
   }
 
   .features__shell {
@@ -79,7 +79,7 @@ const { items } = Astro.props;
   /* Slider chrome (mobile only). */
   .features__pagination {
     position: static;
-    margin-top: var(--space-md);
+    margin-top: var(--space-xs);
     --swiper-pagination-color: var(--color-primary);
     --swiper-pagination-bullet-inactive-color: var(--color-text);
     --swiper-pagination-bullet-inactive-opacity: 0.4;

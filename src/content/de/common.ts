@@ -45,5 +45,7 @@ export const common = {
     mapsLabel: "Lage & Anfahrt",
     impressum: "Impressum",
     datenschutz: "Datenschutz & Cookies",
+    privacy: "Privacy",
+    cookies: "Cookies",
   },
 };

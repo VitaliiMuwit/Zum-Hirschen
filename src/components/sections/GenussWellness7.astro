@@ -2,7 +2,7 @@
 /**
  * GenussWellness (section 7) — striped section. A slider of two cards
  * (photo 930×590 + h2 + h3 + text) shifted up onto the previous section,
- * followed by a dashed note block (h2 + text).
+ * followed by the "Gastronomie" blue-grey callout (part of the same section).
  */
 export interface GwColumn {
   image: string;
@@ -13,16 +13,18 @@ export interface GwColumn {
   list?: string[];
   text2?: string;
 }
-export interface GwNote {
+export interface GwCallout {
   title: string;
   text: string;
+  buttonLabel: string;
+  buttonHref: string;
 }
 export interface Props {
   genuss: GwColumn;
   wellness: GwColumn;
-  note?: GwNote;
+  gastro: GwCallout;
 }
-const { genuss, wellness, note } = Astro.props;
+const { genuss, wellness, gastro } = Astro.props;
 const cards = [genuss, wellness];
 ---
 
@@ -33,37 +35,46 @@ const cards = [genuss, wellness];
         {
           cards.map((c) => (
             <div class="swiper-slide gw__card">
-              <img class="gw__photo" src={c.image} alt={c.imageAlt} loading="lazy" />
-              <h2 class="gw__title">{c.title}</h2>
-              <h3 class="gw__kicker">{c.eyebrow}</h3>
-              <p class="gw__text">{c.text}</p>
-              {c.list && <ul class="gw__list">{c.list.map((li) => <li>{li}</li>)}</ul>}
-              {c.text2 && <p class="gw__text">{c.text2}</p>}
+              <img
+                class="gw__photo"
+                src={c.image}
+                alt={c.imageAlt}
+                loading="lazy"
+              />
+              <div class="gw__body">
+                <h2 class="gw__title">{c.title}</h2>
+                <h3 class="gw__kicker">{c.eyebrow}</h3>
+                <p class="gw__text">{c.text}</p>
+                {c.list && (
+                  <ul class="gw__list">
+                    {c.list.map((li) => (
+                      <li>{li}</li>
+                    ))}
+                  </ul>
+                )}
+                {c.text2 && <p class="gw__text">{c.text2}</p>}
+              </div>
             </div>
           ))
         }
       </div>
     </div>
-
-    {/* Placeholder arrow icons — replace with the mockup icons. */}
-    <button class="gw__nav gw__nav--prev" type="button" aria-label="Vorherige Karte">
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
-    </button>
-    <button class="gw__nav gw__nav--next" type="button" aria-label="Nächste Karte">
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
-    </button>
   </div>
 
-  {
-    note && (
-      <div class="container section--narrow">
-        <div class="gw__note">
-          <h2>{note.title}</h2>
-          <p>{note.text}</p>
-        </div>
-      </div>
-    )
-  }
+  <div class="container">
+    <div class="callout s-bluegrey">
+      <h2>{gastro.title}</h2>
+      <p class="callout__text">{gastro.text}</p>
+      <a
+        class="btn callout__btn"
+        href={gastro.buttonHref}
+        target="_blank"
+        rel="noopener"
+      >
+        {gastro.buttonLabel}
+      </a>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -78,22 +89,34 @@ const cards = [genuss, wellness];
   .gw__slider {
     position: relative;
     z-index: 1;
-    max-width: 2010px; /* 2×930 + 30 gap + 2×60 arrow room */
+    max-width: var(--container-max); /* 1920 = 2×930 + 30 gap + 2×15 gutter */
     margin-inline: auto;
-    padding-inline: 60px;
+    padding-inline: 15px;
     margin-top: clamp(-590px, -30.73vw, 0px);
     margin-bottom: clamp(96px, 11.46vw, 220px);
   }
 
+  /* height:auto (not Swiper's default 100%) lets align-items:stretch equalize slides. */
+  .gw__swiper .swiper-wrapper {
+    align-items: stretch;
+  }
   .gw__card {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: auto;
   }
   .gw__photo {
     width: 100%;
     aspect-ratio: 930 / 590;
     object-fit: cover;
     display: block;
-    margin-bottom: 100px;
+  }
+  /* flex:1 makes every card body fill the tallest slide → equal heights. */
+  .gw__body {
+    flex: 1 1 auto;
+    background: #f0ede4;
+    padding: 40px;
   }
   .gw__title {
     margin-bottom: 16px;
@@ -111,67 +134,56 @@ const cards = [genuss, wellness];
     color: var(--color-accent);
   }
 
-  .gw__nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: 0;
-    color: var(--color-text);
-    cursor: pointer;
-  }
-  .gw__nav--prev {
-    left: 0;
-  }
-  .gw__nav--next {
-    right: 0;
-  }
-
-  /* Dashed note block */
-  .gw__note {
-    border: 1px dashed var(--color-accent);
-    border-radius: 30px;
-    padding: 30px;
+  /* "Gastronomie" blue-grey callout (same section as the slider) */
+  .callout {
+    max-width: 1260px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
     text-align: center;
+  }
+  .callout__text {
+    max-width: 980px;
+    margin: 50px auto;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  .callout__btn {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    margin-top: var(--space-sm);
   }
 
   @media (max-width: 768px) {
     .gw__slider {
-      padding-inline: 36px;
+      padding-inline: var(--space-sm);
     }
-    .gw__nav {
-      width: 32px;
-      height: 32px;
+  }
+
+  /* Tighter padding on mobile. */
+  @media (max-width: 600px) {
+    .callout {
+      padding: var(--space-sm);
     }
-    .gw__photo {
-      margin-bottom: var(--space-lg);
+    .gw__body {
+      padding: 16px;
     }
   }
 </style>
 
 <script>
   import Swiper from "swiper";
-  import { Navigation, A11y, Keyboard } from "swiper/modules";
+  import { A11y, Keyboard } from "swiper/modules";
   import "swiper/css";
 
   document.querySelectorAll<HTMLElement>(".gw__slider").forEach((slider) => {
     const el = slider.querySelector<HTMLElement>(".gw__swiper");
     if (!el) return;
     new Swiper(el, {
-      modules: [Navigation, A11y, Keyboard],
+      modules: [A11y, Keyboard],
       slidesPerView: 1,
       spaceBetween: 30,
       keyboard: { enabled: true },
       a11y: { enabled: true },
-      navigation: {
-        prevEl: slider.querySelector<HTMLElement>(".gw__nav--prev"),
-        nextEl: slider.querySelector<HTMLElement>(".gw__nav--next"),
-      },
       breakpoints: {
         768: { slidesPerView: 2, spaceBetween: 30 },
       },

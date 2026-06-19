@@ -13,7 +13,25 @@ export interface Partner {
   href?: string;
 }
 
-// Kept empty until real logo assets exist (otherwise broken images would show).
-// TODO: add Südtirol Info once /public/images/partners/suedtirol.svg is available:
-//   { name: "Südtirol", logo: "/images/partners/suedtirol.svg", alt: "Südtirol", href: "https://www.suedtirol.info/" },
-export const partners: Partner[] = [];
+// TODO: replace the placeholder SVGs in /public/images/partners/ with the real
+// partner logos (same file names, or update the paths below).
+export const partners: Partner[] = [
+  {
+    name: "Südtirol",
+    logo: "/images/partners/suedtirol.png",
+    alt: "Südtirol",
+    href: "https://www.suedtirol.info/",
+  },
+  {
+    name: "Booking Südtirol",
+    logo: "/images/partners/booking-suedtirol.png",
+    alt: "Booking Südtirol",
+    href: "https://www.booking-suedtirol.com/",
+  },
+  {
+    name: "Bruneck / Brunico",
+    logo: "/images/partners/bruneck.png",
+    alt: "Bruneck / Brunico",
+    href: "https://www.bruneck.com/",
+  },
+];

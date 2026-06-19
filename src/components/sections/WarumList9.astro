@@ -1,0 +1,128 @@
+---
+/**
+ * WarumList — orange section: reasons rendered as an accordion
+ * (same markup/styles as the section-6 price accordion).
+ */
+export interface WarumItem {
+  question: string;
+  answer: string;
+}
+export interface Props {
+  title: string;
+  items: WarumItem[];
+}
+const { title, items } = Astro.props;
+---
+
+<section class="warum s-orange section">
+  <div class="container section--narrow">
+    <h2>{title}</h2>
+
+    <div class="accordion">
+      {
+        items.map((item) => (
+          <details class="accordion__item">
+            <summary class="accordion__q">
+              {item.question}
+              <svg
+                class="accordion__chevron"
+                width="24"
+                height="13"
+                viewBox="0 0 24 13"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M1 1 12 12 23 1"
+                  stroke="currentColor"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </summary>
+            <p class="accordion__a">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .warum.section {
+    padding-block: clamp(96px, 11.46vw, 220px);
+  }
+  .warum .container {
+    text-align: center;
+  }
+
+  /* Accordion — same structure as section 6; all text in cream (#ebe9dd) on orange. */
+  .accordion {
+    max-width: 880px;
+    margin: var(--space-md) auto 0;
+  }
+  .accordion__item:first-child {
+    border-top: 1px solid rgba(235, 233, 221, 0.4);
+  }
+  .accordion__item {
+    border-bottom: 1px solid rgba(235, 233, 221, 0.4);
+  }
+  /* Smooth open/close (progressive enhancement: instant where unsupported). */
+  .accordion__item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 0.3s ease,
+      content-visibility 0.3s ease allow-discrete;
+  }
+  .accordion__item[open]::details-content {
+    block-size: auto;
+  }
+  .accordion__q {
+    position: relative;
+    cursor: pointer;
+    list-style: none;
+    padding: var(--space-sm) 40px; /* room for the chevron on the right */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: var(--fz-22);
+    line-height: 220%;
+    text-align: center;
+    color: #ebe9dd;
+  }
+  .accordion__q::-webkit-details-marker {
+    display: none;
+  }
+  /* Chevron (24×13) pinned to the right; rotates 180° when open. */
+  .accordion__chevron {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ebe9dd; /* stroke = currentColor */
+    transition: transform 0.2s ease;
+  }
+  .accordion__item[open] .accordion__chevron {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  .accordion__a {
+    font-weight: 400;
+    font-size: var(--fz-22);
+    line-height: 220%;
+    text-align: center;
+    color: #ebe9dd;
+    padding-bottom: var(--space-sm);
+  }
+
+  /* Smaller accordion chevron on mobile. */
+  @media (max-width: 600px) {
+    .accordion__chevron {
+      width: 18px;
+      height: auto;
+    }
+  }
+</style>

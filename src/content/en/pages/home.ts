@@ -136,22 +136,9 @@ export const home = {
     imageAlt: "Garten mit Freischwimmbad und Wellness",
     title: "Wellness",
     eyebrow: "Wohltuende Wärme, sanfte Entspannung",
-    text: "Der großzügige Garten mit Freischwimmbad lädt im Sommer zum Entspannen, Sonnenbaden und Abkühlen ein.",
-    list: [
-      "Finnische Sauna / Bio-Sauna",
-      "Kneipp-Becken",
-      "Erlebnisdusche",
-      "Physiotherm-Infrarotkabine",
-    ],
-    text2:
-      "Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
+    text: "Der großzügige Garten mit Freischwimmbad lädt im Sommer zum Entspannen, Sonnenbaden und Abkühlen ein. Finnische Sauna und Bio-Sauna, Kneipp-Becken, Erlebnisdusche und Physiotherm-Infrarotkabine sorgen für wohltuende Wärme und sanfte Entspannung. Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
   },
 
-  // Dashed note block under the Genuss & Wellness slider.
-  genussNote: {
-    title: "Gut zu wissen", // TODO: Titel anpassen
-    text: "TODO: Inhalt für den Hinweis-Block (Genuss & Wellness) ergänzen.",
-  },
 
   // 7) "Gastronomie in der Umgebung" — blue-grey callout on stripes
   gastronomie: {
@@ -194,14 +181,14 @@ export const home = {
   // 9) "Warum Gäste unser Hotel lieben" — orange reasons list
   warum: {
     title: "Warum Gäste unser Hotel lieben",
-    reasons: [
-      "Echtes Gasthaus-Feeling",
-      "Historische Mauern aus dem Jahr 1414",
-      "Einzigartige Gewölbe & über 1 m dicke Wände",
-      "Familiäre, herzliche Atmosphäre",
-      "800 m zur Altstadt Bruneck",
-      "400 m zum Mobilitätszentrum",
-      "Ideal für Aktivurlauber & Genießer und Work and Travel",
+    items: [
+      { question: "Echtes Gasthaus-Feeling", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Historische Mauern aus dem Jahr 1414", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Einzigartige Gewölbe & über 1 m dicke Wände", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Familiäre, herzliche Atmosphäre", answer: "TODO: Beschreibung ergänzen." },
+      { question: "800 m zur Altstadt Bruneck", answer: "TODO: Beschreibung ergänzen." },
+      { question: "400 m zum Mobilitätszentrum", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Ideal für Aktivurlauber & Genießer und Work and Travel", answer: "TODO: Beschreibung ergänzen." },
     ],
   },
 };

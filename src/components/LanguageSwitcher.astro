@@ -14,7 +14,13 @@
  *   "compact" — short codes (DE/IT/EN), for Header
  *   "full"    — full names (Deutsch/Italiano/English), for the menu and footer
  */
-import { locales, localeNames, stripLocale, localizePath, type Locale } from "../i18n";
+import {
+  locales,
+  localeNames,
+  stripLocale,
+  localizePath,
+  type Locale,
+} from "../i18n";
 
 export interface Props {
   /** Currently active locale (highlighted). */
@@ -30,7 +36,10 @@ const { current, variant = "full", class: extraClass = "" } = Astro.props;
 const basePath = stripLocale(Astro.url.pathname);
 ---
 
-<div class:list={["lang-switcher", `lang-switcher--${variant}`, extraClass]} aria-label="Sprache wählen">
+<div
+  class:list={["lang-switcher", `lang-switcher--${variant}`, extraClass]}
+  aria-label="Sprache wählen"
+>
   {
     locales.map((code) => (
       <a
@@ -61,7 +70,9 @@ const basePath = stripLocale(Astro.url.pathname);
     font-weight: 600;
     letter-spacing: 0.05em;
     opacity: 0.65;
-    transition: opacity var(--transition), color var(--transition);
+    transition:
+      opacity var(--transition),
+      color var(--transition);
   }
 
   .lang-switcher--full .lang-switcher__item {

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="80" viewBox="0 0 200 80" role="img" aria-label="Südtirol">
+  <rect width="200" height="80" rx="8" fill="#ffffff" stroke="#d9d4c6"/>
+  <text x="100" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#A09271">Südtirol</text>
+  <text x="100" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" letter-spacing="2" fill="#96ABB0">ALTO ADIGE</text>
+</svg>

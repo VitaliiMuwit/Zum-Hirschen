@@ -1,0 +1,193 @@
+---
+/**
+ * ErlebenSection — compass illustration + script title + intro + an activity
+ * slider (3 cards per view on desktop, swipeable down to 1 on mobile).
+ */
+export interface ErlebenCard {
+  title: string;
+  text: string;
+  image: string;
+  imageAlt: string;
+}
+export interface Props {
+  illustration: string;
+  scriptTitle: string;
+  intro: string;
+  cards: ErlebenCard[];
+  buttonLabel: string;
+  buttonHref: string;
+}
+const { illustration, scriptTitle, intro, cards, buttonLabel, buttonHref } =
+  Astro.props;
+---
+
+<section class="erleben s-cream section">
+  <div class="container">
+    <img
+      class="deco erleben__deco"
+      src={illustration}
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+    />
+    <p class="script-title">{scriptTitle}</p>
+    <p class="erleben__intro">{intro}</p>
+
+    <div class="erleben__slider">
+      <div class="swiper erleben__swiper">
+        <div class="swiper-wrapper">
+          {
+            cards.map((c) => (
+              <article class="swiper-slide ecard">
+                <img
+                  class="ecard__photo"
+                  src={c.image}
+                  alt={c.imageAlt}
+                  loading="lazy"
+                />
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <button
+        class="erleben__nav erleben__nav--prev"
+        type="button"
+        aria-label="Vorherige Aktivität"
+      >
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 4l-8 8 8 8" /></svg>
+      </button>
+      <button
+        class="erleben__nav erleben__nav--next"
+        type="button"
+        aria-label="Nächste Aktivität"
+      >
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M9 4l8 8-8 8" /></svg>
+      </button>
+    </div>
+
+    <a class="btn btn--bluegrey erleben__btn" href={buttonHref}>{buttonLabel}</a
+    >
+  </div>
+</section>
+
+<style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .erleben.section {
+    padding-block: clamp(96px, 11.46vw, 220px);
+  }
+
+  .erleben .container {
+    text-align: center;
+  }
+  /* Compass illustration — base 280×200, fluid down to half on small screens. */
+  .erleben__deco {
+    width: clamp(140px, calc(280 * 100vw / 1920), 280px);
+    height: clamp(100px, calc(200 * 100vw / 1920), 200px);
+  }
+  .erleben__intro {
+    margin: 0 auto var(--space-xxl);
+    max-width: 980px;
+    color: var(--color-text);
+  }
+
+  /* Slider matches the Figma width (1620px incl. arrow gutters), centered;
+     the section background stays full-bleed. */
+  .erleben__slider {
+    position: relative;
+    max-width: 1620px;
+    margin-inline: auto;
+    padding-inline: 60px;
+  }
+  /* keep Swiper's default overflow:hidden so off-screen slides are clipped
+     (overflow:visible made all slides spill out, breaking the mobile view) */
+  .ecard {
+    height: auto;
+    text-align: center;
+  }
+  .ecard__photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: var(--space-sm);
+  }
+  .ecard h3 {
+    font-size: var(--fz-30);
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-transform: none;
+    margin-bottom: var(--space-sm);
+  }
+
+  .erleben__nav {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 0;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+  .erleben__nav--prev {
+    left: 0;
+  }
+  .erleben__nav--next {
+    right: 0;
+  }
+  .erleben__nav.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .erleben__btn {
+    margin-top: var(--space-lg);
+  }
+
+  /* Mobile: swipe with a peek of the next card; hide the arrows. */
+  @media (max-width: 900px) {
+    .erleben__slider {
+      padding-inline: 0;
+    }
+    .erleben__nav {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, A11y, Keyboard } from "swiper/modules";
+  import "swiper/css";
+
+  document
+    .querySelectorAll<HTMLElement>(".erleben__slider")
+    .forEach((slider) => {
+      const el = slider.querySelector<HTMLElement>(".erleben__swiper");
+      if (!el) return;
+      new Swiper(el, {
+        modules: [Navigation, A11y, Keyboard],
+        slidesPerView: 1.1,
+        spaceBetween: 20,
+        loop: true,
+        keyboard: { enabled: true },
+        a11y: { enabled: true },
+        navigation: {
+          prevEl: slider.querySelector<HTMLElement>(".erleben__nav--prev"),
+          nextEl: slider.querySelector<HTMLElement>(".erleben__nav--next"),
+        },
+        breakpoints: {
+          600: { slidesPerView: 2, spaceBetween: 30 },
+          900: { slidesPerView: 3, spaceBetween: 30 },
+        },
+      });
+    });
+</script>

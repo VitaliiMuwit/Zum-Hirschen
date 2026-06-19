@@ -125,32 +125,18 @@ export const home = {
 
   // 6) "Genuss & Wellness" — two columns with photo on top
   genuss: {
-    image: "/images/placeholders/genuss-dining.svg",
+    image: "/images/placeholders/genuss.webp",
     imageAlt: "Frühstück im Hotel zum Hirschen",
     title: "Genuss",
     eyebrow: "Starten Sie gut in den Tag",
     text: "Im Hotel zum Hirschen genießen Sie erholsame Nächte und starten genussvoll in den Tag mit unserem reichhaltigen Frühstücksbuffet. Frische, regionale Produkte, knuspriges Gebäck, hausgemachte Spezialitäten und eine Auswahl an herzhaften und süßen Köstlichkeiten sorgen für einen perfekten Start in Ihren Urlaub. Unsere Zimmer verbinden Komfort und Gemütlichkeit und bieten den idealen Rückzugsort nach einem erlebnisreichen Tag in der Region. Ob Aktivurlaub oder entspannte Auszeit – im Hotel zum Hirschen erleben Sie authentische Gastfreundschaft.",
   },
   wellness: {
-    image: "/images/placeholders/wellness-pool.svg",
+    image: "/images/placeholders/wellness.webp",
     imageAlt: "Garten mit Freischwimmbad und Wellness",
     title: "Wellness",
     eyebrow: "Wohltuende Wärme, sanfte Entspannung",
-    text: "Der großzügige Garten mit Freischwimmbad lädt im Sommer zum Entspannen, Sonnenbaden und Abkühlen ein.",
-    list: [
-      "Finnische Sauna / Bio-Sauna",
-      "Kneipp-Becken",
-      "Erlebnisdusche",
-      "Physiotherm-Infrarotkabine",
-    ],
-    text2:
-      "Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
-  },
-
-  // Dashed note block under the Genuss & Wellness slider.
-  genussNote: {
-    title: "Gut zu wissen", // TODO: Titel anpassen
-    text: "TODO: Inhalt für den Hinweis-Block (Genuss & Wellness) ergänzen.",
+    text: "Der großzügige Garten mit Freischwimmbad lädt im Sommer zum Entspannen, Sonnenbaden und Abkühlen ein. Finnische Sauna und Bio-Sauna, Kneipp-Becken, Erlebnisdusche und Physiotherm-Infrarotkabine sorgen für wohltuende Wärme und sanfte Entspannung. Ob nach einem Tag auf dem Berg, einem Stadtbummel oder einer Wanderung oder nach der Arbeit – hier finden Sie Ruhe, Wärme und Entspannung für Körper und Geist.",
   },
 
   // 7) "Gastronomie in der Umgebung" — blue-grey callout on stripes
@@ -163,7 +149,7 @@ export const home = {
 
   // 8) "Erleben" — compass + 3 activity cards
   erleben: {
-    illustration: "/images/illustrations/compass.svg",
+    illustration: "/images/illustrations/kompass.png",
     scriptTitle: "Erleben",
     intro:
       "Die Umgebung rund um Bruneck bietet zu jeder Jahreszeit unzählige Möglichkeiten: Wandern, Radfahren, Skifahren, Ausflüge und entspanntes Flanieren. Durch die Nähe zu Bus und Bahn erreichen Sie viele Ziele schnell und ohne Auto.",
@@ -171,19 +157,19 @@ export const home = {
       {
         title: "Wandern",
         text: "Vom gemütlichen Talweg bis zur hochalpinen Tour – unzählige Routen starten direkt vor der Tür.",
-        image: "/images/placeholders/erleben-wandern.svg",
+        image: "/images/placeholders/erleben_a.webp",
         imageAlt: "Wandern rund um Bruneck",
       },
       {
         title: "Skifahren",
         text: "Der Kronplatz, Südtirols Top-Skiberg, liegt nur wenige Minuten entfernt – Pistenspaß für die ganze Familie.",
-        image: "/images/placeholders/erleben-skifahren.svg",
+        image: "/images/placeholders/erleben_b.webp",
         imageAlt: "Skifahren am Kronplatz",
       },
       {
         title: "Biken",
         text: "Genussradeln im Tal oder anspruchsvolle Trails am Berg – das Pustertal ist ein Paradies für Radfahrer.",
-        image: "/images/placeholders/erleben-biken.svg",
+        image: "/images/placeholders/erleben_c.webp",
         imageAlt: "Biken im Pustertal",
       },
     ],
@@ -194,14 +180,14 @@ export const home = {
   // 9) "Warum Gäste unser Hotel lieben" — orange reasons list
   warum: {
     title: "Warum Gäste unser Hotel lieben",
-    reasons: [
-      "Echtes Gasthaus-Feeling",
-      "Historische Mauern aus dem Jahr 1414",
-      "Einzigartige Gewölbe & über 1 m dicke Wände",
-      "Familiäre, herzliche Atmosphäre",
-      "800 m zur Altstadt Bruneck",
-      "400 m zum Mobilitätszentrum",
-      "Ideal für Aktivurlauber & Genießer und Work and Travel",
+    items: [
+      { question: "Echtes Gasthaus-Feeling", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Historische Mauern aus dem Jahr 1414", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Einzigartige Gewölbe & über 1 m dicke Wände", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Familiäre, herzliche Atmosphäre", answer: "TODO: Beschreibung ergänzen." },
+      { question: "800 m zur Altstadt Bruneck", answer: "TODO: Beschreibung ergänzen." },
+      { question: "400 m zum Mobilitätszentrum", answer: "TODO: Beschreibung ergänzen." },
+      { question: "Ideal für Aktivurlauber & Genießer und Work and Travel", answer: "TODO: Beschreibung ergänzen." },
     ],
   },
 };

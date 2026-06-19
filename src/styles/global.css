@@ -43,6 +43,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Allow animating heights to/from `auto` (e.g. <details> accordions). */
+  interpolate-size: allow-keywords;
 }
 
 body {
@@ -114,10 +116,10 @@ h3 {
 /* p — body text */
 p {
   font-size: var(--fz-22);
-  line-height: 1.5;
+  line-height: 1.35;
   text-align: center;
   color: var(--color-text);
-  margin-bottom: var(--space-sm);
+  margin: 0px;
 }
 
 /* Legal pages keep left-aligned text. */
@@ -151,7 +153,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 28px;
+  padding: 15px 30px;
   font-family: var(--font-body);
   font-size: var(--fz-16);
   font-weight: 600;
@@ -181,6 +183,13 @@ p {
   background: var(--color-secondary);
   border-color: var(--color-secondary);
   color: #fff;
+}
+
+/* Tighter button padding on mobile. */
+@media (max-width: 600px) {
+  .btn {
+    padding: 12px 26px;
+  }
 }
 
 /* ================================================= Section utilities */
@@ -249,30 +258,13 @@ p {
   margin: 0 0 var(--space-xl);
 }
 
-/* Decorative vintage illustration. */
+/* Decorative vintage illustration — base only.
+   Each instance sets its own width/height (and fluid scaling) in its section,
+   because the illustrations have different sizes and aspect ratios. */
 .deco {
   display: block;
-  width: auto;
-  height: 220px;
   margin: 0 auto var(--space-lg);
-}
-.deco--sm {
-  height: 160px;
-}
-.deco--l {
-  height: 280px;
-}
-.deco--xl {
-  height: 350px;
-}
-
-@media (max-width: 900px) {
-  .deco {
-    height: 160px;
-  }
-  .deco--sm {
-    height: 120px;
-  }
+  object-fit: contain;
 }
 
 /* ====================================================== Interactions */
@@ -320,7 +312,8 @@ button:hover,
   }
   *,
   *::before,
-  *::after {
+  *::after,
+  *::details-content {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

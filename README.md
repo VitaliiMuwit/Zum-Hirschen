@@ -225,3 +225,25 @@ No component files need to change.
 
 padding = (clamp(66px, 15.63vw, 300px)), (clamp(96px, 11.46vw, 220px))
 Палітра сайту (для довідки) тепер уся в коді: #A09271 (taupe/headings), #F0EDE4, #F8D167 (awning), #827E79, #EBE9DD (body), #FAF9F3 (awning cream), #665D51 (script-title), #726E6A (text), #96ABB0 (callout), #F78650 (primary/orange), #D1D8DC (features). #827E79 поки ніде — скажіть, де його застосувати.
+---
+
+## Colors (theme palette)
+
+All colors live in **`src/config/theme.ts`** (object `colors`, ~lines 49–60).
+Edit a value there and every `var(--color-*)` across the site updates — no
+component files need to change.
+
+| CSS variable | Hex | Usage |
+| --- | --- | --- |
+| `--color-primary` | `#F78650` | Orange — CTAs, accents |
+| `--color-secondary` | `#96ABB0` | Muted blue-grey — Gastronomie callout |
+| `--color-accent` | `#A09271` | Taupe — headings |
+| `--color-text` | `#726E6A` | Warm grey — body text |
+| `--color-bg` / `--color-surface` | `#EBE9DD` | Sand/cream — body background |
+| `--color-heading-light` | `#F0EDE4` | Light cream — titles on colored sections |
+| `--color-cream` | `#FAF9F3` | Cream — awning light stripe, card backgrounds |
+| `--color-awning` | `#F8D167` | Awning yellow — stripes, bell badge |
+| `--color-script` | `#665D51` | Ink — decorative script titles |
+| `--color-peach` | `#F6E6BF` | Wohnen section background |
+| `--color-features` | `#D1D8DC` | Features section background |
+| `--color-muted` | `#827E79` | Extra muted grey (reserve, currently unused) |

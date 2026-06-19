@@ -38,5 +38,7 @@ export const common = {
     mapsLabel: "Posizione e come arrivare",
     impressum: "Note legali",
     datenschutz: "Privacy & Cookie",
+    privacy: "Privacy",
+    cookies: "Cookie",
   },
 };

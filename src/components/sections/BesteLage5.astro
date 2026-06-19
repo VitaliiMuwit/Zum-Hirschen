@@ -30,12 +30,16 @@ const { image, imageAlt, title, eyebrow, text } = Astro.props;
     padding-bottom: clamp(96px, 11.46vw, 220px);
   }
 
-  /* Photo (1880×1080) pulled up by half its own height → overlaps the
-     section above. margin % is relative to the section width, and the photo
-     height = width × 1080/1880, so -100% × 1080/1880 / 2 = -half height. */
+  /* Photo (1880×1080) is capped at the base width (1920px) and centered, while
+     the orange section stays full-bleed. It is pulled up by half its own height
+     → overlaps the section above. The pull uses min(section, 1920px) so the
+     overlap is computed from the capped photo width, not the full viewport.
+     half height = width × 1080/1880 / 2 = width × 540/1880. */
   .lage__photo {
+    max-width: var(--container-max);
+    margin-inline: auto;
     padding-inline: var(--space-md);
-    margin-top: calc(-100% * 1080 / 1880 / 2);
+    margin-top: calc(min(100%, var(--container-max)) * -540 / 1880);
     position: relative;
     z-index: 1;
   }

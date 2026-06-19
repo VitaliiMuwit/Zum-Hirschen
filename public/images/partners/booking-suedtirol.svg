@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="80" viewBox="0 0 220 80" role="img" aria-label="Booking Südtirol">
+  <rect width="220" height="80" rx="8" fill="#ffffff" stroke="#d9d4c6"/>
+  <circle cx="38" cy="40" r="16" fill="none" stroke="#2C6BB0" stroke-width="3"/>
+  <text x="120" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="20" fill="#2C6BB0">booking südtirol</text>
+</svg>

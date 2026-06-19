@@ -38,5 +38,7 @@ export const common = {
     mapsLabel: "Location & Directions",
     impressum: "Imprint",
     datenschutz: "Privacy & Cookies",
+    privacy: "Privacy",
+    cookies: "Cookies",
   },
 };

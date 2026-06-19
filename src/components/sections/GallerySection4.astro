@@ -21,7 +21,7 @@ const { illustration, scriptTitle, images } = Astro.props;
 
 <section class="augenblicke stripes section">
   <div class="container">
-    <img class="deco deco--l augenblicke__deco" src={illustration} alt="" aria-hidden="true" loading="lazy" />
+    <img class="deco augenblicke__deco" src={illustration} alt="" aria-hidden="true" loading="lazy" />
     <p class="script-title">{scriptTitle}</p>
   </div>
 
@@ -50,12 +50,15 @@ const { illustration, scriptTitle, images } = Astro.props;
     padding-bottom: clamp(160px, 40.62vw, 780px);
   }
 
-  /* Photographer pulled up 40px @1920 — overlaps the section above. */
+  /* Photographer pulled up 40px @1920 — overlaps the section above.
+     Base 190×280, fluid down to half on small screens (keeps aspect ratio). */
   .augenblicke__deco {
     position: relative;
     z-index: 1;
     top: clamp(-40px, -2.08vw, 0px);
     margin: 0 auto var(--space-sm);
+    width: clamp(95px, calc(190 * 100vw / 1920), 190px);
+    height: clamp(140px, calc(280 * 100vw / 1920), 280px);
   }
 
   /* Slider area sized for three 455px slides + two 20px gaps, centered. */
