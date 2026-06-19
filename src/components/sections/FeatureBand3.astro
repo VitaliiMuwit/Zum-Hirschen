@@ -40,8 +40,15 @@ const { items } = Astro.props;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);
     text-align: center;
   }
-  .feature__icon { height: 200px; width: auto; margin: 0 auto var(--space-sm); }
-  .feature__title { margin-bottom: var(--space-sm); }
+  .feature__icon { height: 278px; width: auto; margin: 0 auto var(--space-sm); }
+  /* Card title: a heading, not the uppercase kicker — taupe, non-uppercase. */
+  .feature__title {
+    font-size: clamp(20px, 1.56vw, 30px);
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-transform: none;
+    margin-bottom: var(--space-sm);
+  }
   .feature__text { color: #fff; opacity: 0.95; }
 
   @media (max-width: 900px) {

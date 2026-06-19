@@ -49,28 +49,53 @@ ul {
   list-style: none;
 }
 
+/* Typography tokens — values are the design spec at 1920px, responsive via clamp. */
 h1,
 h2,
 h3,
 h4 {
   font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.1;
-  color: var(--color-accent); /* taupe headings (brand) */
+  font-weight: 400;
 }
 
+/* h1 — large taupe title (light backgrounds) */
 h1 {
-  font-size: var(--fs-h1);
-}
-h2 {
-  font-size: var(--fs-h2);
-}
-h3 {
-  font-size: var(--fs-h3);
+  font-size: clamp(28px, 2.08vw, 40px);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--color-accent); /* #a09271 */
 }
 
+/* h2 — large title; taupe by default, light cream on colored sections */
+h2 {
+  font-size: clamp(28px, 2.08vw, 40px);
+  line-height: 1.1;
+  color: var(--color-accent); /* #a09271 (overridden to #f0ede4 on colored sections) */
+}
+
+/* h3 — uppercase kicker */
+h3 {
+  font-size: clamp(14px, 0.885vw, 17px);
+  line-height: 1.35;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-accent); /* #a09271 */
+}
+
+/* p — body text */
 p {
+  font-size: clamp(17px, 1.146vw, 22px);
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-text); /* #726e6a */
   margin-bottom: var(--space-sm);
+}
+
+/* Legal pages keep left-aligned text. */
+.legal,
+.legal p {
+  text-align: left;
 }
 
 /* --- Layout helpers --- */
@@ -166,9 +191,9 @@ p {
 .s-cream { background-color: var(--color-bg); }
 .s-peach { background-color: #f6e6bf; }
 
-/* On colored sections, headings are white */
-.s-bluegrey h2, .s-bluegrey h3,
-.s-orange h2, .s-orange h3 { color: #fff; }
+/* On colored sections, the large titles use light cream (#f0ede4). */
+.s-bluegrey h2,
+.s-orange h2 { color: #f0ede4; }
 
 /* Vertical "awning" stripes (yellow / cream) */
 .stripes {
@@ -177,11 +202,12 @@ p {
   );
 }
 
-/* Uppercase eyebrow / kicker */
+/* Uppercase eyebrow / kicker (matches h3 token) */
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: var(--fs-small);
+  letter-spacing: 0.15em;
+  font-size: clamp(14px, 0.885vw, 17px);
+  line-height: 1.35;
   color: var(--color-accent);
   margin-bottom: var(--space-md);
 }

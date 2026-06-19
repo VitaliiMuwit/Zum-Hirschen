@@ -43,21 +43,21 @@ Netlify/Vercel). React is intentionally not used.
 
 ## Reusable components
 
-| Component | Purpose |
-| :--- | :--- |
-| `Header` + `MenuOverlay` | Logo, language switcher, fullscreen menu (Esc to close) |
-| `LanguageSwitcher` | DE/IT/EN, keeps current page |
-| `HeroSlider` | Swiper hero with slides, CTA, autoplay (respects reduced-motion) |
-| `Hero` | Single static hero (alternative to the slider) |
-| `ContentSection` | Text + Image / Image + Text block (`reverse`) |
-| `Gallery` | Responsive grid + PhotoSwipe lightbox |
-| `Testimonials` | Reviews; Swiper slider when more than one |
-| `FAQ` | `<details>` accordion + FAQPage JSON-LD |
-| `MapSection` | Google Maps embed + "Lage & Anfahrt" button (from `config/contact.ts`) |
-| `PartnerLogos` | Partner logo grid (from `config/partners.ts`) |
-| `FixedButtons` | Sticky CTA buttons (from `config/fixedButtons.ts`) |
-| `AnfrageForm` | Contact form → `/api/contact` (Resend) |
-| `Footer` | Contact, social, legal, partners, Muwit |
+| Component                | Purpose                                                                |
+| :----------------------- | :--------------------------------------------------------------------- |
+| `Header` + `MenuOverlay` | Logo, language switcher, fullscreen menu (Esc to close)                |
+| `LanguageSwitcher`       | DE/IT/EN, keeps current page                                           |
+| `HeroSlider`             | Swiper hero with slides, CTA, autoplay (respects reduced-motion)       |
+| `Hero`                   | Single static hero (alternative to the slider)                         |
+| `ContentSection`         | Text + Image / Image + Text block (`reverse`)                          |
+| `Gallery`                | Responsive grid + PhotoSwipe lightbox                                  |
+| `Testimonials`           | Reviews; Swiper slider when more than one                              |
+| `FAQ`                    | `<details>` accordion + FAQPage JSON-LD                                |
+| `MapSection`             | Google Maps embed + "Lage & Anfahrt" button (from `config/contact.ts`) |
+| `PartnerLogos`           | Partner logo grid (from `config/partners.ts`)                          |
+| `FixedButtons`           | Sticky CTA buttons (from `config/fixedButtons.ts`)                     |
+| `AnfrageForm`            | Contact form → `/api/contact` (Resend)                                 |
+| `Footer`                 | Contact, social, legal, partners, Muwit                                |
 
 ---
 
@@ -101,17 +101,17 @@ muwit-astro-starter/
 
 Everything client-specific is edited in these places — never in components:
 
-| What | Where |
-| :--- | :--- |
-| Brand, domain, company, tracking, SEO fallbacks | `src/config/site.ts` |
-| Phone, email, address, Google Maps, opening hours | `src/config/contact.ts` |
-| Navigation / sticky CTAs | `src/config/menu.ts`, `src/config/fixedButtons.ts` |
-| Per-page SEO | `src/config/seo.ts` |
-| Colors & fonts | `src/config/theme.ts` |
-| Social / partners | `src/config/social.ts`, `src/config/partners.ts` |
-| Page text (per language) | `src/content/{de,en,it}/` |
-| Form secrets (Resend) | `.env` |
-| Images | `public/images/` |
+| What                                              | Where                                              |
+| :------------------------------------------------ | :------------------------------------------------- |
+| Brand, domain, company, tracking, SEO fallbacks   | `src/config/site.ts`                               |
+| Phone, email, address, Google Maps, opening hours | `src/config/contact.ts`                            |
+| Navigation / sticky CTAs                          | `src/config/menu.ts`, `src/config/fixedButtons.ts` |
+| Per-page SEO                                      | `src/config/seo.ts`                                |
+| Colors & fonts                                    | `src/config/theme.ts`                              |
+| Social / partners                                 | `src/config/social.ts`, `src/config/partners.ts`   |
+| Page text (per language)                          | `src/content/{de,en,it}/`                          |
+| Form secrets (Resend)                             | `.env`                                             |
+| Images                                            | `public/images/`                                   |
 
 ### Theme
 
@@ -139,18 +139,21 @@ Set `tracking.gtmId` / `tracking.gaId` in `config/site.ts`. Empty = disabled.
 ## Component usage
 
 **HeroSlider** — slides via props:
+
 ```astro
 <HeroSlider slides={home.hero.slides} autoplay={true} loop={true} />
 // slide: { title, subtitle?, image, alt, ctaLabel?, ctaHref? }
 ```
 
 **Gallery** — PhotoSwipe lightbox:
+
 ```astro
 <Gallery images={home.gallery.images} columns={3} />
 // image: { src, thumb?, alt, caption?, width?, height? }
 ```
 
 **MapSection** — reads URLs from `config/contact.ts`:
+
 ```astro
 <MapSection title="Lage & Anfahrt" text="…" buttonLabel="Lage & Anfahrt" />
 // set contact.googleMapsEmbedUrl (iframe) and contact.googleMapsUrl (button)
@@ -178,13 +181,13 @@ testing you can use `onboarding@resend.dev`.
 
 ## Commands
 
-| Command            | Action                              |
-| :----------------- | :---------------------------------- |
-| `npm install`      | Install dependencies                |
-| `npm run dev`      | Dev server at `localhost:4321`      |
-| `npm run build`    | Build to `./dist/`                  |
-| `npm run preview`  | Preview the production build        |
-| `npx astro check`  | TypeScript / template diagnostics   |
+| Command           | Action                            |
+| :---------------- | :-------------------------------- |
+| `npm install`     | Install dependencies              |
+| `npm run dev`     | Dev server at `localhost:4321`    |
+| `npm run build`   | Build to `./dist/`                |
+| `npm run preview` | Preview the production build      |
+| `npx astro check` | TypeScript / template diagnostics |
 
 Production (Node host): `node ./dist/server/entry.mjs` with the env vars set.
 
@@ -219,3 +222,5 @@ No component files need to change.
 - Optional dedicated pages (`/zimmer`, `/restaurant`, …) — currently the home
   page presents these as sections; menu links point to anchors.
 - Wire `config/booking` style external booking engine into the CTAs if needed.
+
+padding = (clamp(66px, 15.63vw, 300px)), (clamp(96px, 11.46vw, 220px))

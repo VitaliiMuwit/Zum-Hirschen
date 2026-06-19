@@ -44,6 +44,10 @@ const columns = [genuss, wellness];
   .gw__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
   .gw__photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
   .gw__card { background: #faf9f3; padding: var(--space-lg) var(--space-md); text-align: center; }
+  .gw__card h3 {
+    font-size: clamp(20px, 1.56vw, 30px); line-height: 1.2;
+    letter-spacing: normal; text-transform: none; margin-bottom: var(--space-sm);
+  }
   .gw__list { list-style: none; margin: var(--space-sm) 0; font-weight: 700; color: var(--color-accent); }
   @media (max-width: 900px) { .gw__grid { grid-template-columns: 1fr; } }
 </style>
