@@ -1,6 +1,6 @@
 ---
 /**
- * GastronomieCallout — blue-grey callout box on the striped background.
+ * GastronomieCallout â blue-grey callout box on the striped background.
  */
 export interface Props {
   title: string;
@@ -22,6 +22,9 @@ const { title, text, buttonLabel, buttonHref } = Astro.props;
 </section>
 
 <style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .stripes.section { padding-block: clamp(96px, 11.46vw, 220px); }
+
   .callout {
     max-width: 880px; margin: 0 auto; border-radius: var(--radius-lg);
     padding: var(--space-lg); text-align: center;

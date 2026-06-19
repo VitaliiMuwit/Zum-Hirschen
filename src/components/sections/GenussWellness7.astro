@@ -1,6 +1,6 @@
 ---
 /**
- * GenussWellness — two columns (photo on top + card): Genuss & Wellness.
+ * GenussWellness â two columns (photo on top + card): Genuss & Wellness.
  */
 export interface GwColumn {
   image: string;
@@ -41,6 +41,9 @@ const columns = [genuss, wellness];
 </section>
 
 <style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .gw.section { padding-block: clamp(96px, 11.46vw, 220px); }
+
   .gw__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
   .gw__photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
   .gw__card { background: #faf9f3; padding: var(--space-lg) var(--space-md); text-align: center; }

@@ -1,6 +1,6 @@
 ---
 /**
- * WarumList — orange section with a list of reasons ("Warum Gäste ... lieben").
+ * WarumList â orange section with a list of reasons ("Warum GÃ¤ste ... lieben").
  */
 export interface Props {
   title: string;
@@ -19,6 +19,9 @@ const { title, reasons } = Astro.props;
 </section>
 
 <style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .warum.section { padding-block: clamp(96px, 11.46vw, 220px); }
+
   .warum .container { text-align: center; }
   .warum__list { list-style: none; margin: var(--space-md) 0 0; }
   .warum__list li {

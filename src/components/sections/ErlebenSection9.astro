@@ -1,6 +1,6 @@
 ---
 /**
- * ErlebenSection — compass illustration + script title + intro + activity cards.
+ * ErlebenSection â compass illustration + script title + intro + activity cards.
  */
 export interface ErlebenCard { title: string; text: string; image: string; imageAlt: string; }
 export interface Props {
@@ -35,6 +35,9 @@ const { illustration, scriptTitle, intro, cards, buttonLabel, buttonHref } = Ast
 </section>
 
 <style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .erleben.section { padding-block: clamp(96px, 11.46vw, 220px); }
+
   .erleben .container { text-align: center; }
   .erleben__intro { margin: 0 auto var(--space-lg); color: var(--color-text); }
   .erleben__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); text-align: center; }

@@ -1,6 +1,6 @@
 ---
 /**
- * WohnenSection — peach section: illustration + script title + room photo +
+ * WohnenSection â peach section: illustration + script title + room photo +
  * caption + price accordion (<details>).
  */
 export interface WohnenImage { src: string; alt: string; caption?: string; }
@@ -36,6 +36,9 @@ const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
 </section>
 
 <style>
+  /* Section 6+ padding (clamp 96→220px) */
+  .wohnen.section { padding-block: clamp(96px, 11.46vw, 220px); }
+
   .wohnen .container { text-align: center; }
   .wohnen__photo { width: 100%; max-width: 980px; margin: 0 auto var(--space-md); display: block; }
   .wohnen__caption {
@@ -50,7 +53,7 @@ const { illustration, scriptTitle, images, caption, accordion } = Astro.props;
     font-weight: 600; color: var(--color-text); text-align: center;
   }
   .accordion__q::-webkit-details-marker { display: none; }
-  .accordion__q::after { content: "›"; color: var(--color-primary); font-size: 22px; }
-  .accordion__item[open] .accordion__q::after { content: "⌄"; }
+  .accordion__q::after { content: "âº"; color: var(--color-primary); font-size: 22px; }
+  .accordion__item[open] .accordion__q::after { content: "â"; }
   .accordion__a { text-align: center; color: var(--color-text); padding-bottom: var(--space-sm); }
 </style>
