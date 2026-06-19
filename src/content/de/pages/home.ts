@@ -62,7 +62,7 @@ export const home = {
 
   // 4) "Beste Lage" — photo + centered text on orange
   bestLage: {
-    image: "/images/head.webp",
+    image: "/images/city.webp",
     imageAlt: "Hotel zum Hirschen in Stegen bei Bruneck",
     title: "Beste Lage",
     eyebrow: "Zentral gelegen und perfekt angebunden im Pustertal",
