@@ -15,7 +15,7 @@ export interface Props {
 const { items } = Astro.props;
 ---
 
-<section class="features s-bluegrey section">
+<section class="features section">
   <div class="features__shell">
     <div class="swiper features__swiper">
       <div class="swiper-wrapper">
@@ -41,8 +41,9 @@ const { items } = Astro.props;
 </section>
 
 <style>
-  /* Mirror HomeIntro2's paddings: top = its bottom, bottom = its top. */
+  /* Light blue-grey background; paddings mirror HomeIntro2 (top = its bottom). */
   .features.section {
+    background-color: #d1d8dc;
     padding-top: clamp(66px, 15.63vw, 300px);
     padding-bottom: clamp(96px, 11.46vw, 220px);
   }
@@ -72,8 +73,7 @@ const { items } = Astro.props;
     color: #a09271;
   }
   .feature__text {
-    color: #fff;
-    opacity: 0.95;
+    color: var(--color-text); /* readable on the light background */
   }
 
   /* Slider chrome (mobile only). */
@@ -81,8 +81,8 @@ const { items } = Astro.props;
     position: static;
     margin-top: var(--space-md);
     --swiper-pagination-color: var(--color-primary);
-    --swiper-pagination-bullet-inactive-color: #fff;
-    --swiper-pagination-bullet-inactive-opacity: 0.5;
+    --swiper-pagination-bullet-inactive-color: var(--color-text);
+    --swiper-pagination-bullet-inactive-opacity: 0.4;
   }
   /* No pagination on desktop (static grid). */
   @media (min-width: 900px) {
