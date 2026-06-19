@@ -254,13 +254,16 @@ p {
   display: block;
   width: auto;
   height: 220px;
-  margin: 0 auto var(--space-sm);
+  margin: 0 auto var(--space-lg);
 }
 .deco--sm {
   height: 160px;
 }
 .deco--l {
   height: 280px;
+}
+.deco--xl {
+  height: 350px;
 }
 
 @media (max-width: 900px) {
