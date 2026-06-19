@@ -1,9 +1,19 @@
 /**
- * Global base styles and reset.
- * Imported once in BaseLayout.astro.
+ * Global stylesheet — imported once in BaseLayout.astro.
+ *
+ * Layers:
+ *   1. Design tokens .............. variables.css (spacing, radius, type scale, z-index)
+ *   2. Colors & fonts ............. config/theme.ts → injected as :root --color-* / --font-*
+ *   3. This file .................. reset, base elements, typography, layout, utilities
+ *
+ * To re-theme a client: edit config/theme.ts (palette + fonts) and
+ * src/styles/variables.css (spacing / sizes). Components should use tokens,
+ * not hard-coded values.
  */
 
 @import "./variables.css";
+
+/* ============================================================ Fonts */
 
 /* Scriptina — decorative script font for section titles.
    Drop the file into public/fonts/ as scriptina.woff2 (or .woff/.ttf/.otf).
@@ -20,7 +30,8 @@
   font-display: swap;
 }
 
-/* --- Reset --- */
+/* ============================================================ Reset */
+
 *,
 *::before,
 *::after {
@@ -44,7 +55,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Prevent body scroll when overlay is open (toggled via JS). */
+/* Lock scroll while the menu overlay is open (toggled via JS). */
 body.no-scroll {
   overflow: hidden;
 }
@@ -64,7 +75,9 @@ ul {
   list-style: none;
 }
 
-/* Typography tokens — values are the design spec at 1920px, responsive via clamp. */
+/* ======================================================= Typography */
+/* Sizes are the design spec at 1920px and scale down via the --fz-* tokens. */
+
 h1,
 h2,
 h3,
@@ -73,21 +86,19 @@ h4 {
   font-weight: 400;
 }
 
-/* h1 — large taupe title (light backgrounds) */
+/* h1 — large title (taupe, light backgrounds) */
 h1 {
   font-size: var(--fz-40);
   line-height: 1.1;
   text-align: center;
-  color: var(--color-accent); /* var(--color-accent) */
+  color: var(--color-accent);
 }
 
 /* h2 — large title; taupe by default, light cream on colored sections */
 h2 {
   font-size: var(--fz-40);
   line-height: 1.1;
-  color: var(
-    --color-accent
-  ); /* var(--color-accent) (overridden to var(--color-heading-light) on colored sections) */
+  color: var(--color-accent);
 }
 
 /* h3 — uppercase kicker */
@@ -97,7 +108,7 @@ h3 {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   text-align: center;
-  color: var(--color-accent); /* var(--color-accent) */
+  color: var(--color-accent);
 }
 
 /* p — body text */
@@ -105,7 +116,7 @@ p {
   font-size: var(--fz-22);
   line-height: 1.5;
   text-align: center;
-  color: var(--color-text); /* #726e6a */
+  color: var(--color-text);
   margin-bottom: var(--space-sm);
 }
 
@@ -115,7 +126,8 @@ p {
   text-align: left;
 }
 
-/* --- Layout helpers --- */
+/* ============================================================ Layout */
+
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -132,7 +144,8 @@ p {
   margin-inline: auto;
 }
 
-/* --- Buttons --- */
+/* =========================================================== Buttons */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -140,7 +153,7 @@ p {
   gap: 8px;
   padding: 14px 28px;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--fz-16);
   font-weight: 600;
   letter-spacing: 0.02em;
   border: 1px solid var(--color-primary);
@@ -148,10 +161,6 @@ p {
   background-color: var(--color-primary);
   color: #fff;
   cursor: pointer;
-  transition:
-    background-color var(--transition),
-    color var(--transition),
-    transform var(--transition);
 }
 
 .btn:hover {
@@ -163,48 +172,20 @@ p {
   background-color: transparent;
   color: var(--color-primary);
 }
-
 .btn--outline:hover {
   background-color: var(--color-primary);
   color: #fff;
 }
 
-/* --- Accessibility --- */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+.btn--bluegrey {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: #fff;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+/* ================================================= Section utilities */
+/* Background helpers and decorative elements shared by the home sections. */
 
-/* Respect reduced motion preference. */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ===================================================================
- * Zum Hirschen — section utilities (shared by home section components)
- * =================================================================== */
-
-/* Section background colors */
 .s-bluegrey {
   background-color: var(--color-secondary);
   color: #fff;
@@ -220,7 +201,7 @@ p {
   background-color: var(--color-peach);
 }
 
-/* On colored sections, the large titles use light cream (var(--color-heading-light)). */
+/* On colored sections the large titles use light cream. */
 .s-bluegrey h2,
 .s-orange h2 {
   color: var(--color-heading-light);
@@ -242,12 +223,12 @@ p {
   background-repeat: repeat;
 }
 
-/* Uppercase eyebrow / kicker (matches h3 token) */
+/* Uppercase eyebrow / kicker (matches the h3 token). */
 .eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
   font-size: var(--fz-17);
   line-height: 1.35;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: var(--space-md);
 }
@@ -256,23 +237,22 @@ p {
 }
 
 /* Decorative script section title (Augenblicke, Erleben, ...).
-   TODO: add the "Scriptina" web font to match Figma exactly; falls back to
-   Dancing Script (var(--font-script)) until then. Size 75px @1920, responsive. */
+   TODO: add the "Scriptina" web font to match Figma; falls back to Dancing Script. */
 .script-title {
   font-family: "Scriptina", var(--font-script), cursive;
   font-weight: 400;
   font-size: var(--fz-75);
   line-height: 1.1;
-  color: var(--color-script);
   text-align: center;
+  color: var(--color-script);
   margin: 0 0 var(--space-xl);
 }
 
-/* Decorative vintage illustration */
+/* Decorative vintage illustration. */
 .deco {
   display: block;
-  height: 220px;
   width: auto;
+  height: 220px;
   margin: 0 auto var(--space-sm);
 }
 .deco--sm {
@@ -280,13 +260,6 @@ p {
 }
 .deco--l {
   height: 280px;
-}
-
-/* Blue-grey button variant */
-.btn--bluegrey {
-  background: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: #fff;
 }
 
 @media (max-width: 900px) {
@@ -298,7 +271,9 @@ p {
   }
 }
 
-/* Unified hover effect for all buttons and links */
+/* ====================================================== Interactions */
+
+/* Unified hover for all buttons and links. */
 a,
 button,
 .btn {
@@ -306,11 +281,43 @@ button,
     opacity 0.2s ease,
     transform 0.2s ease,
     background-color var(--transition),
-    color var(--transition);
+    color var(--transition),
+    border-color var(--transition);
 }
 a:hover,
 button:hover,
 .btn:hover {
   opacity: 0.9;
   transform: scale(0.98);
+}
+
+/* ===================================================== Accessibility */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

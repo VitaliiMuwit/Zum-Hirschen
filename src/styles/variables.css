@@ -1,14 +1,15 @@
 /**
  * Design tokens — global CSS variables.
  *
- * The base palette and fonts are NOT defined here: they are injected from
- * config/theme.ts by BaseLayout (as :root custom properties --color-primary,
- * --color-secondary, --color-accent, --color-text, --color-bg, --color-surface,
- * --font-heading, --font-body). To re-theme a client, edit config/theme.ts only.
+ * COLORS & FONTS are the single source of truth in config/theme.ts. BaseLayout
+ * injects them as :root custom properties — edit theme.ts to re-theme a client:
+ *   --color-primary   --color-secondary  --color-accent   --color-text
+ *   --color-bg        --color-surface    --color-heading-light
+ *   --color-cream     --color-awning     --color-script   --color-peach
+ *   --color-features  --color-muted      --font-heading   --font-body  --font-script
  *
- * The tokens below are structural (spacing, radius, shadows, type scale,
- * z-index) or derived from the injected base colors via color-mix(), so they
- * follow the theme automatically.
+ * This file holds the STRUCTURAL tokens (type scale, spacing, radius, shadows,
+ * z-index) and colors DERIVED from the palette via color-mix().
  */
 
 :root {
