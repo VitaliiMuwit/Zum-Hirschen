@@ -105,12 +105,11 @@ const { items } = Astro.props;
         clickable: true,
       },
       // Desktop/tablet: show all three, no sliding (static grid).
+      // Gap grows toward the 1920 base (96px), scales down responsively.
       breakpoints: {
-        900: {
-          slidesPerView: 3,
-          spaceBetween: 32,
-          allowTouchMove: false,
-        },
+        900: { slidesPerView: 3, allowTouchMove: false, spaceBetween: 40 },
+        1200: { slidesPerView: 3, allowTouchMove: false, spaceBetween: 64 },
+        1560: { slidesPerView: 3, allowTouchMove: false, spaceBetween: 96 },
       },
     });
   });
