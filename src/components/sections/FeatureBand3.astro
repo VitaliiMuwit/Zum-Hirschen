@@ -29,9 +29,12 @@ const { items } = Astro.props;
 </section>
 
 <style>
-  /* Extra top padding leaves room for the overlapping Hinweis callout from the
-     previous section (which hangs ~80px into this one). */
-  .features.section { padding-top: calc(var(--space-xl) + 80px); }
+  /* Mirror HomeIntro2's paddings: top = its bottom, bottom = its top.
+     The large top padding also clears the overlapping Hinweis callout. */
+  .features.section {
+    padding-top: clamp(66px, 15.63vw, 300px);
+    padding-bottom: clamp(96px, 11.46vw, 220px);
+  }
 
   .features__grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg);
